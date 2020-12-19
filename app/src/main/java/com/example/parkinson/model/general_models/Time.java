@@ -1,4 +1,4 @@
-package com.example.parkinson.di;
+package com.example.parkinson.model.general_models;
 
 public class Time {
     private int m_Minutes, m_Hour;

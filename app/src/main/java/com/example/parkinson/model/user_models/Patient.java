@@ -1,4 +1,6 @@
-package com.example.parkinson.di;
+package com.example.parkinson.model.user_models;
+
+import com.example.parkinson.model.enums.EClinics;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.example.parkinson.di;
+package com.example.parkinson.model.question_models;
 
 import java.util.List;
 

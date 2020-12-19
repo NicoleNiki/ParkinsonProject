@@ -1,4 +1,6 @@
-package com.example.parkinson.di;
+package com.example.parkinson.model.general_models;
+
+import com.example.parkinson.model.enums.EStatus;
 
 public class Report {
     private Time m_Report_Time;
