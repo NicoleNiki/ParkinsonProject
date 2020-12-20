@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue_grey">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,8 +16,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:padding="23dp">
 
         <TextView
@@ -28,10 +30,14 @@
         <EditText
             android:id="@+id/loginFragUserName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/Reg15Black"
+            android:padding="10dp"
+            android:backgroundTint="@color/grey"/>
 
         <TextView
             style="@style/Bold19Black"
+            android:paddingTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password" />
@@ -39,7 +45,10 @@
         <EditText
             android:id="@+id/loginFragPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/Reg15Black"
+            android:padding="10dp"
+            android:backgroundTint="@color/grey"/>
 
     </LinearLayout>
 
@@ -55,4 +64,4 @@
         style="@style/Bold23White"
         android:layout_margin="23dp"/>
 
-</FrameLayout>
+</LinearLayout>

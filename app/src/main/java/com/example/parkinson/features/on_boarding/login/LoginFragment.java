@@ -1,15 +1,18 @@
 package com.example.parkinson.features.on_boarding.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
 
 import javax.inject.Inject;
@@ -21,10 +24,16 @@ public class LoginFragment extends Fragment {
 
     EditText userName;
     EditText password;
-    EditText login;
+    TextView login;
 
     public LoginFragment() {
         super(R.layout.fragment_login);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        ((ParkinsonApplication) getActivity().getApplicationContext()).appComponent.inject(this);
+        super.onAttach(context);
     }
 
     @Override
@@ -42,7 +51,7 @@ public class LoginFragment extends Fragment {
         login = view.findViewById(R.id.loginFragLoginBtn);
 
 
-        login.setOnClickListener(v -> loginViewModel.onLoginClick());
+//        login.setOnClickListener(v -> loginViewModel.onLoginClick());
 
         userName.addTextChangedListener( new TextWatcher() {
 

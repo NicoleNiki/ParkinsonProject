@@ -6,15 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
+import com.example.parkinson.features.on_boarding.OnBoardingViewModel;
 
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-
-MA
     @Inject
-    MainViewModel mainViewModel;M
+    OnBoardingViewModel MainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
