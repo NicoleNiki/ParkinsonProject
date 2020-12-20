@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "155781604374",
+    "firebase_url": "https://parkinsonhit-1ac54.firebaseio.com",
+    "project_id": "parkinsonhit-1ac54",
+    "storage_bucket": "parkinsonhit-1ac54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155781604374:android:3080faa693c4e309e10137",
+        "android_client_info": {
+          "package_name": "com.example.parkinsonproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155781604374-am9b9hg2alfic20ef5popuapjktqucat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDR81pDKwBnNCfGWgqKJA1do49SdShLC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155781604374-am9b9hg2alfic20ef5popuapjktqucat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
