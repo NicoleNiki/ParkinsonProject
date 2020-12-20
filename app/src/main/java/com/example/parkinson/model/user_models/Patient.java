@@ -5,11 +5,14 @@ import com.example.parkinson.model.enums.EClinics;
 import java.util.Date;
 
 public class Patient {
-    private final String m_Name, m_ID, m_Birth_Country;
+    private  String m_Name, m_ID, m_Birth_Country;
     private String m_Phone_Number, m_Email, m_Clinic_Name;
     private int m_Education_Years;
     private Date m_Birth_Date;
     private EClinics m_Clinics;
+
+    public Patient() {
+    }
 
     public Patient(String name, String ID, String birth_Country, String phone_Number, String email, String clinic_Name, int education_Years, Date birth_Date, EClinics clinics) {
         m_Name = name;
@@ -77,5 +80,77 @@ public class Patient {
 
     public void setClinics(EClinics clinics) {
         m_Clinics = clinics;
+    }
+
+    public String getM_Name() {
+        return m_Name;
+    }
+
+    public String getM_ID() {
+        return m_ID;
+    }
+
+    public String getM_Birth_Country() {
+        return m_Birth_Country;
+    }
+
+    public String getM_Phone_Number() {
+        return m_Phone_Number;
+    }
+
+    public void setM_Phone_Number(String m_Phone_Number) {
+        this.m_Phone_Number = m_Phone_Number;
+    }
+
+    public String getM_Email() {
+        return m_Email;
+    }
+
+    public void setM_Email(String m_Email) {
+        this.m_Email = m_Email;
+    }
+
+    public String getM_Clinic_Name() {
+        return m_Clinic_Name;
+    }
+
+    public void setM_Clinic_Name(String m_Clinic_Name) {
+        this.m_Clinic_Name = m_Clinic_Name;
+    }
+
+    public int getM_Education_Years() {
+        return m_Education_Years;
+    }
+
+    public void setM_Education_Years(int m_Education_Years) {
+        this.m_Education_Years = m_Education_Years;
+    }
+
+    public Date getM_Birth_Date() {
+        return m_Birth_Date;
+    }
+
+    public void setM_Birth_Date(Date m_Birth_Date) {
+        this.m_Birth_Date = m_Birth_Date;
+    }
+
+    public EClinics getM_Clinics() {
+        return m_Clinics;
+    }
+
+    public void setM_Clinics(EClinics m_Clinics) {
+        this.m_Clinics = m_Clinics;
+    }
+
+    public void setM_Name(String m_Name) {
+        this.m_Name = m_Name;
+    }
+
+    public void setM_ID(String m_ID) {
+        this.m_ID = m_ID;
+    }
+
+    public void setM_Birth_Country(String m_Birth_Country) {
+        this.m_Birth_Country = m_Birth_Country;
     }
 }

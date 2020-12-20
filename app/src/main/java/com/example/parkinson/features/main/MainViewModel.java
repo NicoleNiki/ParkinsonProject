@@ -45,10 +45,17 @@ public class MainViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Patient patient_Info = snapshot.getValue(Patient.class);
-                        patientEvent.postValue(patient_Info);
-                    }
+
+                    Patient patient_Info = dataSnapshot.getValue(Patient.class);
+                    patientEvent.postValue(patient_Info);
+
+
+
+
+                    //for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                       // Patient patient_Info = snapshot.getValue(Patient.class);
+                        //patientEvent.postValue(patient_Info);
+                    //}
                 }
             }
 
