@@ -48,8 +48,6 @@ public class LoginFragment extends Fragment {
 
         initUi(view);
         initObservers();
-        loginViewModel.addRegisterListenerAuthentication();
-
     }
 
     private void initUi(View view){

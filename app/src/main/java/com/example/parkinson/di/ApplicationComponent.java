@@ -1,6 +1,7 @@
 package com.example.parkinson.di;
 
 import com.example.parkinson.features.main.MainActivity;
+import com.example.parkinson.features.main.MainFragment;
 import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.features.on_boarding.login.LoginFragment;
 import com.example.parkinson.features.splash.SplashActivity;
@@ -15,4 +16,5 @@ public interface ApplicationComponent {
     void inject(SplashActivity splashActivity);
     void inject(OnBoardingActivity onBoardingActivity);
     void inject(LoginFragment loginFragment);
+    void inject(MainFragment mainFragment);
 }
