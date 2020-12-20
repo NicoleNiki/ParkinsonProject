@@ -1,9 +1,12 @@
 package com.example.parkinson.features.on_boarding.login;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
+import com.example.parkinson.model.enums.EClinics;
 import com.example.parkinson.model.user_models.Patient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +34,7 @@ public class LoginViewModel {
     public LoginViewModel(UserRepository userRepository, DataRepository dataRepository) {
         this.userRepository = userRepository;
         this.dataRepository = dataRepository;
-//        setAuthListener();
+        setAuthListener();
     }
 
 
@@ -39,109 +42,101 @@ public class LoginViewModel {
         this.email = email;
     }
 
-    public void setPassword(String email) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-//    public void onLoginClick(){
-//        signIn(email,password);
-//    }
+    public void onLoginClick() {
+        signIn(email, password);
+    }
 
 
-//
-//    //Auth
-//
-//    private FirebaseAuth Authentication_Server = FirebaseAuth.getInstance();;
-//    private FirebaseAuth.AuthStateListener Auth_Listener;
-//    FirebaseUser currentUser ;
-//    FirebaseDatabase user_Database = FirebaseDatabase.getInstance();
-//    DatabaseReference user_Info_Database_Table = user_Database.getReference("info");
-//    Patient patient_Info;
-//
-//
-//    private void setAuthListener()
-//    {
-//        Auth_Listener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                currentUser = firebaseAuth.getCurrentUser();
-//
-//                if(currentUser != null)
-//                {
-//                    signInListener();
-//                }
-//                else
-//                {
-//                    signOutListener();
-//                }
-//            }
-//        };
-//    }
-//
-//    private void signInListener()
-//    {
-//        //todo get quastion and info about the user
-//
-//        user_Info_Database_Table.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                if(dataSnapshot.exists())
-//                {
-//                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                        patient_Info = snapshot.getValue(Patient.class);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//
-//    }
-//
-//    private void signOutListener()
-//    {
-//
-//    }
-//
-//
-//    public void addRegisterListenerAuthentication()
-//    {
-//        Authentication_Server.addAuthStateListener(Auth_Listener);
-//    }
-//
-//    public void removeRegisterListenerAuthentication()
-//    {
-//        Authentication_Server.removeAuthStateListener(Auth_Listener);
-//    }
-//
-//
-//    public void signIn(String username, String password)
-//    {
-//        Authentication_Server.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                //if(task.isSuccessful())
-//                //Snackbar.make(coordinatorLayout,"Sign in successful",Snackbar.LENGTH_SHORT).show();
-//                // else
-//                //Snackbar.make(coordinatorLayout,"Sign in failed",Snackbar.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//    }
-//
-//    public void signOu()
-//    {
-//        Authentication_Server.signOut();
-//    }
-//
-//
-//
+    //Auth
+
+    private FirebaseAuth Authentication_Server = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener Auth_Listener;
+    FirebaseUser currentUser;
+    FirebaseDatabase user_Database = FirebaseDatabase.getInstance();
+    DatabaseReference user_Info_Database_Table = user_Database.getReference("Users");
+    Patient patient_Info;
+
+
+    private void setAuthListener() {
+        Auth_Listener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+
+                if (currentUser != null) {
+                    loadData();
+                } else {
+                    clearData();
+                }
+            }
+        };
+    }
+
+    private void loadData() {
+        //todo get quastion and info about the user
+
+        user_Info_Database_Table.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        patient_Info = snapshot.getValue(Patient.class);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Log.d("wowLoginVM", "currentUser" + currentUser.getEmail());
+
+    }
+
+    private void clearData() {
+
+    }
+
+
+    public void addRegisterListenerAuthentication() {
+        Authentication_Server.addAuthStateListener(Auth_Listener);
+    }
+
+    public void removeRegisterListenerAuthentication() {
+        Authentication_Server.removeAuthStateListener(Auth_Listener);
+    }
+
+
+    public void signIn(String username, String password) {
+        if (!username.isEmpty() && !password.isEmpty()) {
+            Authentication_Server.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful()) {
+                        Log.d("wowLoginVM", "sign in successful");
+
+                        Patient patient = new Patient("Nicole", "1", "Israel", "05222222222", "nicole@gmail.com", "Super Macabi",
+                                102, null, EClinics.Maccabi);
+                        user_Info_Database_Table.child(currentUser.getUid()).setValue(patient);
+                    }  else
+                        Log.d("wowLoginVM", "sign in NOT successful");
+
+                }
+            });
+        }
+    }
+
+    public void signOut() {
+        Authentication_Server.signOut();
+    }
+
 
 }

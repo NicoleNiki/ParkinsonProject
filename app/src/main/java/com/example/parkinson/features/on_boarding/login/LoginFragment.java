@@ -14,6 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
+import com.example.parkinson.model.enums.EClinics;
+import com.example.parkinson.model.general_models.Time;
+import com.example.parkinson.model.user_models.Patient;
+
+import java.sql.Date;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -32,7 +38,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        ((ParkinsonApplication) getActivity().getApplicationContext()).appComponent.inject(this);
+        ((ParkinsonApplication) requireActivity().getApplicationContext()).appComponent.inject(this);
         super.onAttach(context);
     }
 
@@ -42,6 +48,7 @@ public class LoginFragment extends Fragment {
 
         initUi(view);
         initObservers();
+        loginViewModel.addRegisterListenerAuthentication();
 
     }
 
@@ -51,7 +58,7 @@ public class LoginFragment extends Fragment {
         login = view.findViewById(R.id.loginFragLoginBtn);
 
 
-//        login.setOnClickListener(v -> loginViewModel.onLoginClick());
+        login.setOnClickListener(v -> loginViewModel.onLoginClick());
 
         userName.addTextChangedListener( new TextWatcher() {
 
@@ -86,11 +93,6 @@ public class LoginFragment extends Fragment {
                 loginViewModel.setPassword(email);
             }
         });
-
-
-
-
-
     }
 
     private void initObservers(){
