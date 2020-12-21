@@ -37,7 +37,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        ((ParkinsonApplication) requireActivity().getApplicationContext()).appComponent.inject(this);
+        ((MainActivity) getActivity()).mainComponent.inject(this);
         super.onAttach(context);
     }
 
@@ -59,7 +59,6 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mainViewModel.logOut();
-
             }
         });
 

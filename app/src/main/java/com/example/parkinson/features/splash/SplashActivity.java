@@ -48,11 +48,13 @@ public class SplashActivity extends AppCompatActivity {
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void openOnBoardingActivity() {
         Intent intent = new Intent(this, OnBoardingActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

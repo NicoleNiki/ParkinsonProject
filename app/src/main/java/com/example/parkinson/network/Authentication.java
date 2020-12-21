@@ -4,19 +4,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class AuthInterceptor {
-    FirebaseAuth Authentication_Server;
+import dagger.Module;
+
+@Singleton
+public class Authentication {
+    FirebaseAuth AuthenticationServer;
     FirebaseUser currentUser;
 
     @Inject
-    public AuthInterceptor() {
-        Authentication_Server = FirebaseAuth.getInstance();
+    public Authentication() {
+        AuthenticationServer = FirebaseAuth.getInstance();
         currentUser = getAuthentication().getCurrentUser();
     }
 
     public FirebaseAuth getAuthentication() {
-        return Authentication_Server;
+        return AuthenticationServer;
     }
 
     public FirebaseUser getCurrentUser() { return currentUser; }

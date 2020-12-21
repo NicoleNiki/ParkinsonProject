@@ -1,20 +1,18 @@
 package com.example.parkinson.features.main;
 
-import android.provider.ContactsContract;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
-import com.example.parkinson.features.splash.SplashViewModel;
+import com.example.parkinson.di.MainScope;
 import com.example.parkinson.model.user_models.Patient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
 import javax.inject.Inject;
 
+
+@MainScope
 public class MainViewModel {
     private final UserRepository userRepository;
     private final DataRepository dataRepository;
@@ -48,9 +46,6 @@ public class MainViewModel {
 
                     Patient patient_Info = dataSnapshot.getValue(Patient.class);
                     patientEvent.postValue(patient_Info);
-
-
-
 
                     //for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                        // Patient patient_Info = snapshot.getValue(Patient.class);

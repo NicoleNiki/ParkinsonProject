@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer;
 
 import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
+import com.example.parkinson.di.MainComponent;
+import com.example.parkinson.di.OnBoardingComponent;
 import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingViewModel;
 import com.example.parkinson.model.enums.EClinics;
@@ -22,20 +24,19 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
+    public MainComponent mainComponent;
+
     @Inject
     MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ((ParkinsonApplication) getApplicationContext()).appComponent.inject(this);
+        mainComponent = ((ParkinsonApplication) getApplicationContext()).appComponent.mainComponent().create();
+        mainComponent.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initObservers();
-//        FirebaseAuth Authentication_Server = FirebaseAuth.getInstance();
-//        FirebaseDatabase user_Database = FirebaseDatabase.getInstance();
-//        DatabaseReference user_Info_Database_Table = user_Database.getReference("Users");
-//        Patient patient = new Patient("Noam","2","ISRAEL","05266","noam@gmail.com","supe clalit",5,new Date(1,2,3),EClinics.Clalit);
-//        user_Info_Database_Table.child(Authentication_Server.getCurrentUser().getUid()).setValue(patient);
 
     }
 

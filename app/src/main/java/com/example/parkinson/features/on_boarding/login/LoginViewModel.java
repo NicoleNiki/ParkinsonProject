@@ -2,6 +2,8 @@ package com.example.parkinson.features.on_boarding.login;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.parkinson.data.UserRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
@@ -12,102 +14,70 @@ public class LoginViewModel {
 
     private final UserRepository userRepository;
 
-    String email;
-    String password;
+    String email = "";
+    String password = "";
+    MutableLiveData<ErrorEvent> errorEvent;
+    MutableLiveData<Boolean> loginEvent;
+    MutableLiveData<NextButtonState> nextButtonState;
+
+    enum ErrorEvent {
+        UN_VALID_EMAIL,
+        UN_VALID_PASSWORD,
+        LOGIN_FAIL
+    }
+
+    enum NextButtonState {
+        ENABLE,
+        DISABLE
+    }
 
     // @Inject tells Dagger how to create instances of MainViewModel
     @Inject
     public LoginViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
+        errorEvent = new MutableLiveData<>();
+        loginEvent = new MutableLiveData<>();
+        nextButtonState = new MutableLiveData<>();
     }
 
     public void setEmail(String email) {
         this.email = email;
+        validateNextButton();
     }
 
     public void setPassword(String password) {
         this.password = password;
+        validateNextButton();
+    }
+
+    public void validateNextButton(){
+        if(!email.isEmpty() && !password.isEmpty()){
+            nextButtonState.postValue(NextButtonState.ENABLE);
+        } else {
+            nextButtonState.postValue(NextButtonState.DISABLE);
+        }
     }
 
     public void onLoginClick() {
-        userRepository.login(email,password, setLoginListener());
+        if (email.isEmpty()) {
+            errorEvent.postValue(ErrorEvent.UN_VALID_EMAIL);
+        } else if (password.isEmpty()) {
+            errorEvent.postValue(ErrorEvent.UN_VALID_PASSWORD);
+        } else {
+            userRepository.login(email, password, setLoginListener());
+        }
     }
 
-    public OnCompleteListener setLoginListener(){
+    public OnCompleteListener setLoginListener() {
         return (OnCompleteListener<AuthResult>) task -> {
             if (task.isSuccessful()) {
                 Log.d("wowLoginVM", "sign in successful");
                 userRepository.updateCurrentUser();
-            }  else{
+                loginEvent.postValue(true);
+            } else {
                 Log.d("wowLoginVM", "sign in Not successful");
+                errorEvent.postValue(ErrorEvent.LOGIN_FAIL);
             }
         };
     }
-
-
-
-
-
-
-
-
-//    private void setAuthListener() {
-//        Auth_Listener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                currentUser = firebaseAuth.getCurrentUser();
-//
-//                if (currentUser != null) {
-//                    loadData();
-//                } else {
-//                    clearData();
-//                }
-//            }
-//        };
-//    }
-
-
-    //main activity
-//    private void loadData() {
-//        //todo get quastion and info about the user
-//
-//        user_Info_Database_Table.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                if (dataSnapshot.exists()) {
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                        patient_Info = snapshot.getValue(Patient.class);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//        Log.d("wowLoginVM", "currentUser" + currentUser.getEmail());
-//
-//    }
-
-    private void clearData() {
-
-    }
-
-
-//    public void addRegisterListenerAuthentication() {
-//        Authentication_Server.addAuthStateListener(Auth_Listener);
-//    }
-//
-//    public void removeRegisterListenerAuthentication() {
-//        Authentication_Server.removeAuthStateListener(Auth_Listener);
-//    }
-
-
-
-
-
-
 }

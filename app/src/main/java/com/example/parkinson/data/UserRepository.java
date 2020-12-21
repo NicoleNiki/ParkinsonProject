@@ -1,19 +1,21 @@
 package com.example.parkinson.data;
 
 
-import com.example.parkinson.network.AuthInterceptor;
+import com.example.parkinson.network.Authentication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseUser;
 
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class UserRepository {
-    private final AuthInterceptor authenticator;
+    private final Authentication authenticator;
 
 
     @Inject
-    public UserRepository(AuthInterceptor authenticator) {
+    public UserRepository(Authentication authenticator) {
         this.authenticator = authenticator;
     }
 
