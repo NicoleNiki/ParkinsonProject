@@ -1,46 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/white">
+
+<TextView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/aqua_marine"
+    android:text="Patient Details"
+    android:padding="23dp"
+    style="@style/Bold21White"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="50dp"
-    android:gravity="center"
-    android:background="@color/white">
+    android:layout_marginTop="50dp"
+    android:layout_marginBottom="50dp"
+    android:padding="23dp">
 
     <TextView
-        android:layout_width="match_parent"
+        style="@style/Bold19Black"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User name:"
-        android:padding="10dp"
-        style="@style/Bold19Black"/>
+        android:text="Name" />
 
     <TextView
-        android:id="@+id/mainFragUserName"
+        android:id="@+id/mainFragName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Reg15Black"
         android:padding="10dp"
-        style="@style/Reg15Black"/>
+        android:backgroundTint="@color/grey"/>
 
     <TextView
-        android:layout_width="match_parent"
+        style="@style/Bold19Black"
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email:"
-        android:padding="10dp"
-        style="@style/Bold19Black"/>
+        android:text="Email" />
 
     <TextView
         android:id="@+id/mainFragEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Reg15Black"
         android:padding="10dp"
-        style="@style/Reg15Black"/>
+        android:backgroundTint="@color/grey"/>
 
-    <Button
-        android:id="@+id/mainFragLogoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Bold19White"
-        android:text="Log Out"/>
+</LinearLayout>
+
+<TextView
+    android:id="@+id/mainFragLogoutBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center"
+    android:background="@color/aqua_marine"
+    android:text="Log out"
+    android:paddingHorizontal="30dp"
+    android:paddingVertical="20dp"
+    style="@style/Bold23White"
+    android:layout_margin="23dp"/>
 
 </LinearLayout>

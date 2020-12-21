@@ -33,7 +33,7 @@ public class MainFragment extends Fragment {
 
     TextView userName;
     TextView email;
-    Button logOutBtn;
+    TextView logOutBtn;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
     }
 
     private void initUi(View view) {
-        userName = view.findViewById(R.id.mainFragUserName);
+        userName = view.findViewById(R.id.mainFragName);
         email = view.findViewById(R.id.mainFragEmail);
         logOutBtn = view.findViewById(R.id.mainFragLogoutBtn);
 
