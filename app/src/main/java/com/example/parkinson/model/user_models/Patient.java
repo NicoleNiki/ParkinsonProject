@@ -54,7 +54,7 @@ public class Patient {
         return m_Birth_Date;
     }
 
-    public void setirth_Date(Date m_Birth_Date) {
+    public void setBirth_Date(Date m_Birth_Date) {
         this.m_Birth_Date = m_Birth_Date;
     }
 
