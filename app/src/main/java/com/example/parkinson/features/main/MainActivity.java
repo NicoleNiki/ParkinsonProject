@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initObservers();
-        FirebaseAuth Authentication_Server = FirebaseAuth.getInstance();
-        FirebaseDatabase user_Database = FirebaseDatabase.getInstance();
-        DatabaseReference user_Info_Database_Table = user_Database.getReference("Users");
-        Patient patient = new Patient("Noam","2","ISRAEL","05266","noam@gmail.com","supe clalit",5,new Date(1,2,3),EClinics.Clalit);
-        user_Info_Database_Table.child(Authentication_Server.getCurrentUser().getUid()).setValue(patient);
+//        FirebaseAuth Authentication_Server = FirebaseAuth.getInstance();
+//        FirebaseDatabase user_Database = FirebaseDatabase.getInstance();
+//        DatabaseReference user_Info_Database_Table = user_Database.getReference("Users");
+//        Patient patient = new Patient("Noam","2","ISRAEL","05266","noam@gmail.com","supe clalit",5,new Date(1,2,3),EClinics.Clalit);
+//        user_Info_Database_Table.child(Authentication_Server.getCurrentUser().getUid()).setValue(patient);
 
     }
 
