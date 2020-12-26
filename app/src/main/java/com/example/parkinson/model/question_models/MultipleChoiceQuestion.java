@@ -4,10 +4,25 @@ import java.util.List;
 
 public class MultipleChoiceQuestion extends Question {
     private List<String> m_Choices;
+    private int ansPosition;
 
     public MultipleChoiceQuestion(String title, List<String> choices) {
         super(title);
         m_Choices = choices;
+    }
+
+    public MultipleChoiceQuestion(String title, List<String> m_Choices, int ansPosition) {
+        super(title);
+        this.m_Choices = m_Choices;
+        this.ansPosition = ansPosition;
+    }
+
+    public int getAnsPosition() {
+        return ansPosition;
+    }
+
+    public void setAnsPosition(int ansPosition) {
+        this.ansPosition = ansPosition;
     }
 
     public List<String> getChoices() {
