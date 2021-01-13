@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Disease Characterization"
+        android:padding="23dp"
+        style="@style/Bold23Black"/>
+
+    <TextView
+        android:id="@+id/singleQueFragQueTitle"
+        style="@style/SemiBold20Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingHorizontal="23dp"
+        android:paddingVertical="15dp"
+        android:text="Question Number 1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/singleQueFragQueRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="23dp">
+
+        <TextView
+            android:id="@+id/singleQueFragQueBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:padding="15dp"
+            android:layout_gravity="start"
+            style="@style/Bold23White"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/singleQueFragNextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next"
+            android:padding="15dp"
+            android:layout_gravity="end"
+            style="@style/Bold23White"
+            android:background="@color/colorPrimary"/>
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

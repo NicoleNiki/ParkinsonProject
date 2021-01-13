@@ -8,17 +8,19 @@ import java.util.List;
 public class MultipleChoiceQuestion extends Question {
     private List<String> m_Choices;
     private List <Integer> ansPositions = new ArrayList<>();
-    private boolean isOneChoise;
+    private boolean isSingleChoice;
+
     public MultipleChoiceQuestion() {
         super("", null);
-        isOneChoise = true ;
+        isSingleChoice = true ;
     }
 
 
-    public MultipleChoiceQuestion(String m_Title, EQuestionType type, List<String> m_Choices) {
+    public MultipleChoiceQuestion(String m_Title, EQuestionType type, List<String> m_Choices, Boolean isSingleChoice) {
         super(m_Title, type);
         this.m_Choices = m_Choices;
         this.ansPositions = new ArrayList<>();
+        this.isSingleChoice = isSingleChoice;
     }
 
     public List <Integer> getAnsPositions() {
@@ -37,11 +39,11 @@ public class MultipleChoiceQuestion extends Question {
         m_Choices = choices;
     }
 
-    public boolean isOneChoise() {
-        return isOneChoise;
+    public boolean isSingleChoice() {
+        return isSingleChoice;
     }
 
-    public void setOneChoise(boolean oneChoise) {
-        isOneChoise = oneChoise;
+    public void setSingleChoice(boolean singleChoice) {
+        isSingleChoice = singleChoice;
     }
 }

@@ -55,22 +55,16 @@ public class MainFragment extends Fragment {
         email = view.findViewById(R.id.mainFragEmail);
         logOutBtn = view.findViewById(R.id.mainFragLogoutBtn);
 
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainViewModel.logOut();
-            }
-        });
+        logOutBtn.setOnClickListener(v ->
+                mainViewModel.logOut()
+        );
 
     }
 
     private void initObservers() {
-        mainViewModel.patientEvent.observe(getViewLifecycleOwner(), new Observer<Patient>() {
-            @Override
-            public void onChanged(Patient patient) {
-                userName.setText(patient.getName());
-                email.setText(patient.getEmail());
-            }
+        mainViewModel.patientEvent.observe(getViewLifecycleOwner(), patient -> {
+            userName.setText(patient.getName());
+            email.setText(patient.getEmail());
         });
 
     }
