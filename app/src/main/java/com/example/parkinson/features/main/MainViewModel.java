@@ -5,10 +5,19 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
 import com.example.parkinson.di.MainScope;
+import com.example.parkinson.model.enums.EQuestionType;
+import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
+import com.example.parkinson.model.question_models.OpenQuestion;
+import com.example.parkinson.model.question_models.Question;
+import com.example.parkinson.model.question_models.Questionnaire;
 import com.example.parkinson.model.user_models.Patient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 
@@ -16,7 +25,7 @@ import javax.inject.Inject;
 public class MainViewModel {
     private final UserRepository userRepository;
     private final DataRepository dataRepository;
-
+    private Questionnaire questionnaire;
     MutableLiveData<Patient> patientEvent;
     MutableLiveData<NavigationEvent> navigationEvent;
 
@@ -36,6 +45,7 @@ public class MainViewModel {
 
     public void initData() {
         dataRepository.getPatient(setPatientDataListener());
+        dataRepository.getPatientQuestionnaire(setQuestionnaireListener());
     }
 
     private ValueEventListener setPatientDataListener(){
@@ -51,6 +61,42 @@ public class MainViewModel {
                        // Patient patient_Info = snapshot.getValue(Patient.class);
                         //patientEvent.postValue(patient_Info);
                     //}
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    private ValueEventListener setQuestionnaireListener(){
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {// todo if there is not qustins so we need to pull from comon database
+                    List<Question> questionList = new ArrayList<>();
+                    for (DataSnapshot currentSnapshot :dataSnapshot.getChildren())
+                    {
+                        Question question = currentSnapshot.getValue(Question.class);
+                        if(question.getType().equals(EQuestionType.MultipleChoiceQuestion))
+                        {
+                            question = currentSnapshot.getValue(MultipleChoiceQuestion.class);
+                        }
+                        else
+                        {
+                            if(question.getType().equals(EQuestionType.OpenQuestion))
+                            {
+                                question = currentSnapshot.getValue(OpenQuestion.class);
+                            }
+                        }
+
+                        questionList.add(question);
+                    }
+
+                    questionnaire = new Questionnaire(questionList);
+
                 }
             }
 

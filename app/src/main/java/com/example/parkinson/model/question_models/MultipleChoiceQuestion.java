@@ -1,28 +1,32 @@
 package com.example.parkinson.model.question_models;
 
+import com.example.parkinson.model.enums.EQuestionType;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultipleChoiceQuestion extends Question {
     private List<String> m_Choices;
-    private int ansPosition;
-
-    public MultipleChoiceQuestion(String title, List<String> choices) {
-        super(title);
-        m_Choices = choices;
+    private List <Integer> ansPositions = new ArrayList<>();
+    private boolean isOneChoise;
+    public MultipleChoiceQuestion() {
+        super("", null);
+        isOneChoise = true ;
     }
 
-    public MultipleChoiceQuestion(String title, List<String> m_Choices, int ansPosition) {
-        super(title);
+
+    public MultipleChoiceQuestion(String m_Title, EQuestionType type, List<String> m_Choices) {
+        super(m_Title, type);
         this.m_Choices = m_Choices;
-        this.ansPosition = ansPosition;
+        this.ansPositions = new ArrayList<>();
     }
 
-    public int getAnsPosition() {
-        return ansPosition;
+    public List <Integer> getAnsPositions() {
+        return ansPositions;
     }
 
-    public void setAnsPosition(int ansPosition) {
-        this.ansPosition = ansPosition;
+    public void setAnsPositions(List <Integer> ansPosition) {
+        this.ansPositions = ansPosition;
     }
 
     public List<String> getChoices() {
@@ -31,5 +35,13 @@ public class MultipleChoiceQuestion extends Question {
 
     public void setChoices(List<String> choices) {
         m_Choices = choices;
+    }
+
+    public boolean isOneChoise() {
+        return isOneChoise;
+    }
+
+    public void setOneChoise(boolean oneChoise) {
+        isOneChoise = oneChoise;
     }
 }

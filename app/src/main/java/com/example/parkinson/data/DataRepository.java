@@ -15,6 +15,7 @@ public class DataRepository {
 
     FirebaseDatabase user_Database = FirebaseDatabase.getInstance();
     DatabaseReference user_Info_Database_Table = user_Database.getReference("Users");
+    DatabaseReference user_questionnaire_Database_Table = user_Database.getReference("questionnaire");
 
     @Inject
     public DataRepository(Authentication authenticator) {
@@ -23,6 +24,10 @@ public class DataRepository {
 
     public void getPatient(ValueEventListener listener){
         user_Info_Database_Table.child(authenticator.getCurrentUser().getUid()).addListenerForSingleValueEvent(listener);
+    }
+
+    public void getPatientQuestionnaire(ValueEventListener listener){
+        user_questionnaire_Database_Table.child(authenticator.getCurrentUser().getUid()).addListenerForSingleValueEvent(listener);
     }
 
 
