@@ -1,6 +1,7 @@
 package com.example.parkinson.features.questionnaire.single_question.binders;
 
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,8 +42,7 @@ public class QuestionBinderChoiceAnswer extends
                     ContextCompat.getColor(holder.itemView.getContext(), R.color.faded_green));
             holder.checkIcon.setVisibility(View.VISIBLE);
         } else {
-            holder.mainLayout.setBackgroundColor(
-                    ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+            holder.mainLayout.setBackgroundColor(Color.TRANSPARENT);
             holder.checkIcon.setVisibility(View.INVISIBLE);
         }
         holder.itemView.setOnClickListener( v -> holder.toggleItemSelection());
