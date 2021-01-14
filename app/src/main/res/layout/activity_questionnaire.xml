@@ -13,6 +13,11 @@
         android:padding="23dp"
         style="@style/Bold23Black"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom"
+        android:background="@color/black"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
@@ -44,6 +49,7 @@
             android:layout_gravity="end"
             style="@style/Bold23White"
             android:background="@color/colorPrimary"/>
+
     </FrameLayout>
 
 

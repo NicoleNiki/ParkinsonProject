@@ -6,13 +6,19 @@
 
     <TextView
         android:id="@+id/singleQueFragQueTitle"
-        style="@style/SemiBold20Black"
+        style="@style/Bold23Black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingHorizontal="23dp"
-        android:paddingVertical="15dp"
+        android:paddingVertical="30dp"
         android:text="Question Number 1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/singleQueFragQueRecycler"
