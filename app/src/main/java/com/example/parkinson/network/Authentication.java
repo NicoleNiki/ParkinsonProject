@@ -8,6 +8,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 
+/** Singleton class that stores Authentication instance.
+ *  And current logged user instance
+ */
 @Singleton
 public class Authentication {
     FirebaseAuth AuthenticationServer;

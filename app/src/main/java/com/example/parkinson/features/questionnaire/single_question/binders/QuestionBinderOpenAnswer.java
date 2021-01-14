@@ -17,7 +17,7 @@ import mva2.adapter.ItemViewHolder;
 public class QuestionBinderOpenAnswer extends
         ItemBinder<OpenAnswer, QuestionBinderOpenAnswer.viewHolder> {
 
-    public interface QuestionBinderOpenAnswerListener{
+    public interface QuestionBinderOpenAnswerListener {
         void onOpenAnswerChanged(String answer);
     }
 
@@ -66,7 +66,6 @@ public class QuestionBinderOpenAnswer extends
             super(itemView);
             view = itemView;
             answer = itemView.findViewById(R.id.itemQueOpenAnswer);
-
         }
     }
 

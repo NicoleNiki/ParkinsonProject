@@ -3,33 +3,33 @@ package com.example.parkinson.model.general_models;
 import java.util.List;
 
 public class Medication {
-    private final String m_Name;
-    private int m_Dosage;
-    List<Time> m_Hours_Arr;
+    private final String name;
+    private int dosage;
+    List<Time> hoursArr;
 
-    public Medication(String name, int dosage, List<Time> hours_Arr) {
-        m_Name = name;
-        m_Dosage = dosage;
-        m_Hours_Arr = hours_Arr;
+    public Medication(String name, int dosage, List<Time> hoursArr) {
+        this.name = name;
+        this.dosage = dosage;
+        this.hoursArr = hoursArr;
     }
 
     public String getName() {
-        return m_Name;
+        return name;
     }
 
     public int getDosage() {
-        return m_Dosage;
+        return dosage;
     }
 
     public void setDosage(int dosage) {
-        m_Dosage = dosage;
+        this.dosage = dosage;
     }
 
-    public List<Time> getHours_Arr() {
-        return m_Hours_Arr;
+    public List<Time> getHoursArr() {
+        return hoursArr;
     }
 
-    public void setHours_Arr(List<Time> hours_Arr) {
-        m_Hours_Arr = hours_Arr;
+    public void setHoursArr(List<Time> hoursArr) {
+        this.hoursArr = hoursArr;
     }
 }

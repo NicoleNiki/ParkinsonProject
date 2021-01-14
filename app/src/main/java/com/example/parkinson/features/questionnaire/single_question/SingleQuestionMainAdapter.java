@@ -5,6 +5,7 @@ import com.example.parkinson.features.questionnaire.single_question.binders.Ques
 import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderOpenAnswer.QuestionBinderOpenAnswerListener;
 import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
 import com.example.parkinson.features.questionnaire.single_question.models.OpenAnswer;
+import com.example.parkinson.model.enums.EChoiceType;
 import com.example.parkinson.model.question_models.OpenQuestion;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
     }
 
     public SingleQuestionMainAdapter(SingleQuestionMainAdapterListener adapterListener) {
-        initAdapter();
         this.adapterListener = adapterListener;
+        initAdapter();
     }
 
 
@@ -52,12 +53,12 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
     /**
      * updating data for multipleChoiceAnswerSection from fragment
      **/
-    public void updateSectionMultiChoiceAnswers(Boolean isSingleSelection, List<String> list) {
+    public void updateSectionMultiChoiceAnswers(EChoiceType choiceType, List<String> list) {
         if (!list.isEmpty()) {
-            if (isSingleSelection) {
-                multipleChoiceAnswerSection.setSelectionMode(Mode.SINGLE);
-            } else {
+            if (choiceType == EChoiceType.MultipleChoice) {
                 multipleChoiceAnswerSection.setSelectionMode(Mode.MULTIPLE);
+            } else {
+                multipleChoiceAnswerSection.setSelectionMode(Mode.SINGLE);
             }
             for (int i = 0; i < list.size(); i++) {
                 String answer = list.get(i);

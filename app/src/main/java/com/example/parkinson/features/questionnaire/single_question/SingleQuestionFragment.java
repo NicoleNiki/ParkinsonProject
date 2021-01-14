@@ -61,10 +61,8 @@ public class SingleQuestionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         initViews(view);
         initUi();
-        initObservers();
     }
 
     private void initViews(View view) {
@@ -79,9 +77,6 @@ public class SingleQuestionFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void initObservers() {
-//        questionnaireViewModel.questionData.observe(getViewLifecycleOwner(), this::handleQuestionData);
-    }
 
     private void handleQuestionData(Question question){
         if(question != null){
@@ -89,9 +84,8 @@ public class SingleQuestionFragment extends Fragment {
             if (question instanceof OpenQuestion){
                 adapter.updateSectionOpenAnswer();
             } else if (question instanceof MultipleChoiceQuestion){
-                adapter.updateSectionMultiChoiceAnswers(((MultipleChoiceQuestion) question).isSingleChoice(), ((MultipleChoiceQuestion) question).getChoices());
+                adapter.updateSectionMultiChoiceAnswers(((MultipleChoiceQuestion) question).getChoiceType(), ((MultipleChoiceQuestion) question).getChoices());
             }
         }
     }
-
 }

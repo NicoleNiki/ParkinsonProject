@@ -3,25 +3,25 @@ package com.example.parkinson.model.question_models;
 import com.example.parkinson.model.enums.EQuestionType;
 
 public class OpenQuestion extends Question {
-    private String m_Answer;
+    private String answer;
 
     public OpenQuestion() {
         super("", null);
     }
 
-    public OpenQuestion(String m_Title, EQuestionType type, String m_Answer) {
-        super(m_Title, type);
-        this.m_Answer = m_Answer;
+    public OpenQuestion(String title, EQuestionType type, String answer) {
+        super(title, type);
+        this.answer = answer;
     }
-    public OpenQuestion(String m_Title, EQuestionType type) {
-        super(m_Title, type);
-        this.m_Answer = null;
+    public OpenQuestion(String title, EQuestionType type) {
+        super(title, type);
+        this.answer = null;
     }
     public String getAnswer() {
-        return m_Answer;
+        return answer;
     }
 
     public void setAnswer(String answer) {
-        m_Answer = answer;
+        answer = answer;
     }
 }

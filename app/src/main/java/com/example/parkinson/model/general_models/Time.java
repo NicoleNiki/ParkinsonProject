@@ -1,26 +1,26 @@
 package com.example.parkinson.model.general_models;
 
 public class Time {
-    private int m_Minutes, m_Hour;
+    private int minutes, hour;
 
-    public Time(int m_Minutes, int m_Hour) {
-        this.m_Minutes = m_Minutes;
-        this.m_Hour = m_Hour;
+    public Time(int minutes, int hour) {
+        this.minutes = minutes;
+        this.hour = hour;
     }
 
     public int getMinutes() {
-        return m_Minutes;
+        return minutes;
     }
 
-    public void setMinutes(int m_Minutes) {
-        this.m_Minutes = m_Minutes;
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 
     public int getHour() {
-        return m_Hour;
+        return hour;
     }
 
-    public void setHour(int m_Hour) {
-        this.m_Hour = m_Hour;
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 }
