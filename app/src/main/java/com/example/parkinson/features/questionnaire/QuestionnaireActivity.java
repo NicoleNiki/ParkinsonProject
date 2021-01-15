@@ -8,8 +8,11 @@ import com.example.parkinson.R;
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.di.QuestionnaireComponent;
 import com.example.parkinson.features.questionnaire.single_question.SingleQuestionFragment;
+import com.example.parkinson.model.enums.ECategoryMedicines;
 import com.example.parkinson.model.enums.EChoiceType;
 import com.example.parkinson.model.enums.EQuestionType;
+import com.example.parkinson.model.general_models.Medication;
+import com.example.parkinson.model.general_models.MedicationCategory;
 import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
 import com.example.parkinson.model.question_models.OpenQuestion;
 import com.example.parkinson.model.question_models.Question;
@@ -48,8 +51,9 @@ public class QuestionnaireActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
         questionnaireViewModel.getQuestionnaireData();
-//        test();
+        //test();
         initObservers();
+        //AddMedicane();
     }
 
     private void initObservers() {
@@ -63,25 +67,175 @@ public class QuestionnaireActivity extends FragmentActivity {
         });
     }
 
+    private void AddMedicane()
+    {
+        List<MedicationCategory> medicationCategoryList = new ArrayList<>();
+        List<Medication> medicationList = new ArrayList<>();
+
+
+        // medopar list
+        medicationList.add(new Medication( "מדופאר 62.5" , 0,null));
+        medicationList.add(new Medication( "מדופאר 50" , 0,null));
+        medicationList.add(new Medication( "מדופאר 125" , 0,null));
+        medicationList.add(new Medication( "מדופאר 12.5" , 0,null));
+        medicationList.add(new Medication( "לבופר פלוס 125" , 0,null));
+        medicationList.add(new Medication( "מדופאר 250" , 0,null));
+        medicationList.add(new Medication( "מדופאר 200" , 0,null));
+        medicationList.add(new Medication( "מדופאר 50" , 0,null));
+        medicationList.add(new Medication( "לבופר פלוס 250" , 0,null));
+        medicationList.add(new Medication( "מדופאר 60.5 בתרחיף" , 0,null));
+        medicationList.add(new Medication( "מדופאר 50 בתרחיף" , 0,null));
+        medicationList.add(new Medication( "מדופאר 12.5 בתרחיף" , 0,null));
+        medicationList.add(new Medication( "מדופאר 125 בתרחיף" , 0,null));
+        medicationList.add(new Medication( "מדופאר 100 בתרחיף" , 0,null));
+        medicationList.add(new Medication( "מדופאר 25 בתרחיף" , 0,null));
+        medicationList.add(new Medication( "מדופאר CR" , 0,null));
+        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.MEDOPAR,medicationList));
+
+
+
+        // sinmat list
+        medicationList = new ArrayList<>();
+        medicationList.add(new Medication( " 50 סינמט LS" , 0,null));
+        medicationList.add(new Medication( "12.5 סינמט LS" , 0,null));
+        medicationList.add(new Medication( "סינמט 110" , 0,null));
+        medicationList.add(new Medication( "סינמט 100" , 0,null));
+        medicationList.add(new Medication( "סינמט 10" , 0,null));
+        medicationList.add(new Medication( "סינמט 275" , 0,null));
+        medicationList.add(new Medication( "סינמט 250" , 0,null));
+        medicationList.add(new Medication( "סינמט 25" , 0,null));
+        medicationList.add(new Medication( "דופיקר" , 0,null));
+        medicationList.add(new Medication( "סינמט פלוס 100" , 0,null));
+        medicationList.add(new Medication( "סינמט פלוס 25" , 0,null));
+        medicationList.add(new Medication( "חצי סינמט CR 100" , 0,null));
+        medicationList.add(new Medication( "חצי סינמט CR 25" , 0,null));
+        medicationList.add(new Medication( "200 סינמט CR" , 0,null));
+        medicationList.add(new Medication( "50 סינמט CR" , 0,null));
+        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.SINMAT,medicationList));
+
+        // Dopamine Agonists list
+        medicationList = new ArrayList<>();
+        medicationList.add(new Medication( "ברומוקריפטין" , 0,null));
+        medicationList.add(new Medication( "פרלודל, פרילק" , 0,null));
+        medicationList.add(new Medication( "קברגולין" , 0,null));
+        medicationList.add(new Medication( "קבסר" , 0,null));
+        medicationList.add(new Medication( "ליזוריד" , 0,null));
+        medicationList.add(new Medication( "דופרגין" , 0,null));
+        medicationList.add(new Medication( "פרגוליד" , 0,null));
+        medicationList.add(new Medication( "רופינרול" , 0,null));
+        medicationList.add(new Medication( "רקוויפ" , 0,null));
+        medicationList.add(new Medication( "פרמיפקסול" , 0,null));
+
+        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.Dopamine_Agonists,medicationList));
+
+        // Amantadine list
+        medicationList = new ArrayList<>();
+        medicationList.add(new Medication( "אדמנטנאמין סולפט" , 0,null));
+        medicationList.add(new Medication( "א-פרקין" , 0,null));
+        medicationList.add(new Medication( "אמנטדין הידרוכלוריד" , 0,null));
+        medicationList.add(new Medication( "פריטרל" , 0,null));
+
+        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.Amantadine,medicationList));
+
+        // Anticholinergics list
+        medicationList = new ArrayList<>();
+        medicationList.add(new Medication( "טריהקסיפנידיל" , 0,null));
+        medicationList.add(new Medication( "ארטן" , 0,null));
+        medicationList.add(new Medication( "פרטן" , 0,null));
+        medicationList.add(new Medication( "בנזטרופין" , 0,null));
+        medicationList.add(new Medication( "קוגנטין" , 0,null));
+        medicationList.add(new Medication( "ביפרידן" , 0,null));
+        medicationList.add(new Medication( "דהקינט" , 0,null));
+        medicationList.add(new Medication( "פרוציקלידין" , 0,null));
+        medicationList.add(new Medication( "קמדרין" , 0,null));
+        medicationList.add(new Medication( "אורפנדרין" , 0,null));
+        medicationList.add(new Medication( "דיסיפל" , 0,null));
+        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.Anticholinergics,medicationList));
+
+        // COMT  list
+        medicationList = new ArrayList<>();
+        medicationList.add(new Medication( "אנטקפון" , 0,null));
+        medicationList.add(new Medication( "קומטן" , 0,null));
+        medicationList.add(new Medication( "טולקפון" , 0,null));
+        medicationList.add(new Medication( "סלג'ילין" , 0,null));
+        medicationList.add(new Medication( "יומקס" , 0,null));
+
+        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.COMT,medicationList));
+
+
+
+
+        FirebaseDatabase MEDICATION_data_base = FirebaseDatabase.getInstance();
+        DatabaseReference templates = MEDICATION_data_base.getReference("Data");
+        templates.child(EDataSourceData.MEDICINE_LIST.name).setValue(medicationCategoryList);
+    }
     private void test(){
         Question question;
         List<Question> qustionsList = new ArrayList<>();
         Questionnaire questionnaire;
-
-        List<String> answer = new ArrayList<>();
-        answer.add("This is the an answer");
-        answer.add("This is the an answer");
-        answer.add("This is the an answer");
-        answer.add("This is the an answer");
-
         List<Integer> ansPositons = new ArrayList<>();
-        ansPositons.add(20);
-        ansPositons.add(50);
-        ansPositons.add(60);
-        ansPositons.add(1);
+        List<String> answer = new ArrayList<>();
+
+        answer= new ArrayList<>();
+        answer.add("כחודש");
+        answer.add("כחצי שנה");
+        answer.add("כשנה");
+        answer.add("כשנתיים");
+        question = new MultipleChoiceQuestion("לפני כמה זמן אובחנת במחלה ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.SingleChoice);
+        ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
+        qustionsList.add(question);
+
+        answer= new ArrayList<>();
+        answer.add("כחודש");
+        answer.add("כחצי שנה");
+        answer.add("כשנה");
+        answer.add("כשנתיים");
+        question = new MultipleChoiceQuestion("לפני כמה זמן החל התסמין הראשון ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.SingleChoice);
+        ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
+        qustionsList.add(question);
+
+        answer= new ArrayList<>();
+        answer.add("רגל");
+        answer.add("יד");
+        answer.add("רעד");
+        answer.add("נוקשות");
+        answer.add("נפילות");
+        answer.add("איטיות");
+        question = new MultipleChoiceQuestion("כיצד המחלה באה לידי ביטוי ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.MultipleChoice);
+        ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
+        qustionsList.add(question);
+
+        answer= new ArrayList<>();
+        answer.add("ימין");
+        answer.add("שמאל");
+        question = new MultipleChoiceQuestion("באיזה צד החלו התסמינים ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.SingleChoice);
+        ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
+        qustionsList.add(question);
+
+        answer= new ArrayList<>();
+        answer.add("הזיות ראיה");
+        answer.add("הקאות");
+        answer.add("בחילות");
+        answer.add("כאבי בטן");
+        answer.add("שינה פתאומית");
+        answer.add("התנהגות ללא עקבות");
+        question = new MultipleChoiceQuestion("מהן תופעות הלוואי שחווית ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.MultipleChoice);
+        ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
+        qustionsList.add(question);
 
 
-        question = new MultipleChoiceQuestion("This is a question", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.MultipleChoice);
+        answer= new ArrayList<>();
+        answer.add("שבוע");
+        answer.add("חודש");
+        answer.add("חצי שנה");
+        answer.add("שנה");
+        answer.add("שנתיים אחרונות");
+        question = new MultipleChoiceQuestion("מתי בוצע שינוי תרופתי אחרון ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.SingleChoice);
+        ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
+        qustionsList.add(question);
+
+
+        /*question = new MultipleChoiceQuestion("כיצד המחלה באה לידי ביטוי ?", EQuestionType.MultipleChoiceQuestion,answer, ansPositons ,EChoiceType.MultipleChoice);
         ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
         qustionsList.add(question);
         question = new OpenQuestion("Whats your name?",EQuestionType.OpenQuestion);
@@ -90,12 +244,12 @@ public class QuestionnaireActivity extends FragmentActivity {
         ((MultipleChoiceQuestion)question).setAnsPositions(ansPositons);
         qustionsList.add(question);
         question = new OpenQuestion("whats your name",EQuestionType.OpenQuestion,"the aswer is true");
-        qustionsList.add(question);
+        qustionsList.add(question);*/
 
         questionnaire = new Questionnaire(qustionsList, Calendar.getInstance().getTime());
         FirebaseDatabase questions_data_base = FirebaseDatabase.getInstance();
         DatabaseReference templates = questions_data_base.getReference("Data");
-        templates.child(EDataSourceData.QUESTIONNAIRE_NEW_PATIENT.name).setValue(questionnaire);
+        templates.child(EDataSourceData.QUESTIONNAIRE_FOLLOW_UP.name).setValue(questionnaire);
 
 
 
@@ -111,6 +265,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         viewPager.setAdapter(pagerAdapter);
     }
 
+    //TODO intizlie to the list size
     /** The number of pages (wizard steps) to show in this demo.**/
     private static final int NUM_PAGES = 4;
 

@@ -24,7 +24,7 @@ public class UserRepository {
     @Inject
     public UserRepository(Authentication authenticator, DatabaseManager databaseManager) {
         this.authenticator = authenticator;
-        userTable = databaseManager.getDatabase().getReference("Users");
+        userTable = databaseManager.getDatabase().getReference("Patients");
     }
 
     /** Get full patient details */
