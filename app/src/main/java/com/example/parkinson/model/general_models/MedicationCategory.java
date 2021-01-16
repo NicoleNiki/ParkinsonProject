@@ -1,26 +1,24 @@
 package com.example.parkinson.model.general_models;
 
-import com.example.parkinson.model.enums.ECategoryMedicines;
-
 import java.util.List;
 
 public class MedicationCategory {
-   ECategoryMedicines  categoryType;
+   String  categoryType;
    List<Medication> medicationList;
 
     public MedicationCategory() {
     }
 
-    public MedicationCategory(ECategoryMedicines categoryType, List<Medication> medicationList) {
+    public MedicationCategory(String categoryType, List<Medication> medicationList) {
         this.categoryType = categoryType;
         this.medicationList = medicationList;
     }
 
-    public ECategoryMedicines getCategoryType() {
+    public String getCategoryType() {
         return categoryType;
     }
 
-    public void setCategoryType(ECategoryMedicines categoryType) {
+    public void setCategoryType(String categoryType) {
         this.categoryType = categoryType;
     }
 

@@ -8,20 +8,15 @@ import com.example.parkinson.R;
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.di.QuestionnaireComponent;
 import com.example.parkinson.features.questionnaire.single_question.SingleQuestionFragment;
-import com.example.parkinson.model.enums.ECategoryMedicines;
 import com.example.parkinson.model.enums.EChoiceType;
 import com.example.parkinson.model.enums.EQuestionType;
 import com.example.parkinson.model.general_models.Medication;
 import com.example.parkinson.model.general_models.MedicationCategory;
 import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
-import com.example.parkinson.model.question_models.OpenQuestion;
 import com.example.parkinson.model.question_models.Question;
 import com.example.parkinson.model.question_models.Questionnaire;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import androidx.lifecycle.Observer;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -29,10 +24,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -90,7 +82,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "מדופאר 100 בתרחיף" , 0,null));
         medicationList.add(new Medication( "מדופאר 25 בתרחיף" , 0,null));
         medicationList.add(new Medication( "מדופאר CR" , 0,null));
-        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.MEDOPAR,medicationList));
+        medicationCategoryList.add(new MedicationCategory("מדופאר",medicationList));
 
 
 
@@ -111,7 +103,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "חצי סינמט CR 25" , 0,null));
         medicationList.add(new Medication( "200 סינמט CR" , 0,null));
         medicationList.add(new Medication( "50 סינמט CR" , 0,null));
-        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.SINMAT,medicationList));
+        medicationCategoryList.add(new MedicationCategory("סינמט",medicationList));
 
         // Dopamine Agonists list
         medicationList = new ArrayList<>();
@@ -126,7 +118,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "רקוויפ" , 0,null));
         medicationList.add(new Medication( "פרמיפקסול" , 0,null));
 
-        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.Dopamine_Agonists,medicationList));
+        medicationCategoryList.add(new MedicationCategory("דופמין אגוניסטים",medicationList));
 
         // Amantadine list
         medicationList = new ArrayList<>();
@@ -135,7 +127,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "אמנטדין הידרוכלוריד" , 0,null));
         medicationList.add(new Medication( "פריטרל" , 0,null));
 
-        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.Amantadine,medicationList));
+        medicationCategoryList.add(new MedicationCategory("אמנטדין",medicationList));
 
         // Anticholinergics list
         medicationList = new ArrayList<>();
@@ -150,7 +142,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "קמדרין" , 0,null));
         medicationList.add(new Medication( "אורפנדרין" , 0,null));
         medicationList.add(new Medication( "דיסיפל" , 0,null));
-        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.Anticholinergics,medicationList));
+        medicationCategoryList.add(new MedicationCategory("אנטי כולינרגיות",medicationList));
 
         // COMT  list
         medicationList = new ArrayList<>();
@@ -160,7 +152,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "סלג'ילין" , 0,null));
         medicationList.add(new Medication( "יומקס" , 0,null));
 
-        medicationCategoryList.add(new MedicationCategory(ECategoryMedicines.COMT,medicationList));
+        medicationCategoryList.add(new MedicationCategory("מעכבי האנזים",medicationList));
 
 
 
