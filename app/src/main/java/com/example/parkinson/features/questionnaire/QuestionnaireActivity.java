@@ -152,6 +152,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         medicationList.add(new Medication( "סלג'ילין" , 0,null));
         medicationList.add(new Medication( "יומקס" , 0,null));
 
+        
         medicationCategoryList.add(new MedicationCategory("מעכבי האנזים",medicationList));
 
 
