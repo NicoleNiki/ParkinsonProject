@@ -1,6 +1,7 @@
 package com.example.parkinson.data;
 
 
+import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.data.enums.EDataSourceUser;
 import com.example.parkinson.model.question_models.Questionnaire;
 import com.example.parkinson.model.user_models.Patient;
@@ -50,6 +51,10 @@ public class UserRepository {
     public void postQuestionnaire(Questionnaire questionnaire) {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.QUESTIONNAIRE.name).setValue(questionnaire);
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).child("hasUnansweredQuestionnaire").setValue(false);
+    }
+
+    public void getMedicationList(ValueEventListener listener){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addListenerForSingleValueEvent(listener);
     }
 
     /** Login to firebase with username and password **/

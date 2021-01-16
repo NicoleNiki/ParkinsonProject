@@ -23,6 +23,14 @@
                 app:argType="boolean" />
         </action>
 
+        <action
+            android:id="@+id/action_mainFragment_to_medicineFragment"
+            app:destination="@id/medicineFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_right_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_left_exit"/>
+
     </fragment>
 
     <fragment
@@ -36,6 +44,12 @@
             app:argType="boolean" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/medicineFragment"
+        android:name="com.example.parkinson.features.medicine.MedicineFragment"
+        android:label="MedicineFragment"
+        tools:layout="@layout/fragment_medicine"/>
 
 
 </navigation>

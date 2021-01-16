@@ -60,7 +60,7 @@ public class MainFragment extends Fragment {
 
     private void initUi(View view) {
         medicineBtn.setOnClickListener(v -> {
-            // not implemented yet
+            openMedicineFragment(view);
         });
         questionnaireBtn.setOnClickListener(v -> {
             openQuestionnaireFragment(view);
@@ -95,6 +95,11 @@ public class MainFragment extends Fragment {
     /** Navigates to QuestionnaireFragment with NavigationController with isNewQuestionnaire Args **/
     private void openQuestionnaireFragment(View view){
         NavDirections action = MainFragmentDirections.actionMainFragmentToQuestionnaireFragment(mainViewModel.patientEvent.getValue().getHasUnansweredQuestionnaire());
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    private void openMedicineFragment(View view) {
+        NavDirections action = MainFragmentDirections.actionMainFragmentToMedicineFragment();
         Navigation.findNavController(view).navigate(action);
     }
 }

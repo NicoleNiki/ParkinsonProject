@@ -3,9 +3,13 @@ package com.example.parkinson.model.general_models;
 import java.util.List;
 
 public class Medication {
-    private final String name;
+    private String name;
     private int dosage;
     List<Time> hoursArr;
+
+    public Medication(){
+
+    }
 
     public Medication(String name, int dosage, List<Time> hoursArr) {
         this.name = name;
@@ -14,6 +18,10 @@ public class Medication {
     }
 
     public String getName() { return name; }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getDosage() {
         return dosage;
