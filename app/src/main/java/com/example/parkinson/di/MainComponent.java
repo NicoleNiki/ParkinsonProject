@@ -2,8 +2,8 @@ package com.example.parkinson.di;
 
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.main.MainFragment;
-import com.example.parkinson.features.on_boarding.OnBoardingActivity;
-import com.example.parkinson.features.on_boarding.login.LoginFragment;
+import com.example.parkinson.features.questionnaire.QuestionnaireFragment;
+import com.example.parkinson.features.questionnaire.single_question.SingleQuestionFragment;
 
 import dagger.Subcomponent;
 
@@ -18,4 +18,6 @@ public interface MainComponent {
 
     void inject(MainActivity mainActivity);
     void inject(MainFragment mainFragment);
+    void inject(QuestionnaireFragment questionnaireFragment);
+    void inject(SingleQuestionFragment singleQuestionFragment);
 }

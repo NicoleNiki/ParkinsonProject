@@ -13,9 +13,7 @@ public class Medication {
         this.hoursArr = hoursArr;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public int getDosage() {
         return dosage;

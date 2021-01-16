@@ -1,13 +1,11 @@
 package com.example.parkinson.features.questionnaire;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
-import com.example.parkinson.di.QuestionnaireScope;
+import com.example.parkinson.di.MainScope;
 import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
 import com.example.parkinson.model.enums.EQuestionType;
 import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
@@ -23,13 +21,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-@QuestionnaireScope
+@MainScope
 public class QuestionnaireViewModel {
     private final UserRepository userRepository;
     private final DataRepository dataRepository;
 
+
     private Questionnaire questionnaire;
     MutableLiveData<Questionnaire> questionnaireDataEvent = new MutableLiveData<>();
+    MutableLiveData<Boolean> isLoading  = new MutableLiveData<>();
 
     // @Inject tells Dagger how to create instances of MainViewModel
     @Inject
@@ -38,10 +38,22 @@ public class QuestionnaireViewModel {
         this.dataRepository = dataRepository;
     }
 
-    public void getQuestionnaireData() {
-        dataRepository.getFollowUpQuestionnaire(setQuestionnaireListener());
+    /** init fragment data
+     * when isNewQuestionnaire is true - get question list from data
+     * else need to update last questionnaire - get questionnaire from user
+      */
+    public void init(Boolean isNewQuestionnaire) {
+        isLoading.postValue(true);
+        if(isNewQuestionnaire){
+            dataRepository.getFollowUpQuestionnaire(setQuestionnaireListener());
+        } else {
+            userRepository.getQuestionnaire(setQuestionnaireListener());
+        }
     }
 
+    /** Get single question from questionnaire
+     * @param position is current page number
+     */
     public Question getDataByPosition(int position) {
         if (questionnaire.getQuestionList().size() > position) {
             return questionnaire.getQuestionList().get(position);
@@ -50,12 +62,18 @@ public class QuestionnaireViewModel {
         }
     }
 
+    /** Getting answers chosen by user and updating the questionnaire**/
     public void updateMultipleChoiceAnswer(int position, List<MultipleChoiceAnswer> chosenAnswers) {
         List<Integer> positionList = new ArrayList<>();
         for (MultipleChoiceAnswer answer : chosenAnswers) {
             positionList.add(answer.getPosition());
         }
         ((MultipleChoiceQuestion) questionnaire.getQuestionList().get(position)).setAnsPositions(positionList);
+    }
+
+    /** Getting answer string from user and updating the questionnaire**/
+    public void updateOpenAnswer(int position, String answer) {
+        ((OpenQuestion) questionnaire.getQuestionList().get(position)).setAnswer(answer);
     }
 
     private ValueEventListener setQuestionnaireListener() {
@@ -82,14 +100,18 @@ public class QuestionnaireViewModel {
 
                     questionnaire = new Questionnaire(questionList,null);
                     questionnaireDataEvent.setValue(questionnaire);
+                    isLoading.postValue(false);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                isLoading.postValue(false);
             }
         };
     }
 
+    public void onFinishClick() {
+        userRepository.postQuestionnaire(questionnaire);
+    }
 }

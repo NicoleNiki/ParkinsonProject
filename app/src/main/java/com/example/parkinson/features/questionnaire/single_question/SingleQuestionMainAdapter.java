@@ -1,12 +1,11 @@
 package com.example.parkinson.features.questionnaire.single_question;
 
-import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderChoiceAnswer;
+import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderMultipleChoiceAnswer;
 import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderOpenAnswer;
 import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderOpenAnswer.QuestionBinderOpenAnswerListener;
 import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
 import com.example.parkinson.features.questionnaire.single_question.models.OpenAnswer;
 import com.example.parkinson.model.enums.EChoiceType;
-import com.example.parkinson.model.question_models.OpenQuestion;
 
 import java.util.List;
 
@@ -26,6 +25,7 @@ import mva2.adapter.util.OnSelectionChangedListener;
  */
 public class SingleQuestionMainAdapter extends MultiViewAdapter {
 
+
     SingleQuestionMainAdapterListener adapterListener;
     /** Interface for both sections clicks **/
     interface SingleQuestionMainAdapterListener extends QuestionBinderOpenAnswerListener {
@@ -37,13 +37,12 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
         initAdapter();
     }
 
-
     /** 2 type of sections - for open question and for multiple choice questions**/
     private ListSection<MultipleChoiceAnswer> multipleChoiceAnswerSection = new ListSection<>();
     private ItemSection<OpenAnswer> openAnswerSection = new ItemSection<>();
 
     private void initAdapter() {
-        this.registerItemBinders(new QuestionBinderOpenAnswer(adapterListener), new QuestionBinderChoiceAnswer());
+        this.registerItemBinders(new QuestionBinderOpenAnswer(adapterListener), new QuestionBinderMultipleChoiceAnswer());
 
         this.addSection(multipleChoiceAnswerSection);
         this.addSection(openAnswerSection);
@@ -53,7 +52,7 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
     /**
      * updating data for multipleChoiceAnswerSection from fragment
      **/
-    public void updateSectionMultiChoiceAnswers(EChoiceType choiceType, List<String> list) {
+    public void updateSectionMultiChoiceAnswers(EChoiceType choiceType, List<String> list, List<Integer> positionList) {
         if (!list.isEmpty()) {
             if (choiceType == EChoiceType.MultipleChoice) {
                 multipleChoiceAnswerSection.setSelectionMode(Mode.MULTIPLE);
@@ -62,7 +61,8 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
             }
             for (int i = 0; i < list.size(); i++) {
                 String answer = list.get(i);
-                multipleChoiceAnswerSection.add(new MultipleChoiceAnswer(answer, i));
+                Boolean isSelected = positionList.contains(i);
+                multipleChoiceAnswerSection.add(new MultipleChoiceAnswer(answer, i, choiceType, isSelected));
             }
             addSelectionListener();
             multipleChoiceAnswerSection.showSection();
@@ -81,8 +81,8 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
     /**
      * updating data for openAnswerSection from fragment
      **/
-    public void updateSectionOpenAnswer() {
-        openAnswerSection.setItem(new OpenAnswer());
+    public void updateSectionOpenAnswer(String answer) {
+        openAnswerSection.setItem(new OpenAnswer(answer));
         openAnswerSection.showSection();
     }
 

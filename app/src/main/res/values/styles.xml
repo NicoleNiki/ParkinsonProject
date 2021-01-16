@@ -6,11 +6,18 @@
         <item name="colorPrimary">@color/bright_cyan_two</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/bright_cyan</item>
+        <item name="android:windowAnimationStyle">@style/LeftSlideActivityAnimation</item>
     </style>
 
+    <style name="LeftSlideActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_right_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_left_exit</item>
+    </style>
 
     <!--       Spartan Regular       -->
-    
+
     <style name="Reg9Black">
         <item name="android:fontFamily">@font/spartan_regular</item>
         <item name="android:textSize">9.6sp</item>
@@ -28,7 +35,7 @@
         <item name="android:textSize">9.6sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
-    
+
     <style name="Reg11Black">
         <item name="android:fontFamily">@font/spartan_regular</item>
         <item name="android:textSize">11.5sp</item>
@@ -81,6 +88,18 @@
         <item name="android:fontFamily">@font/spartan_regular</item>
         <item name="android:textSize">15.4sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Reg17Black">
+        <item name="android:fontFamily">@font/spartan_regular</item>
+        <item name="android:textSize">17.4sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Reg19Black">
+        <item name="android:fontFamily">@font/spartan_regular</item>
+        <item name="android:textSize">19.4sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!--       Spartan Semi Bold       -->
@@ -319,6 +338,25 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Bold25Black">
+        <item name="android:fontFamily">@font/spartan_bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Title23White">
+        <item name="android:fontFamily">@font/assistant_extrabold</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Title25White">
+        <item name="android:fontFamily">@font/assistant_extrabold</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
     <style name="Thin11Black">
         <item name="android:fontFamily">@font/spartan_thin</item>
         <item name="android:textSize">11sp</item>
@@ -331,64 +369,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Medium7Black">
-        <item name="android:fontFamily">@font/spartan_medium</item>
-        <item name="android:textSize">7sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="Medium9Black">
-        <item name="android:fontFamily">@font/spartan_medium</item>
-        <item name="android:textSize">9sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="Medium11Black">
-        <item name="android:fontFamily">@font/spartan_medium</item>
-        <item name="android:textSize">11sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="Medium13Black">
-        <item name="android:fontFamily">@font/spartan_medium</item>
-        <item name="android:textSize">13.4sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="Medium13White">
-        <item name="android:fontFamily">@font/spartan_medium</item>
-        <item name="android:textSize">13.4sp</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
     <style name="Helvetica13Black">
         <item name="android:fontFamily">@font/helvetica</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="Helvetica3Black50">
-        <item name="android:fontFamily">@font/helvetica</item>
-        <item name="android:textSize">3sp</item>
-        <item name="android:textColor">@color/black_50</item>
-    </style>
-
-    <style name="Helvetica3Black">
-        <item name="android:fontFamily">@font/helvetica</item>
-        <item name="android:textSize">3sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="Helvetica9White">
-        <item name="android:fontFamily">@font/helvetica</item>
-        <item name="android:textSize">9sp</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="Helvetica13Black50">
-        <item name="android:fontFamily">@font/helvetica</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/black_50</item>
     </style>
 
     <style name="HintText" parent="TextAppearance.Design.Hint">
@@ -410,5 +394,6 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

@@ -31,7 +31,6 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
-        initUi();
         initObservers();
     }
 
@@ -46,10 +45,6 @@ public class OnBoardingActivity extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    private void initUi() {
 
     }
 

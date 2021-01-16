@@ -10,6 +10,31 @@
         android:name="com.example.parkinson.features.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_questionnaireFragment"
+            app:destination="@id/questionnaireFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_right_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_left_exit">
+            <argument
+                android:name="isNewQuestionnaire"
+                app:argType="boolean" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/questionnaireFragment"
+        android:name="com.example.parkinson.features.questionnaire.QuestionnaireFragment"
+        android:label="QuestionnaireFragment"
+        tools:layout="@layout/fragment_questionnaire">
+
+        <argument
+            android:name="isNewQuestionnaire"
+            app:argType="boolean" />
+
     </fragment>
 
 

@@ -13,9 +13,10 @@ public class Patient {
     private EClinics clinics;
 
     private Boolean hasUnansweredQuestionnaire;
-    private Boolean needToUpdateMedicine;
 
+    private Boolean needToUpdateMedicine;
     public Patient() {}
+
     public Patient(String name, String ID, String birthCountry, String phoneNumber, String email, String clinicName, int educationYears, Date birthDate, EClinics clinics, Boolean hasUnansweredQuestionnaire, Boolean needToUpdateMedicine) {
         this.name = name;
         this.ID = ID;
@@ -29,7 +30,6 @@ public class Patient {
         this.hasUnansweredQuestionnaire = hasUnansweredQuestionnaire;
         this.needToUpdateMedicine = needToUpdateMedicine;
     }
-
 
     public String getName() {
         return name;
@@ -103,6 +103,28 @@ public class Patient {
         this.clinics = clinics;
     }
 
+    public Boolean getHasUnansweredQuestionnaire() {
+        if(hasUnansweredQuestionnaire != null){
+            return hasUnansweredQuestionnaire;
+        } else {
+            return true;
+        }
+    }
 
+    public void setHasUnansweredQuestionnaire(Boolean hasUnansweredQuestionnaire) {
+        this.hasUnansweredQuestionnaire = hasUnansweredQuestionnaire;
+    }
+
+    public Boolean getNeedToUpdateMedicine() {
+        if(needToUpdateMedicine != null){
+            return hasUnansweredQuestionnaire;
+        } else {
+            return true;
+        }
+    }
+
+    public void setNeedToUpdateMedicine(Boolean needToUpdateMedicine) {
+        this.needToUpdateMedicine = needToUpdateMedicine;
+    }
 
 }

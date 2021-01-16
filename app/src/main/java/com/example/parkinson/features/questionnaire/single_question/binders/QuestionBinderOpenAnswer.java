@@ -42,8 +42,8 @@ public class QuestionBinderOpenAnswer extends
 
     @Override
     public void bindViewHolder(final viewHolder holder, final OpenAnswer answer) {
+        holder.answer.setText(answer.getAnswer());
         holder.answer.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override

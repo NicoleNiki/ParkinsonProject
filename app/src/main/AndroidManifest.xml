@@ -12,21 +12,7 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity android:name=".features.splash.SplashActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-
-        <activity android:name=".features.on_boarding.OnBoardingActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
-
-        <activity android:name=".features.main.MainActivity">
-        </activity>
-
-        <activity android:name=".features.questionnaire.QuestionnaireActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,9 +20,19 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".features.on_boarding.OnBoardingActivity"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+        </activity>
+
+        <activity android:name=".features.main.MainActivity"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+        </activity>
+
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
-
-
 
 </manifest>

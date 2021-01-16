@@ -22,6 +22,6 @@ public class OpenQuestion extends Question {
     }
 
     public void setAnswer(String answer) {
-        answer = answer;
+        this.answer = answer;
     }
 }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
-import com.example.parkinson.features.questionnaire.QuestionnaireActivity;
+import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.questionnaire.QuestionnaireViewModel;
 import com.example.parkinson.features.questionnaire.single_question.SingleQuestionMainAdapter.SingleQuestionMainAdapterListener;
 import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
@@ -28,6 +28,7 @@ public class SingleQuestionFragment extends Fragment {
 
     @Inject
     QuestionnaireViewModel questionnaireViewModel;
+
     int position;
 
     SingleQuestionMainAdapter adapter;
@@ -38,22 +39,11 @@ public class SingleQuestionFragment extends Fragment {
     public SingleQuestionFragment(int position) {
         super(R.layout.fragment_single_question);
         this.position = position;
-        adapter = new SingleQuestionMainAdapter(new SingleQuestionMainAdapterListener() {
-            @Override
-            public void onMultipleChoiceAnswerChanged(List<MultipleChoiceAnswer> answers) {
-                questionnaireViewModel.updateMultipleChoiceAnswer(position, answers);
-            }
-
-            @Override
-            public void onOpenAnswerChanged(String answer) {
-
-            }
-        });
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
-        ((QuestionnaireActivity) getActivity()).questionnaireComponent.inject(this);
+        ((MainActivity) getActivity()).mainComponent.inject(this);
         super.onAttach(context);
     }
 
@@ -71,6 +61,18 @@ public class SingleQuestionFragment extends Fragment {
     }
 
     private void initUi() {
+        adapter = new SingleQuestionMainAdapter(new SingleQuestionMainAdapterListener() {
+            @Override
+            public void onMultipleChoiceAnswerChanged(List<MultipleChoiceAnswer> answers) {
+                questionnaireViewModel.updateMultipleChoiceAnswer(position, answers);
+            }
+
+            @Override
+            public void onOpenAnswerChanged(String answer) {
+                questionnaireViewModel.updateOpenAnswer(position, answer);
+            }
+        });
+
         handleQuestionData(questionnaireViewModel.getDataByPosition(position));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
@@ -82,9 +84,9 @@ public class SingleQuestionFragment extends Fragment {
         if(question != null){
             this.question.setText(question.getTitle());
             if (question instanceof OpenQuestion){
-                adapter.updateSectionOpenAnswer();
+                adapter.updateSectionOpenAnswer(((OpenQuestion) question).getAnswer());
             } else if (question instanceof MultipleChoiceQuestion){
-                adapter.updateSectionMultiChoiceAnswers(((MultipleChoiceQuestion) question).getChoiceType(), ((MultipleChoiceQuestion) question).getChoices());
+                adapter.updateSectionMultiChoiceAnswers(((MultipleChoiceQuestion) question).getChoiceType(), ((MultipleChoiceQuestion) question).getChoices(),((MultipleChoiceQuestion) question).getAnsPositions());
             }
         }
     }
