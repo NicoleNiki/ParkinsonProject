@@ -3,23 +3,24 @@ package com.example.parkinson.model.general_models;
 import java.util.List;
 
 public class MedicationCategory {
-   String  categoryType;
+
+   String categoryName;
    List<Medication> medicationList;
 
     public MedicationCategory() {
     }
 
-    public MedicationCategory(String categoryType, List<Medication> medicationList) {
-        this.categoryType = categoryType;
+    public MedicationCategory(String categoryName, List<Medication> medicationList) {
+        this.categoryName = categoryName;
         this.medicationList = medicationList;
     }
 
-    public String getCategoryType() {
-        return categoryType;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryType(String categoryType) {
-        this.categoryType = categoryType;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<Medication> getMedicationList() {

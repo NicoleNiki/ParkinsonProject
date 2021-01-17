@@ -3,6 +3,9 @@ package com.example.parkinson.data;
 
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.data.enums.EDataSourceUser;
+import com.example.parkinson.model.enums.EStatus;
+import com.example.parkinson.model.general_models.Medication;
+import com.example.parkinson.model.general_models.Report;
 import com.example.parkinson.model.question_models.Questionnaire;
 import com.example.parkinson.model.user_models.Patient;
 import com.example.parkinson.network.Authentication;
@@ -57,6 +60,10 @@ public class UserRepository {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addListenerForSingleValueEvent(listener);
     }
 
+    public void postReport(Report report) {
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.REPORTS.name).push().setValue(report);
+    }
+
     /** Login to firebase with username and password **/
     public void login(String username, String password, OnCompleteListener listener) {
         if (!username.isEmpty() && !password.isEmpty()) {
@@ -78,5 +85,17 @@ public class UserRepository {
     public void updateCurrentUser() {
         authenticator.updateCurrentUser();
     }
+
+
+    //Test
+    public void updateMedications(){
+        Medication med = new Medication("-MRCJXfvzZoRDq05cdhJ","-MRCJXfsI1M0VnZRR0rW" ,"מדופאר 62.5" , 0,null);
+        Medication med1 = new Medication("-MRCJXfyYKZgwXIO7e7a","-MRCJXfsI1M0VnZRR0rW" ,"מדופאר 50" , 0,null);
+        Medication med2 = new Medication("-MRCJXfzH4qGc0RvKxZ3","-MRCJXfsI1M0VnZRR0rW" ,"מדופאר 125" , 0,null);
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(med.getId()).setValue(med);
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(med1.getId()).setValue(med1);
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(med2.getId()).setValue(med2);
+    }
+
 
 }

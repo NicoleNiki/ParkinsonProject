@@ -30,6 +30,9 @@
             app:exitAnim="@anim/slide_right_exit"
             app:popEnterAnim="@anim/slide_left_enter"
             app:popExitAnim="@anim/slide_left_exit"/>
+        <action
+            android:id="@+id/action_mainFragment_to_NotificationFragment"
+            app:destination="@id/NotificationFragment" />
 
     </fragment>
 
@@ -49,7 +52,40 @@
         android:id="@+id/medicineFragment"
         android:name="com.example.parkinson.features.medicine.MedicineFragment"
         android:label="MedicineFragment"
-        tools:layout="@layout/fragment_medicine"/>
+        tools:layout="@layout/fragment_medicine">
+        <action
+            android:id="@+id/action_medicineFragment_to_MedicineCategoryFragment"
+            app:destination="@id/MedicineCategoryFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_right_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_left_exit"/>
+    </fragment>
 
+    <fragment
+        android:id="@+id/MedicineCategoryFragment"
+        android:name="com.example.parkinson.features.medicine.add_new_medicine.medication_categories.MedicineCategoryFragment"
+        android:label="MedicineCategoryFragment"
+        tools:layout="@layout/fragment_medicine_category_list">
+        <action
+            android:id="@+id/action_MedicineCategoryFragment_to_MedicineListFragment"
+            app:destination="@id/MedicineListFragment"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_right_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_left_exit"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/MedicineListFragment"
+        android:name="com.example.parkinson.features.medicine.add_new_medicine.medication_list.MedicineListFragment"
+        android:label="MedicineListFragment"
+        tools:layout="@layout/fragment_medicine_list"/>
+
+    <fragment
+        android:id="@+id/NotificationFragment"
+        android:name="com.example.parkinson.features.notification.NotificationFragment"
+        android:label="NotificationFragment"
+        tools:layout="@layout/fragment_notification"/>
 
 </navigation>

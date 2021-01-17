@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -98,7 +99,7 @@ public class QuestionnaireViewModel {
                             questionList.add(question);
                         }
 
-                    questionnaire = new Questionnaire(questionList,null);
+                    questionnaire = new Questionnaire(questionList, Calendar.getInstance().getTime());
                     questionnaireDataEvent.setValue(questionnaire);
                     isLoading.postValue(false);
                 }

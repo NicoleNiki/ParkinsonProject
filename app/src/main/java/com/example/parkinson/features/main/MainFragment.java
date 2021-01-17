@@ -1,6 +1,11 @@
 package com.example.parkinson.features.main;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +13,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -66,7 +73,7 @@ public class MainFragment extends Fragment {
             openQuestionnaireFragment(view);
         });
         reportBtn.setOnClickListener(v -> {
-            // not implemented yet
+            openReportFragment(view);
         });
 
     }
@@ -102,4 +109,11 @@ public class MainFragment extends Fragment {
         NavDirections action = MainFragmentDirections.actionMainFragmentToMedicineFragment();
         Navigation.findNavController(view).navigate(action);
     }
+
+    private void openReportFragment(View view) {
+        NavDirections action = MainFragmentDirections.actionMainFragmentToNotificationFragment();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+
 }
