@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4be5dc</color>
-    <color name="colorPrimaryDark">#41cea5</color>
+    <color name="colorPrimary">@color/aqua_marine</color>
+    <color name="colorPrimary50">#8041CEA5</color>
+    <color name="colorPrimaryDark">@color/bright_cyan_two</color>
     <color name="colorAccent">#80d4d4d4</color>
 
     <color name="transparent">#00000000</color>
 
-    <color name="black">#000000</color>
+
+
+    <color name="black">#333333</color>
     <color name="black_two">#333333</color>
     <color name="black_three">#121212</color>
     <color name="black_10">#16000000</color>
@@ -28,15 +31,17 @@
     <color name="almost_black_10">#160a0b12</color>
     <color name="grey">#b4b5b7</color>
     <color name="brownish_grey">#676767</color>
+    <color name="gray_black">#2D2D2E</color>
+    <color name="gray_black_light">#E64A4A4A</color>
 
-    <color name="numpad_grey">#4d5b69</color>
 
+    <color name="brown">#404040</color>
+    <color name="dark_blue">#335a75</color>
     <color name="aqua_marine">#41cea5</color>
-    <color name="bright_cyan">#4be5dc</color>
+    <color name="bright_cyan">#4ae4d9</color>
     <color name="brownish_grey_two">#6a6a6a</color>
-    <color name="bright_cyan_two">#4ae4d9</color>
+    <color name="bright_cyan_two">#56CCF2</color>
     <color name="very_light_pink_50">#80d4d4d4</color>
-
     <color name="slate">#3f675f</color>
     <color name="pale_teal">#7dccbd</color>
     <color name="pale_teal_20">#327dccbd</color>
@@ -44,5 +49,15 @@
     <color name="brown_grey_50">#80979797</color>
     <color name="cool_grey">#9b9c9d</color>
     <color name="light_blue_grey">#d4d4d5</color>
-    <color name="faded_red">#e5455c</color>
+
+
+    <color name="light_green">#B3F2CD</color>
+    <color name="light_red">#e5455c</color>
+    <color name="light_blue">#E1F1ED</color>
+    <color name="light_yellow">#faedbe</color>
+
+
+
+
+
 </resources>

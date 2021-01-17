@@ -1,17 +1,27 @@
 package com.example.parkinson.model.question_models;
 
-public class OpenQuestion extends Question {
-    private String m_Answer;
+import com.example.parkinson.model.enums.EQuestionType;
 
-    public OpenQuestion(String title) {
-        super(title);
+public class OpenQuestion extends Question {
+    private String answer;
+
+    public OpenQuestion() {
+        super("", null);
     }
 
+    public OpenQuestion(String title, EQuestionType type, String answer) {
+        super(title, type);
+        this.answer = answer;
+    }
+    public OpenQuestion(String title, EQuestionType type) {
+        super(title, type);
+        this.answer = null;
+    }
     public String getAnswer() {
-        return m_Answer;
+        return answer;
     }
 
     public void setAnswer(String answer) {
-        m_Answer = answer;
+        this.answer = answer;
     }
 }

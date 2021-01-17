@@ -3,33 +3,64 @@ package com.example.parkinson.model.general_models;
 import java.util.List;
 
 public class Medication {
-    private final String m_Name;
-    private int m_Dosage;
-    List<Time> m_Hours_Arr;
+    private String id;
+    private String categoryId;
 
-    public Medication(String name, int dosage, List<Time> hours_Arr) {
-        m_Name = name;
-        m_Dosage = dosage;
-        m_Hours_Arr = hours_Arr;
+    private String name;
+    private int dosage;
+    List<Time> hoursArr;
+
+    public Medication(){
+
     }
 
-    public String getName() {
-        return m_Name;
+    public Medication(String id, String categoryId,String name, int dosage, List<Time> hoursArr) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.name = name;
+        this.dosage = dosage;
+        this.hoursArr = hoursArr;
+        this.categoryId = categoryId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() { return name; }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getDosage() {
-        return m_Dosage;
+        return dosage;
     }
 
     public void setDosage(int dosage) {
-        m_Dosage = dosage;
+        this.dosage = dosage;
     }
 
-    public List<Time> getHours_Arr() {
-        return m_Hours_Arr;
+    public List<Time> getHoursArr() {
+        return hoursArr;
     }
 
-    public void setHours_Arr(List<Time> hours_Arr) {
-        m_Hours_Arr = hours_Arr;
+    public void setHoursArr(List<Time> hoursArr) {
+        this.hoursArr = hoursArr;
     }
+
+
+
 }

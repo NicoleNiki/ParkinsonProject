@@ -1,156 +1,130 @@
 package com.example.parkinson.model.user_models;
 
 import com.example.parkinson.model.enums.EClinics;
+import com.example.parkinson.model.question_models.Questionnaire;
 
 import java.util.Date;
 
 public class Patient {
-    private  String m_Name, m_ID, m_Birth_Country;
-    private String m_Phone_Number, m_Email, m_Clinic_Name;
-    private int m_Education_Years;
-    private Date m_Birth_Date;
-    private EClinics m_Clinics;
+    private  String name, ID, birthCountry;
+    private String phoneNumber, email, clinicName;
+    private int educationYears;
+    private Date birthDate;
+    private EClinics clinics;
 
-    public Patient() {
-    }
+    private Boolean hasUnansweredQuestionnaire;
 
-    public Patient(String name, String ID, String birth_Country, String phone_Number, String email, String clinic_Name, int education_Years, Date birth_Date, EClinics clinics) {
-        m_Name = name;
-        this.m_ID = ID;
-        m_Birth_Country = birth_Country;
-        m_Phone_Number = phone_Number;
-        m_Email = email;
-        m_Clinic_Name = clinic_Name;
-        m_Education_Years = education_Years;
-        m_Birth_Date = birth_Date;
-        m_Clinics = clinics;
+    private Boolean needToUpdateMedicine;
+    public Patient() {}
+
+    public Patient(String name, String ID, String birthCountry, String phoneNumber, String email, String clinicName, int educationYears, Date birthDate, EClinics clinics, Boolean hasUnansweredQuestionnaire, Boolean needToUpdateMedicine) {
+        this.name = name;
+        this.ID = ID;
+        this.birthCountry = birthCountry;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.clinicName = clinicName;
+        this.educationYears = educationYears;
+        this.birthDate = birthDate;
+        this.clinics = clinics;
+        this.hasUnansweredQuestionnaire = hasUnansweredQuestionnaire;
+        this.needToUpdateMedicine = needToUpdateMedicine;
     }
 
     public String getName() {
-        return m_Name;
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getID() {
-        return m_ID;
+        return ID;
     }
 
-    public String getBirth_Country() {
-        return m_Birth_Country;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public Date getBirth_Date() {
-        return m_Birth_Date;
+    public String getBirthCountry() {
+        return birthCountry;
     }
 
-    public String getPhone_Number() {
-        return m_Phone_Number;
+    public void setBirthCountry(String birthCountry) {
+        this.birthCountry = birthCountry;
     }
 
-    public void setPhone_Number(String phone_Number) {
-        m_Phone_Number = phone_Number;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
-        return m_Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        m_Email = email;
+        this.email = email;
     }
 
-    public String getClinic_Name() {
-        return m_Clinic_Name;
+    public String getClinicName() {
+        return clinicName;
     }
 
-    public void setClinic_Name(String clinic_Name) {
-        m_Clinic_Name = clinic_Name;
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
     }
 
-    public int getEducation_Years() {
-        return m_Education_Years;
+    public int getEducationYears() {
+        return educationYears;
     }
 
-    public void setEducation_Years(int education_Years) {
-        m_Education_Years = education_Years;
+    public void setEducationYears(int educationYears) {
+        this.educationYears = educationYears;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public EClinics getClinics() {
-        return m_Clinics;
+        return clinics;
     }
 
     public void setClinics(EClinics clinics) {
-        m_Clinics = clinics;
+        this.clinics = clinics;
     }
 
-    public String getM_Name() {
-        return m_Name;
+    public Boolean getHasUnansweredQuestionnaire() {
+        if(hasUnansweredQuestionnaire != null){
+            return hasUnansweredQuestionnaire;
+        } else {
+            return true;
+        }
     }
 
-    public String getM_ID() {
-        return m_ID;
+    public void setHasUnansweredQuestionnaire(Boolean hasUnansweredQuestionnaire) {
+        this.hasUnansweredQuestionnaire = hasUnansweredQuestionnaire;
     }
 
-    public String getM_Birth_Country() {
-        return m_Birth_Country;
+    public Boolean getNeedToUpdateMedicine() {
+        if(needToUpdateMedicine != null){
+            return hasUnansweredQuestionnaire;
+        } else {
+            return true;
+        }
     }
 
-    public String getM_Phone_Number() {
-        return m_Phone_Number;
+    public void setNeedToUpdateMedicine(Boolean needToUpdateMedicine) {
+        this.needToUpdateMedicine = needToUpdateMedicine;
     }
 
-    public void setM_Phone_Number(String m_Phone_Number) {
-        this.m_Phone_Number = m_Phone_Number;
-    }
-
-    public String getM_Email() {
-        return m_Email;
-    }
-
-    public void setM_Email(String m_Email) {
-        this.m_Email = m_Email;
-    }
-
-    public String getM_Clinic_Name() {
-        return m_Clinic_Name;
-    }
-
-    public void setM_Clinic_Name(String m_Clinic_Name) {
-        this.m_Clinic_Name = m_Clinic_Name;
-    }
-
-    public int getM_Education_Years() {
-        return m_Education_Years;
-    }
-
-    public void setM_Education_Years(int m_Education_Years) {
-        this.m_Education_Years = m_Education_Years;
-    }
-
-    public Date getM_Birth_Date() {
-        return m_Birth_Date;
-    }
-
-    public void setM_Birth_Date(Date m_Birth_Date) {
-        this.m_Birth_Date = m_Birth_Date;
-    }
-
-    public EClinics getM_Clinics() {
-        return m_Clinics;
-    }
-
-    public void setM_Clinics(EClinics m_Clinics) {
-        this.m_Clinics = m_Clinics;
-    }
-
-    public void setM_Name(String m_Name) {
-        this.m_Name = m_Name;
-    }
-
-    public void setM_ID(String m_ID) {
-        this.m_ID = m_ID;
-    }
-
-    public void setM_Birth_Country(String m_Birth_Country) {
-        this.m_Birth_Country = m_Birth_Country;
-    }
 }

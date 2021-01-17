@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ParkinsonProject</string>
+    <string name="login">כניסה</string>
+    <string name="password">סיסמה</string>
+    <string name="user_name">שם משתמש</string>
+    <string name="login_screen">מסך התחברות</string>
+</resources>

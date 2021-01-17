@@ -8,11 +8,13 @@ import androidx.lifecycle.Observer;
 
 import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
+import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingViewModel;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -48,11 +50,13 @@ public class SplashActivity extends AppCompatActivity {
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void openOnBoardingActivity() {
         Intent intent = new Intent(this, OnBoardingActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

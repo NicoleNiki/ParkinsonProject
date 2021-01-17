@@ -1,23 +1,25 @@
 package com.example.parkinson.features.main;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
-import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
-import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.model.user_models.Patient;
 
 import javax.inject.Inject;
@@ -27,17 +29,20 @@ public class MainFragment extends Fragment {
     @Inject
     MainViewModel mainViewModel;
 
+    CardView medicineBtn;
+    CardView questionnaireBtn;
+    CardView reportBtn;
+
+    ImageView medicineBadge;
+    ImageView questionnaireBadge;
+
     public MainFragment() {
         super(R.layout.fragment_main);
     }
 
-    TextView userName;
-    TextView email;
-    Button logOutBtn;
-
     @Override
     public void onAttach(@NonNull Context context) {
-        ((ParkinsonApplication) requireActivity().getApplicationContext()).appComponent.inject(this);
+        ((MainActivity) getActivity()).mainComponent.inject(this);
         super.onAttach(context);
     }
 
@@ -46,33 +51,69 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mainViewModel.initData();
+        initViews(view);
         initUi(view);
         initObservers();
+
+    }
+
+    private void initViews(View view) {
+        medicineBtn = view.findViewById(R.id.mainFragMedicineBtn);
+        questionnaireBtn = view.findViewById(R.id.mainFragQuestionnaireBtn);
+        reportBtn = view.findViewById(R.id.mainFragReportBtn);
+        medicineBadge = view.findViewById(R.id.mainFragMedicineBadge);
+        questionnaireBadge = view.findViewById(R.id.mainFragQuestionnaireBadge);
     }
 
     private void initUi(View view) {
-        userName = view.findViewById(R.id.mainFragUserName);
-        email = view.findViewById(R.id.mainFragEmail);
-        logOutBtn = view.findViewById(R.id.mainFragLogoutBtn);
-
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainViewModel.logOut();
-
-            }
+        medicineBtn.setOnClickListener(v -> {
+            openMedicineFragment(view);
+        });
+        questionnaireBtn.setOnClickListener(v -> {
+            openQuestionnaireFragment(view);
+        });
+        reportBtn.setOnClickListener(v -> {
+            openReportFragment(view);
         });
 
     }
 
     private void initObservers() {
-        mainViewModel.patientEvent.observe(getViewLifecycleOwner(), new Observer<Patient>() {
-            @Override
-            public void onChanged(Patient patient) {
-                userName.setText(patient.getName());
-                email.setText(patient.getEmail());
-            }
+        mainViewModel.patientEvent.observe(getViewLifecycleOwner(), patient -> {
+            handlePatientData(patient);
         });
 
     }
+
+    private void handlePatientData(Patient patient) {
+        if (patient.getHasUnansweredQuestionnaire()) {
+            questionnaireBadge.setVisibility(View.VISIBLE);
+        } else {
+            questionnaireBadge.setVisibility(View.INVISIBLE);
+        }
+
+        if (patient.getNeedToUpdateMedicine()) {
+            medicineBadge.setVisibility(View.VISIBLE);
+        } else {
+            medicineBadge.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /** Navigates to QuestionnaireFragment with NavigationController with isNewQuestionnaire Args **/
+    private void openQuestionnaireFragment(View view){
+        NavDirections action = MainFragmentDirections.actionMainFragmentToQuestionnaireFragment(mainViewModel.patientEvent.getValue().getHasUnansweredQuestionnaire());
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    private void openMedicineFragment(View view) {
+        NavDirections action = MainFragmentDirections.actionMainFragmentToMedicineFragment();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    private void openReportFragment(View view) {
+        NavDirections action = MainFragmentDirections.actionMainFragmentToNotificationFragment();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+
 }

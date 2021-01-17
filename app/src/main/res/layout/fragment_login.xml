@@ -1,67 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/light_blue"
+    android:orientation="vertical">
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/aqua_marine"
-        android:text="Login Screen"
-        android:padding="23dp"
-        style="@style/Bold21White"/>
+        android:layout_marginBottom="15dp"
+        android:elevation="8dp"
+        app:cardElevation="10dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black_two" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
+
+
+        <TextView
+            style="@style/Title25White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_login"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/assistant_extrabold"
+            android:gravity="start"
+            android:paddingEnd="50dp"
+            android:paddingHorizontal="23dp"
+            android:paddingVertical="17dp"
+            android:text="התחברות"
+            android:textSize="30sp"
+            android:layout_gravity="center"/>
+
+
+    </androidx.cardview.widget.CardView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="50dp"
-        android:padding="23dp">
+        android:orientation="vertical"
+        android:padding="13dp">
 
         <TextView
-            style="@style/Bold19Black"
+            style="@style/Bold23Black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User name" />
+            android:layout_marginHorizontal="10dp"
+            android:paddingBottom="8dp"
+            android:text="@string/user_name" />
 
-        <EditText
-            android:id="@+id/loginFragUserName"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Reg15Black"
-            android:padding="10dp"
-            android:backgroundTint="@color/grey"/>
+            android:layout_margin="10dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0.0px"
+            android:elevation="8dp"
+            app:cardCornerRadius="10dp"
+            card_view:cardElevation="10dp"
+            card_view:cardPreventCornerOverlap="false">
+
+
+            <EditText
+                android:id="@+id/loginFragUserName"
+                style="@style/SemiBold17Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:backgroundTint="@color/grey"
+                android:padding="15dp" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            style="@style/Bold19Black"
+            style="@style/Bold23Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:paddingTop="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password" />
+            android:paddingBottom="8dp"
+            android:text="@string/password" />
 
-        <EditText
-            android:id="@+id/loginFragPassword"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Reg15Black"
-            android:padding="10dp"
-            android:backgroundTint="@color/grey"/>
+            android:layout_margin="10dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0.0px"
+            android:elevation="8dp"
+            app:cardCornerRadius="10dp"
+            card_view:cardElevation="10dp"
+            card_view:cardPreventCornerOverlap="false">
+
+            <EditText
+                android:id="@+id/loginFragPassword"
+                style="@style/SemiBold17Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:backgroundTint="@color/grey"
+                android:inputType="textPassword"
+                android:padding="15dp" />
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/loginFragLoginBtn"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:background="@color/aqua_marine"
-        android:text="Login"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="20dp"
-        style="@style/Bold23White"
-        android:layout_margin="23dp"/>
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="10dp"
+        android:divider="@android:color/transparent"
+        android:elevation="8dp"
+        app:cardCornerRadius="50dp"
+        card_view:cardElevation="10dp"
+        card_view:cardPreventCornerOverlap="false">
+
+        <TextView
+            android:id="@+id/loginFragLoginBtn"
+            style="@style/Bold21White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:background="@drawable/btn_rectangle_blue"
+            android:gravity="center"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="20dp"
+            android:text="@string/login" />
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

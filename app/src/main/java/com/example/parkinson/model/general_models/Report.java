@@ -2,28 +2,30 @@ package com.example.parkinson.model.general_models;
 
 import com.example.parkinson.model.enums.EStatus;
 
+import java.util.Date;
+
 public class Report {
-    private Time m_Report_Time;
-    private EStatus m_Status;
+    private Date reportTime;
+    private EStatus status;
 
-    public Report(Time report_Time, EStatus status) {
-        m_Report_Time = report_Time;
-        this.m_Status = status;
+    public Report(Date reportTime, EStatus status) {
+        this.reportTime = reportTime;
+        this.status = status;
     }
 
-    public Time getReport_Time() {
-        return m_Report_Time;
+    public Date getReportTime() {
+        return reportTime;
     }
 
-    public void setReport_Time(Time report_Time) {
-        m_Report_Time = report_Time;
+    public void setReportTime(Date reportTime) {
+        this.reportTime = reportTime;
     }
 
     public EStatus getStatus() {
-        return m_Status;
+        return status;
     }
 
     public void setStatus(EStatus status) {
-        this.m_Status = status;
+        this.status = status;
     }
 }
