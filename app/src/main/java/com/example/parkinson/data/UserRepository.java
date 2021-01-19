@@ -12,6 +12,7 @@ import com.example.parkinson.network.Authentication;
 import com.example.parkinson.network.DatabaseManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -56,8 +57,19 @@ public class UserRepository {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).child("hasUnansweredQuestionnaire").setValue(false);
     }
 
-    public void getMedicationList(ValueEventListener listener){
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addListenerForSingleValueEvent(listener);
+    public void getMedicationList(ChildEventListener listener){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addChildEventListener(listener);
+    }
+
+    public void postMedication(Medication medication){
+        // todo: remove set after test
+        Medication newMedication = new Medication(medication.getId(),medication.getCategoryId(),medication.getName(),2,medication.getHoursArr());
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).child("needToUpdateMedicine").setValue(false);
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medication.getId()).setValue(newMedication);
+    }
+
+    public void deleteMedication(Medication medication){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medication.getId()).setValue(null);
     }
 
     public void postReport(Report report) {
@@ -85,17 +97,5 @@ public class UserRepository {
     public void updateCurrentUser() {
         authenticator.updateCurrentUser();
     }
-
-
-    //Test
-    public void updateMedications(){
-        Medication med = new Medication("-MRCJXfvzZoRDq05cdhJ","-MRCJXfsI1M0VnZRR0rW" ,"מדופאר 62.5" , 0,null);
-        Medication med1 = new Medication("-MRCJXfyYKZgwXIO7e7a","-MRCJXfsI1M0VnZRR0rW" ,"מדופאר 50" , 0,null);
-        Medication med2 = new Medication("-MRCJXfzH4qGc0RvKxZ3","-MRCJXfsI1M0VnZRR0rW" ,"מדופאר 125" , 0,null);
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(med.getId()).setValue(med);
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(med1.getId()).setValue(med1);
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(med2.getId()).setValue(med2);
-    }
-
 
 }

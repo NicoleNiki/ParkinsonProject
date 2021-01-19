@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/bright_cyan_two</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/bright_cyan</item>
+    </style>
+
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Set this to true if you want Full Screen without status bar -->
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <!-- This is important! Don't forget to set window background -->
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:statusBarColor" tools:targetApi="23">@color/transparent</item>
     </style>
 
     <!--       Spartan Regular       -->
@@ -253,6 +265,12 @@
     <style name="Bold13Primary">
         <item name="android:fontFamily">@font/rubik_bold</item>
         <item name="android:textSize">13.4sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Bold15Primary">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">15.4sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 

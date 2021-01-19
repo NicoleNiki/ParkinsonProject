@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
-import com.example.parkinson.features.medicine.MedicineFragmentDirections;
 import com.example.parkinson.features.medicine.MedicineViewModel;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_categories.MedicineCategoryAdapter.MedicineCategoryAdapterListener;
 import com.example.parkinson.model.general_models.MedicationCategory;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,18 +45,22 @@ public class MedicineCategoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
-        initUi(view);
-        initObservers();
+        initObservers(view);
 
     }
 
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.medicineCategoryFragRecycler);
     }
+    private void initObservers(View view) {
+        medicineViewModel.categoryListData.observe(getViewLifecycleOwner(), categories -> {
+            handleListData(categories, view);
+        });
+    }
 
-    private void initUi(View view) {
+    private void handleListData(List<MedicationCategory> categories, View view){
         MedicineCategoryAdapterListener listener = getAdapterListener(view);
-        adapter = new MedicineCategoryAdapter(medicineViewModel.getMedicationCategoriesList(),listener);
+        adapter = new MedicineCategoryAdapter(categories ,listener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -64,15 +69,13 @@ public class MedicineCategoryFragment extends Fragment {
     private MedicineCategoryAdapterListener getAdapterListener(View view) {
         return new MedicineCategoryAdapterListener() {
             @Override
-            public void onCategoryClick(MedicationCategory medicationCategory) {
-                medicineViewModel.filterCategory(medicationCategory);
+            public void onCategoryClick(int chosenCategoryPosition) {
+                medicineViewModel.filterCategory(chosenCategoryPosition);
                 NavDirections action = MedicineCategoryFragmentDirections.actionMedicineCategoryFragmentToMedicineListFragment();
                 Navigation.findNavController(view).navigate(action);
             }
         };
     }
 
-    private void initObservers() {
 
-    }
 }

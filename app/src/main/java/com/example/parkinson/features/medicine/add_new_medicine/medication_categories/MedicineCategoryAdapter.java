@@ -20,7 +20,7 @@ public class MedicineCategoryAdapter extends RecyclerView.Adapter<MedicineCatego
     MedicineCategoryAdapterListener listener;
 
     interface MedicineCategoryAdapterListener {
-        void onCategoryClick(MedicationCategory medicationCategory);
+        void onCategoryClick(int chosenCategoryPosition);
     }
 
     public MedicineCategoryAdapter(List<MedicationCategory> categories, MedicineCategoryAdapterListener listener) {
@@ -52,7 +52,7 @@ public class MedicineCategoryAdapter extends RecyclerView.Adapter<MedicineCatego
         MedicationCategory category = categories.get(position);
         holder.categoryName.setText(category.getCategoryName());
         holder.itemView.setOnClickListener(v -> {
-            listener.onCategoryClick(category);
+            listener.onCategoryClick(position);
         });
     }
 

@@ -15,6 +15,7 @@ import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.medicine.MedicineViewModel;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_list.MedicineListAdapter.MedicineListAdapterListener;
+import com.example.parkinson.model.general_models.Medication;
 import com.example.parkinson.model.general_models.MedicationCategory;
 
 import java.util.Locale;
@@ -61,8 +62,16 @@ public class MedicineListFragment extends Fragment {
     }
 
     private MedicineListAdapterListener getAdapterListener() {
-        return medicationCategory -> {
+        return new MedicineListAdapterListener() {
+            @Override
+            public void onMedicineClick(Medication medication) {
+                if (medication.getDosage() == 0) {
+                    medicineViewModel.addNewMedicine(medication);
+                } else {
+                    medicineViewModel.removeMedicine(medication);
+                }
 
+            }
         };
     }
 
