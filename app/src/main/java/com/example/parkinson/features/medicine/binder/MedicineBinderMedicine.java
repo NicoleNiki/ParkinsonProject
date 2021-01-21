@@ -5,12 +5,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.parkinson.R;
-import com.example.parkinson.model.general_models.Medication;
+import com.example.parkinson.model.general_models.Medicine;
 
 import mva2.adapter.ItemBinder;
 import mva2.adapter.ItemViewHolder;
 
-public class MedicineBinderMedicine extends ItemBinder<Medication, MedicineBinderMedicine.ViewHolder> {
+public class MedicineBinderMedicine extends ItemBinder<Medicine, MedicineBinderMedicine.ViewHolder> {
 
     @Override
     public ViewHolder createViewHolder(ViewGroup parent) {
@@ -19,15 +19,15 @@ public class MedicineBinderMedicine extends ItemBinder<Medication, MedicineBinde
 
     @Override
     public boolean canBindData(Object item) {
-        return item instanceof Medication;
+        return item instanceof Medicine;
     }
 
     @Override
-    public void bindViewHolder(ViewHolder holder, Medication item) {
+    public void bindViewHolder(ViewHolder holder, Medicine item) {
         holder.name.setText(item.getName());
     }
 
-    static class ViewHolder extends ItemViewHolder<Medication> {
+    static class ViewHolder extends ItemViewHolder<Medicine> {
         TextView name;
 
         public ViewHolder(View itemView) {

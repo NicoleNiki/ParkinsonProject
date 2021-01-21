@@ -4,7 +4,6 @@ package com.example.parkinson.features.medicine.add_new_medicine.medication_list
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,22 +11,20 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
-import com.example.parkinson.model.general_models.Medication;
-import com.example.parkinson.model.general_models.MedicationCategory;
-
-import java.util.List;
+import com.example.parkinson.model.general_models.Medicine;
+import com.example.parkinson.model.general_models.MedicineCategory;
 
 
 public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapter.ViewHolder> {
 
-    MedicationCategory category;
+    MedicineCategory category;
     MedicineListAdapterListener listener;
 
     interface MedicineListAdapterListener {
-        void onMedicineClick(Medication medication);
+        void onMedicineClick(Medicine medicine);
     }
 
-    public MedicineListAdapter(MedicationCategory category, MedicineListAdapterListener listener) {
+    public MedicineListAdapter(MedicineCategory category, MedicineListAdapterListener listener) {
         this.category = category;
         this.listener = listener;
     }
@@ -42,7 +39,7 @@ public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapte
 
     @Override
     public int getItemCount() {
-        return category.getMedicationList().size();
+        return category.getMedicineList().size();
     }
 
     @Override
@@ -53,7 +50,7 @@ public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Medication medicine = category.getMedicationList().get(position);
+        Medicine medicine = category.getMedicineList().get(position);
         holder.name.setText(medicine.getName());
         holder.itemView.setOnClickListener(v -> {
             listener.onMedicineClick(medicine);

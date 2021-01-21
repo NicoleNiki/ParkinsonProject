@@ -9,21 +9,21 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
-import com.example.parkinson.model.general_models.MedicationCategory;
+import com.example.parkinson.model.general_models.MedicineCategory;
 
 import java.util.List;
 
 
 public class MedicineCategoryAdapter extends RecyclerView.Adapter<MedicineCategoryAdapter.ViewHolder> {
 
-    List<MedicationCategory> categories;
+    List<MedicineCategory> categories;
     MedicineCategoryAdapterListener listener;
 
     interface MedicineCategoryAdapterListener {
         void onCategoryClick(int chosenCategoryPosition);
     }
 
-    public MedicineCategoryAdapter(List<MedicationCategory> categories, MedicineCategoryAdapterListener listener) {
+    public MedicineCategoryAdapter(List<MedicineCategory> categories, MedicineCategoryAdapterListener listener) {
         this.categories = categories;
         this.listener = listener;
     }
@@ -49,7 +49,7 @@ public class MedicineCategoryAdapter extends RecyclerView.Adapter<MedicineCatego
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MedicationCategory category = categories.get(position);
+        MedicineCategory category = categories.get(position);
         holder.categoryName.setText(category.getCategoryName());
         holder.itemView.setOnClickListener(v -> {
             listener.onCategoryClick(position);

@@ -2,20 +2,16 @@ package com.example.parkinson.features.medicine;
 
 import com.example.parkinson.features.medicine.binder.MedicineBinderHeader;
 import com.example.parkinson.features.medicine.binder.MedicineBinderMedicine;
-import com.example.parkinson.model.general_models.Medication;
-import com.example.parkinson.model.general_models.MedicationCategory;
+import com.example.parkinson.model.general_models.Medicine;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import mva2.adapter.HeaderSection;
 import mva2.adapter.ListSection;
 import mva2.adapter.MultiViewAdapter;
-import mva2.adapter.Section;
 
-public class MedicineMainAdapter extends MultiViewAdapter {
+public class MyMedicinesMainAdapter extends MultiViewAdapter {
 
-    MedicineMainAdapter() {
+    MyMedicinesMainAdapter() {
         init();
     }
 
@@ -23,7 +19,7 @@ public class MedicineMainAdapter extends MultiViewAdapter {
         this.registerItemBinders(new MedicineBinderHeader(), new MedicineBinderMedicine());
     }
 
-    void updateMedicineList(List<Medication> list) {
+    void updateMedicineList(List<Medicine> list) {
 ////        for (MedicationCategory category : list) {
 ////            HeaderSection<String> headerSection = new HeaderSection<>(category.getCategoryName());
 //            ListSection<Medication> medicationListSection = new ListSection<>();
@@ -42,7 +38,7 @@ public class MedicineMainAdapter extends MultiViewAdapter {
 //            this.addSection(headerSection);
 
             this.removeAllSections();
-            ListSection<Medication> medicationListSection = new ListSection<>();
+            ListSection<Medicine> medicationListSection = new ListSection<>();
             medicationListSection.set(list);
             this.addSection(medicationListSection);
 

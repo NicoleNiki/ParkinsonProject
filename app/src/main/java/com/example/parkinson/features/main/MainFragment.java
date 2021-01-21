@@ -106,7 +106,7 @@ public class MainFragment extends Fragment {
     }
 
     private void openMedicineFragment(View view) {
-        NavDirections action = MainFragmentDirections.actionMainFragmentToMedicineFragment();
+        NavDirections action = MainFragmentDirections.actionMainFragmentToMyMedicinesFragment();
         Navigation.findNavController(view).navigate(action);
     }
 

@@ -2,15 +2,14 @@ package com.example.parkinson.features.medicine;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
 import com.example.parkinson.di.MainScope;
-import com.example.parkinson.model.general_models.Medication;
-import com.example.parkinson.model.general_models.MedicationCategory;
+import com.example.parkinson.model.general_models.Medicine;
+import com.example.parkinson.model.general_models.MedicineCategory;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -29,12 +27,12 @@ public class MedicineViewModel extends ViewModel {
     private final DataRepository dataRepository;
 
 
-    public MutableLiveData<List<Medication>> myMedicationData = new MutableLiveData<>();
-    public MutableLiveData<List<MedicationCategory>> categoryListData = new MutableLiveData<>();
-    public MutableLiveData<MedicationCategory> filteredCategory = new MutableLiveData<>();
+    public MutableLiveData<List<Medicine>> myMedicationData = new MutableLiveData<>();
+    public MutableLiveData<List<MedicineCategory>> categoryListData = new MutableLiveData<>();
+    public MutableLiveData<MedicineCategory> filteredCategory = new MutableLiveData<>();
 
     MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
-    HashMap<String, Medication> medicationHashMap = new HashMap<>();
+    HashMap<String, Medicine> medicationHashMap = new HashMap<>();
 
     // @Inject tells Dagger how to create instances of MainViewModel
     @Inject
@@ -49,14 +47,14 @@ public class MedicineViewModel extends ViewModel {
         dataRepository.getMedicineList(setMedicationCategoryListener());
     }
 
-    public void addNewMedicine(Medication medication) {
+    public void addNewMedicine(Medicine medicine) {
         isLoading.postValue(true);
-        userRepository.postMedication(medication);
+        userRepository.postMedication(medicine);
     }
 
-    public void removeMedicine(Medication medication) {
+    public void removeMedicine(Medicine medicine) {
         isLoading.postValue(true);
-        userRepository.deleteMedication(medication);
+        userRepository.deleteMedication(medicine);
     }
 
     private int currentChosenCategoryPosition = -1;
@@ -68,16 +66,16 @@ public class MedicineViewModel extends ViewModel {
 
     public void filterCategory(int chosenCategoryPosition) {
         currentChosenCategoryPosition = chosenCategoryPosition;
-        MedicationCategory chosenCategory = categoryListData.getValue().get(chosenCategoryPosition);
-        List<Medication> filteredList = new ArrayList<>();
-        for (Medication medication : chosenCategory.getMedicationList()) {
-            if (medicationHashMap.containsKey(medication.getId())) {
-                filteredList.add(medicationHashMap.get(medication.getId()));
+        MedicineCategory chosenCategory = categoryListData.getValue().get(chosenCategoryPosition);
+        List<Medicine> filteredList = new ArrayList<>();
+        for (Medicine medicine : chosenCategory.getMedicineList()) {
+            if (medicationHashMap.containsKey(medicine.getId())) {
+                filteredList.add(medicationHashMap.get(medicine.getId()));
             } else {
-                filteredList.add(medication);
+                filteredList.add(medicine);
             }
         }
-        filteredCategory.postValue(new MedicationCategory(chosenCategory.getCategoryName(),filteredList));
+        filteredCategory.postValue(new MedicineCategory(chosenCategory.getCategoryName(),filteredList));
     }
 
     private ValueEventListener setMedicationCategoryListener() {
@@ -86,16 +84,16 @@ public class MedicineViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //todo add no medication list
                 if (dataSnapshot.exists()) {
-                    List<MedicationCategory> medicationCategoriesList = new ArrayList<>();
+                    List<MedicineCategory> medicationCategoriesList = new ArrayList<>();
                     for (DataSnapshot category : dataSnapshot.getChildren()) {
-                        MedicationCategory currentCategory = new MedicationCategory();
+                        MedicineCategory currentCategory = new MedicineCategory();
                         String name = category.child("categoryName").getValue(String.class);
-                        List<Medication> medicationList = new ArrayList<>();
+                        List<Medicine> medicineList = new ArrayList<>();
                         for (DataSnapshot medication : category.child("medicationList").getChildren()) {
-                            medicationList.add(medication.getValue(Medication.class));
+                            medicineList.add(medication.getValue(Medicine.class));
                         }
                         currentCategory.setCategoryName(name);
-                        currentCategory.setMedicationList(medicationList);
+                        currentCategory.setMedicineList(medicineList);
                         medicationCategoriesList.add(currentCategory);
                     }
                     categoryListData.setValue(medicationCategoriesList);
@@ -116,9 +114,9 @@ public class MedicineViewModel extends ViewModel {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.exists()) {
-                    Medication med = snapshot.getValue(Medication.class);
+                    Medicine med = snapshot.getValue(Medicine.class);
                     medicationHashMap.put(med.getId(), med);
-                    List<Medication> list = new ArrayList<Medication>(medicationHashMap.values());
+                    List<Medicine> list = new ArrayList<Medicine>(medicationHashMap.values());
                     myMedicationData.setValue(list);
                     updateFilteredCategory();
                     isLoading.postValue(false);
@@ -128,10 +126,10 @@ public class MedicineViewModel extends ViewModel {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.exists()) {
-                    Medication med = snapshot.getValue(Medication.class);
+                    Medicine med = snapshot.getValue(Medicine.class);
                     medicationHashMap.put(med.getId(), med);
                 }
-                List<Medication> list = new ArrayList<Medication>(medicationHashMap.values());
+                List<Medicine> list = new ArrayList<Medicine>(medicationHashMap.values());
                 myMedicationData.setValue(list);
                 updateFilteredCategory();
                 isLoading.postValue(false);
@@ -140,10 +138,10 @@ public class MedicineViewModel extends ViewModel {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Medication med = snapshot.getValue(Medication.class);
+                    Medicine med = snapshot.getValue(Medicine.class);
                     medicationHashMap.remove(med.getId());
                 }
-                List<Medication> list = new ArrayList<Medication>(medicationHashMap.values());
+                List<Medicine> list = new ArrayList<Medicine>(medicationHashMap.values());
                 myMedicationData.setValue(list);
                 updateFilteredCategory();
                 isLoading.postValue(false);

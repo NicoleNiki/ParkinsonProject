@@ -3,8 +3,7 @@ package com.example.parkinson.data;
 
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.data.enums.EDataSourceUser;
-import com.example.parkinson.model.enums.EStatus;
-import com.example.parkinson.model.general_models.Medication;
+import com.example.parkinson.model.general_models.Medicine;
 import com.example.parkinson.model.general_models.Report;
 import com.example.parkinson.model.question_models.Questionnaire;
 import com.example.parkinson.model.user_models.Patient;
@@ -14,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -61,15 +59,15 @@ public class UserRepository {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addChildEventListener(listener);
     }
 
-    public void postMedication(Medication medication){
+    public void postMedication(Medicine medicine){
         // todo: remove set after test
-        Medication newMedication = new Medication(medication.getId(),medication.getCategoryId(),medication.getName(),2,medication.getHoursArr());
+        Medicine newMedicine = new Medicine(medicine.getId(), medicine.getCategoryId(), medicine.getName(),2, medicine.getHoursArr());
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).child("needToUpdateMedicine").setValue(false);
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medication.getId()).setValue(newMedication);
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medicine.getId()).setValue(newMedicine);
     }
 
-    public void deleteMedication(Medication medication){
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medication.getId()).setValue(null);
+    public void deleteMedication(Medicine medicine){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medicine.getId()).setValue(null);
     }
 
     public void postReport(Report report) {

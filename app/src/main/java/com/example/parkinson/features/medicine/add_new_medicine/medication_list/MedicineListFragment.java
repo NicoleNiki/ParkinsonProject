@@ -15,11 +15,8 @@ import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.medicine.MedicineViewModel;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_list.MedicineListAdapter.MedicineListAdapterListener;
-import com.example.parkinson.model.general_models.Medication;
-import com.example.parkinson.model.general_models.MedicationCategory;
-
-import java.util.Locale;
-import java.util.Observer;
+import com.example.parkinson.model.general_models.Medicine;
+import com.example.parkinson.model.general_models.MedicineCategory;
 
 import javax.inject.Inject;
 
@@ -30,7 +27,7 @@ public class MedicineListFragment extends Fragment {
 
     RecyclerView recyclerView;
     MedicineListAdapter adapter;
-    MedicationCategory category;
+    MedicineCategory category;
 
     public MedicineListFragment(){
         super(R.layout.fragment_medicine_list);
@@ -64,11 +61,11 @@ public class MedicineListFragment extends Fragment {
     private MedicineListAdapterListener getAdapterListener() {
         return new MedicineListAdapterListener() {
             @Override
-            public void onMedicineClick(Medication medication) {
-                if (medication.getDosage() == 0) {
-                    medicineViewModel.addNewMedicine(medication);
+            public void onMedicineClick(Medicine medicine) {
+                if (medicine.getDosage() == 0) {
+                    medicineViewModel.addNewMedicine(medicine);
                 } else {
-                    medicineViewModel.removeMedicine(medication);
+                    medicineViewModel.removeMedicine(medicine);
                 }
 
             }

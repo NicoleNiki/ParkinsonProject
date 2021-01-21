@@ -2,7 +2,7 @@ package com.example.parkinson.model.general_models;
 
 import java.util.List;
 
-public class Medication {
+public class Medicine {
     private String id;
     private String categoryId;
 
@@ -10,11 +10,11 @@ public class Medication {
     private int dosage;
     List<Time> hoursArr;
 
-    public Medication(){
+    public Medicine(){
 
     }
 
-    public Medication(String id, String categoryId,String name, int dosage, List<Time> hoursArr) {
+    public Medicine(String id, String categoryId, String name, int dosage, List<Time> hoursArr) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;

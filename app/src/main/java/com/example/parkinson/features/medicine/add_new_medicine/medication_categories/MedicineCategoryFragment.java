@@ -16,7 +16,7 @@ import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.medicine.MedicineViewModel;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_categories.MedicineCategoryAdapter.MedicineCategoryAdapterListener;
-import com.example.parkinson.model.general_models.MedicationCategory;
+import com.example.parkinson.model.general_models.MedicineCategory;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class MedicineCategoryFragment extends Fragment {
         });
     }
 
-    private void handleListData(List<MedicationCategory> categories, View view){
+    private void handleListData(List<MedicineCategory> categories, View view){
         MedicineCategoryAdapterListener listener = getAdapterListener(view);
         adapter = new MedicineCategoryAdapter(categories ,listener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
