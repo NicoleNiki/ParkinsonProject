@@ -1,6 +1,7 @@
 package com.example.parkinson.features.notification;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -11,10 +12,14 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,20 +34,19 @@ import javax.inject.Inject;
 import static android.content.Context.SENSOR_SERVICE;
 
 
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends DialogFragment {
     @Inject
     NotificationViewModel notificationViewModel;
 
     FrameLayout notificationBtn;
-    FrameLayout background;
-    FrameLayout description;
-
+    ConstraintLayout background;
     SensorManager manager;
     Sensor sensor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialogStyle);
         ((MainActivity) getActivity()).mainComponent.inject(this);
         manager = (SensorManager) requireActivity().getSystemService(SENSOR_SERVICE);
         sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -50,6 +54,7 @@ public class NotificationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return inflater.inflate(R.layout.fragment_notification, container, false);
     }
 
@@ -58,25 +63,10 @@ public class NotificationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         notificationBtn = view.findViewById(R.id.notificationFrame);
         background = view.findViewById(R.id.notification_background);
-        description = view.findViewById(R.id.notificationDescriptionLayout);
-
-        initUi();
         initSwipeListener();
 
     }
 
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void initUi() {
-        background.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                description.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
-
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void initSwipeListener() {
@@ -116,7 +106,7 @@ public class NotificationFragment extends Fragment {
                 requireActivity().onBackPressed();
             }
         });
-        description.setVisibility(View.GONE);
+        hideDescription();
         notificationBtn.startAnimation(animation);
     }
 
@@ -137,7 +127,7 @@ public class NotificationFragment extends Fragment {
                 requireActivity().onBackPressed();
             }
         });
-        description.setVisibility(View.GONE);
+        hideDescription();
         notificationBtn.startAnimation(animation);
 
     }
@@ -159,7 +149,7 @@ public class NotificationFragment extends Fragment {
                 requireActivity().onBackPressed();
             }
         });
-        description.setVisibility(View.GONE);
+        hideDescription();
         notificationBtn.startAnimation(animation);
 
     }
@@ -181,8 +171,15 @@ public class NotificationFragment extends Fragment {
                 requireActivity().onBackPressed();
             }
         });
-        description.setVisibility(View.GONE);
+        hideDescription();
         notificationBtn.startAnimation(animation);
+    }
+
+    private void hideDescription() {
+        getView().findViewById(R.id.notificationHallucinationBtn).setVisibility(View.GONE);
+        getView().findViewById(R.id.notificationOffBtn).setVisibility(View.GONE);
+        getView().findViewById(R.id.notificationOnBtn).setVisibility(View.GONE);
+        getView().findViewById(R.id.notificationDyskinesiaBtn).setVisibility(View.GONE);
     }
 
 

@@ -21,11 +21,11 @@
         </activity>
 
         <activity android:name=".features.on_boarding.OnBoardingActivity"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
         <activity android:name=".features.main.MainActivity"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
 

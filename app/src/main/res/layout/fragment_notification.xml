@@ -1,82 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:layout_height="1000dp"
-    android:layout_width="500dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:id="@+id/notification_background"
-    android:background="#828382"
+    android:background="@color/transparent"
     android:orientation="vertical"
     android:layout_gravity="center"
     android:layoutDirection="ltr"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:id="@+id/notificationHallucinationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:padding="10dp"
+        android:text="Hallucination"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/notificationFrame"
+        app:layout_constraintStart_toStartOf="@+id/notificationFrame"
+        app:layout_constraintTop_toBottomOf="@+id/notificationFrame" />
 
+    <TextView
+        android:id="@+id/notificationOnBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="On"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationFrame"
+        app:layout_constraintStart_toEndOf="@+id/notificationFrame"
+        app:layout_constraintTop_toTopOf="@+id/notificationFrame" />
 
-    <FrameLayout
-        android:id="@+id/notificationDescriptionLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="50dp"
-        android:paddingVertical="320dp">
+    <TextView
+        android:id="@+id/notificationOffBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="OFF"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationFrame"
+        app:layout_constraintEnd_toStartOf="@+id/notificationFrame"
+        app:layout_constraintTop_toTopOf="@+id/notificationFrame" />
 
-        <TextView
-            android:id="@+id/notificationHallucinationBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Hallucination"
-            android:textColor="#FFFFFF"
-            android:textSize="27sp"
-            android:textStyle="bold"
-            android:layout_gravity="bottom|center" />
+    <TextView
+        android:id="@+id/notificationDyskinesiaBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:fontFamily="@font/assistant_extrabold"
+        android:padding="10dp"
+        android:text="Dyskinesia"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/notificationFrame"
+        app:layout_constraintEnd_toEndOf="@+id/notificationFrame"
+        app:layout_constraintStart_toStartOf="@+id/notificationFrame" />
 
-        <TextView
-            android:id="@+id/notificationOnBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="On"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_gravity="right|center"/>
-
-        <TextView
-            android:id="@+id/notificationOffBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="OFF"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_gravity="left|center"/>
-
-        <TextView
-            android:id="@+id/notificationDyskinesiaBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:fontFamily="@font/assistant_extrabold"
-            android:padding="10dp"
-            android:text="Dyskinesia"
-            android:textColor="#FFFFFF"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/notificationFrame"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/pic"
-            android:layout_gravity="center"/>
+            android:src="@drawable/pic" />
 
         <TextView
             android:layout_width="match_parent"
@@ -91,4 +95,4 @@
 
     </FrameLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

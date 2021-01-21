@@ -117,7 +117,7 @@ public class Patient {
 
     public Boolean getNeedToUpdateMedicine() {
         if(needToUpdateMedicine != null){
-            return hasUnansweredQuestionnaire;
+            return needToUpdateMedicine;
         } else {
             return true;
         }

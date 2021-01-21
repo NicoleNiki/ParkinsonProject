@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -13,9 +14,11 @@
         app:cardElevation="5dp">
 
         <LinearLayout
+            android:id="@+id/itemMedicineLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="23dp">
 
             <TextView
@@ -24,7 +27,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
-                android:text="This is a Medicine" />
+                tools:text="This is a Medicine" />
+
+            <TextView
+                android:id="@+id/itemMedicineDosage"
+                style="@style/Bold15Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="9dp"
+                tools:text="This is a Medicine" />
 
         </LinearLayout>
 
