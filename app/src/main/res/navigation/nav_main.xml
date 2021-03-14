@@ -64,6 +64,17 @@
             app:exitAnim="@anim/slide_right_exit"
             app:popEnterAnim="@anim/slide_left_enter"
             app:popExitAnim="@anim/slide_left_exit"/>
+        <action
+            android:id="@+id/action_myMedicinesFragment_to_singleMedicineFrag"
+            app:destination="@id/singleMedicineFrag"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_right_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_left_exit">
+            <argument
+                android:name="medicine"
+                app:argType="com.example.parkinson.model.general_models.Medicine" />
+        </action>
     </fragment>
 
     <fragment
@@ -84,12 +95,34 @@
         android:id="@+id/MedicineListFragment"
         android:name="com.example.parkinson.features.medicine.add_new_medicine.medication_list.MedicineListFragment"
         android:label="MedicineListFragment"
-        tools:layout="@layout/fragment_medicine_list"/>
+        tools:layout="@layout/fragment_medicine_list">
+        <action
+            android:id="@+id/action_MedicineListFragment_to_singleMedicineFrag"
+            app:destination="@id/singleMedicineFrag"
+            app:enterAnim="@anim/slide_right_enter"
+            app:exitAnim="@anim/slide_right_exit"
+            app:popEnterAnim="@anim/slide_left_enter"
+            app:popExitAnim="@anim/slide_left_exit">
+        <argument
+            android:name="medicine"
+            app:argType="com.example.parkinson.model.general_models.Medicine" />
+        </action>
+    </fragment>
 
     <dialog
         android:id="@+id/NotificationFragment"
         android:name="com.example.parkinson.features.notification.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification"/>
+
+    <fragment
+        android:id="@+id/singleMedicineFrag"
+        android:name="com.example.parkinson.features.medicine.add_new_medicine.single_medicine.SingleMedicineFragment"
+        android:label="SingleMedicineFrag"
+        tools:layout="@layout/fragment_single_medicine">
+        <argument
+            android:name="medicine"
+            app:argType="com.example.parkinson.model.general_models.Medicine" />
+    </fragment>
 
 </navigation>

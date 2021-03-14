@@ -5,9 +5,11 @@ import com.example.parkinson.features.main.MainFragment;
 import com.example.parkinson.features.medicine.MyMedicinesFragment;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_categories.MedicineCategoryFragment;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_list.MedicineListFragment;
+import com.example.parkinson.features.medicine.add_new_medicine.single_medicine.SingleMedicineFragment;
 import com.example.parkinson.features.notification.NotificationFragment;
 import com.example.parkinson.features.questionnaire.QuestionnaireFragment;
 import com.example.parkinson.features.questionnaire.single_question.SingleQuestionFragment;
+import com.example.parkinson.model.general_models.MedicineCategory;
 
 import dagger.Subcomponent;
 
@@ -28,4 +30,5 @@ public interface MainComponent {
     void inject(MedicineCategoryFragment medicineCategoryFragment);
     void inject(MedicineListFragment medicationListFragment);
     void inject(NotificationFragment notificationFragment);
+    void inject(SingleMedicineFragment singleMedicineFragment);
 }

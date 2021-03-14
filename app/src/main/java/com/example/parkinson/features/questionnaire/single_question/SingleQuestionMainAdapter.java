@@ -3,17 +3,16 @@ package com.example.parkinson.features.questionnaire.single_question;
 import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderMultipleChoiceAnswer;
 import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderOpenAnswer;
 import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderOpenAnswer.QuestionBinderOpenAnswerListener;
+import com.example.parkinson.features.questionnaire.single_question.binders.QuestionBinderSingleChoiceAnswer;
 import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
 import com.example.parkinson.features.questionnaire.single_question.models.OpenAnswer;
-import com.example.parkinson.model.enums.EChoiceType;
+import com.example.parkinson.features.questionnaire.single_question.models.SingleChoiceAnswer;
 
 import java.util.List;
 
 import mva2.adapter.ItemSection;
 import mva2.adapter.ListSection;
 import mva2.adapter.MultiViewAdapter;
-import mva2.adapter.util.Mode;
-import mva2.adapter.util.OnSelectionChangedListener;
 
 /**
  * This is a very nice library for creating multiple view list - MultiViewAdapter
@@ -28,9 +27,10 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
 
     SingleQuestionMainAdapterListener adapterListener;
     /** Interface for both sections clicks **/
-    interface SingleQuestionMainAdapterListener extends QuestionBinderOpenAnswerListener {
-        void onMultipleChoiceAnswerChanged(List<MultipleChoiceAnswer> answers);
-    }
+    interface SingleQuestionMainAdapterListener extends
+            QuestionBinderOpenAnswerListener
+            , QuestionBinderMultipleChoiceAnswer.QuestionBinderMultipleChoiceAnswerListener,
+            QuestionBinderSingleChoiceAnswer.QuestionBinderSingleChoiceAnswerListener{}
 
     public SingleQuestionMainAdapter(SingleQuestionMainAdapterListener adapterListener) {
         this.adapterListener = adapterListener;
@@ -38,44 +38,47 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
     }
 
     /** 2 type of sections - for open question and for multiple choice questions**/
-    private ListSection<MultipleChoiceAnswer> multipleChoiceAnswerSection = new ListSection<>();
-    private ItemSection<OpenAnswer> openAnswerSection = new ItemSection<>();
+    private final ListSection<MultipleChoiceAnswer> multipleChoiceAnswerSection = new ListSection<>();
+    private final ListSection<SingleChoiceAnswer> singleChoiceAnswerSection = new ListSection<>();
+    private final ItemSection<OpenAnswer> openAnswerSection = new ItemSection<>();
 
     private void initAdapter() {
-        this.registerItemBinders(new QuestionBinderOpenAnswer(adapterListener), new QuestionBinderMultipleChoiceAnswer());
+        this.registerItemBinders(new QuestionBinderOpenAnswer(adapterListener),
+                new QuestionBinderMultipleChoiceAnswer(adapterListener),
+                new QuestionBinderSingleChoiceAnswer(adapterListener));
 
         this.addSection(multipleChoiceAnswerSection);
+        this.addSection(singleChoiceAnswerSection);
         this.addSection(openAnswerSection);
         hideAllSections();
     }
 
     /**
-     * updating data for multipleChoiceAnswerSection from fragment
+     * updating data for singleChoiceAnswerSection from fragment
      **/
-    public void updateSectionMultiChoiceAnswers(EChoiceType choiceType, List<String> list, List<Integer> positionList) {
-        if (!list.isEmpty()) {
-            if (choiceType == EChoiceType.MultipleChoice) {
-                multipleChoiceAnswerSection.setSelectionMode(Mode.MULTIPLE);
-            } else {
-                multipleChoiceAnswerSection.setSelectionMode(Mode.SINGLE);
+    public void updateSectionSingleChoiceAnswers(List<String> questionsList, List<String> answersList) {
+        if (!questionsList.isEmpty()) {
+            for (int i = 0; i < questionsList.size(); i++) {
+                String answer = questionsList.get(i);
+                Boolean isSelected = answersList.contains(answer);
+                singleChoiceAnswerSection.add(new SingleChoiceAnswer(answer, isSelected));
             }
-            for (int i = 0; i < list.size(); i++) {
-                String answer = list.get(i);
-                Boolean isSelected = positionList.contains(i);
-                multipleChoiceAnswerSection.add(new MultipleChoiceAnswer(answer, i, choiceType, isSelected));
-            }
-            addSelectionListener();
-            multipleChoiceAnswerSection.showSection();
+            singleChoiceAnswerSection.showSection();
         }
     }
 
-    /** getting all selections from section **/
-    private void addSelectionListener() {
-        OnSelectionChangedListener<MultipleChoiceAnswer> listener = (item, isSelected, selectedItems) -> {
-            adapterListener.onMultipleChoiceAnswerChanged(selectedItems);
-        };
-
-        multipleChoiceAnswerSection.setOnSelectionChangedListener(listener);
+    /**
+     * updating data for multipleChoiceAnswerSection from fragment
+     **/
+    public void updateSectionMultiChoiceAnswers(List<String> questionsList, List<String> answersList) {
+        if (!questionsList.isEmpty()) {
+            for (int i = 0; i < questionsList.size(); i++) {
+                String answer = questionsList.get(i);
+                Boolean isSelected = answersList.contains(answer);
+                multipleChoiceAnswerSection.add(new MultipleChoiceAnswer(answer, isSelected));
+            }
+            multipleChoiceAnswerSection.showSection();
+        }
     }
 
     /**
@@ -90,8 +93,10 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
      * hiding all sections because only one selection is visible in a list
      **/
     private void hideAllSections() {
+        singleChoiceAnswerSection.hideSection();
         multipleChoiceAnswerSection.hideSection();
         openAnswerSection.hideSection();
     }
+
 
 }

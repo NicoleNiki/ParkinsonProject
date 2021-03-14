@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
 import com.example.parkinson.di.MainScope;
-import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
 import com.example.parkinson.model.enums.EQuestionType;
 import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
 import com.example.parkinson.model.question_models.OpenQuestion;
@@ -64,12 +63,8 @@ public class QuestionnaireViewModel {
     }
 
     /** Getting answers chosen by user and updating the questionnaire**/
-    public void updateMultipleChoiceAnswer(int position, List<MultipleChoiceAnswer> chosenAnswers) {
-        List<Integer> positionList = new ArrayList<>();
-        for (MultipleChoiceAnswer answer : chosenAnswers) {
-            positionList.add(answer.getPosition());
-        }
-        ((MultipleChoiceQuestion) questionnaire.getQuestionList().get(position)).setAnsPositions(positionList);
+    public void updateMultipleChoiceAnswer(int position, List<String> chosenAnswers) {
+        ((MultipleChoiceQuestion) questionnaire.getQuestionList().get(position)).setAnswers(chosenAnswers);
     }
 
     /** Getting answer string from user and updating the questionnaire**/

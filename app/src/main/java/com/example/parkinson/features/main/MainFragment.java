@@ -1,27 +1,21 @@
 package com.example.parkinson.features.main;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
+import com.example.parkinson.features.main.adapters.MessagesListAdapter;
+import com.example.parkinson.features.main.adapters.ReportsListAdapter;
 import com.example.parkinson.model.user_models.Patient;
-
 import javax.inject.Inject;
 
 public class MainFragment extends Fragment {
@@ -35,6 +29,9 @@ public class MainFragment extends Fragment {
 
     ImageView medicineBadge;
     ImageView questionnaireBadge;
+
+    RecyclerView messagesList;
+    RecyclerView reportsList;
 
     public MainFragment() {
         super(R.layout.fragment_main);
@@ -63,6 +60,9 @@ public class MainFragment extends Fragment {
         reportBtn = view.findViewById(R.id.mainFragReportBtn);
         medicineBadge = view.findViewById(R.id.mainFragMedicineBadge);
         questionnaireBadge = view.findViewById(R.id.mainFragQuestionnaireBadge);
+
+        messagesList= view.findViewById(R.id.recyclerMessages);
+        reportsList= view.findViewById(R.id.recyclerReports);
     }
 
     private void initUi(View view) {
@@ -81,6 +81,15 @@ public class MainFragment extends Fragment {
     private void initObservers() {
         mainViewModel.patientEvent.observe(getViewLifecycleOwner(), patient -> {
             handlePatientData(patient);
+        });
+        mainViewModel.reportsData.observe(getViewLifecycleOwner(),data->{
+            ReportsListAdapter adapter = new ReportsListAdapter(data);
+            reportsList.setAdapter(adapter);
+        });
+        mainViewModel.messagesData.observe(getViewLifecycleOwner(),data-> {
+            MessagesListAdapter adapter = new MessagesListAdapter(data);
+            messagesList.setAdapter(adapter);
+
         });
 
     }
@@ -114,6 +123,4 @@ public class MainFragment extends Fragment {
         NavDirections action = MainFragmentDirections.actionMainFragmentToNotificationFragment();
         Navigation.findNavController(view).navigate(action);
     }
-
-
 }

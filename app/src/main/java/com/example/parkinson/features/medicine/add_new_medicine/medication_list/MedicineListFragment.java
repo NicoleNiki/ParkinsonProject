@@ -8,12 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.medicine.MedicineViewModel;
+import com.example.parkinson.features.medicine.MyMedicinesFragmentDirections;
 import com.example.parkinson.features.medicine.add_new_medicine.medication_list.MedicineListAdapter.MedicineListAdapterListener;
 import com.example.parkinson.model.general_models.Medicine;
 import com.example.parkinson.model.general_models.MedicineCategory;
@@ -43,31 +46,27 @@ public class MedicineListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initViews(view);
-        initUi(view);
+        initUi();
         initObservers();
 
     }
 
-    private void initViews(View view) {
-        recyclerView = view.findViewById(R.id.medicineListFragRecycler);
-    }
-
-    private void initUi(View view) {
+    private void initUi() {
+        recyclerView = getView().findViewById(R.id.medicineListFragRecycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
+
+        getView().findViewById(R.id.medicineListFragExitBtn).setOnClickListener(v->{
+            getActivity().onBackPressed();
+        });
     }
 
     private MedicineListAdapterListener getAdapterListener() {
         return new MedicineListAdapterListener() {
             @Override
             public void onMedicineClick(Medicine medicine) {
-                if (medicine.getDosage() == 0) {
-                    medicineViewModel.addNewMedicine(medicine);
-                } else {
-                    medicineViewModel.removeMedicine(medicine);
-                }
-
+                NavDirections action = MedicineListFragmentDirections.actionMedicineListFragmentToSingleMedicineFrag(medicine);
+                Navigation.findNavController(getView()).navigate(action);
             }
         };
     }

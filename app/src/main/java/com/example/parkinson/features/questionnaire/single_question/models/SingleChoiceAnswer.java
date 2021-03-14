@@ -1,13 +1,10 @@
 package com.example.parkinson.features.questionnaire.single_question.models;
 
-import com.example.parkinson.model.enums.EChoiceType;
-import com.example.parkinson.model.enums.EQuestionType;
-
-public class MultipleChoiceAnswer {
+public class SingleChoiceAnswer {
     private String answer;
     private Boolean isSelected;
 
-    public MultipleChoiceAnswer(String answer, Boolean isSelected) {
+    public SingleChoiceAnswer(String answer, Boolean isSelected) {
         this.answer = answer;
         this.isSelected = isSelected;
     }

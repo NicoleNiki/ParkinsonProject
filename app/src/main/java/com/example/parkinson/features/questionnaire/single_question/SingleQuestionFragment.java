@@ -15,7 +15,7 @@ import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.questionnaire.QuestionnaireViewModel;
 import com.example.parkinson.features.questionnaire.single_question.SingleQuestionMainAdapter.SingleQuestionMainAdapterListener;
-import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
+import com.example.parkinson.model.enums.EChoiceType;
 import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
 import com.example.parkinson.model.question_models.OpenQuestion;
 import com.example.parkinson.model.question_models.Question;
@@ -63,8 +63,9 @@ public class SingleQuestionFragment extends Fragment {
     private void initUi() {
         adapter = new SingleQuestionMainAdapter(new SingleQuestionMainAdapterListener() {
             @Override
-            public void onMultipleChoiceAnswerChanged(List<MultipleChoiceAnswer> answers) {
-                questionnaireViewModel.updateMultipleChoiceAnswer(position, answers);
+            public void onChoiceChange(List<String> selectedAnswers) {
+                questionnaireViewModel.updateMultipleChoiceAnswer(position, selectedAnswers);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -86,8 +87,13 @@ public class SingleQuestionFragment extends Fragment {
             if (question instanceof OpenQuestion){
                 adapter.updateSectionOpenAnswer(((OpenQuestion) question).getAnswer());
             } else if (question instanceof MultipleChoiceQuestion){
-                adapter.updateSectionMultiChoiceAnswers(((MultipleChoiceQuestion) question).getChoiceType(), ((MultipleChoiceQuestion) question).getChoices(),((MultipleChoiceQuestion) question).getAnsPositions());
+                if(((MultipleChoiceQuestion) question).getChoiceType() == EChoiceType.SingleChoice){
+                    adapter.updateSectionSingleChoiceAnswers(((MultipleChoiceQuestion) question).getChoices(),((MultipleChoiceQuestion) question).getAnswers());
+                } else {
+                    adapter.updateSectionMultiChoiceAnswers(((MultipleChoiceQuestion) question).getChoices(),((MultipleChoiceQuestion) question).getAnswers());
+                }
             }
         }
     }
+
 }

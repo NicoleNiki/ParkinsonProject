@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="23dp">
+
+            <RadioGroup
+                android:id="@+id/rg_exponent_top"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/radioOne"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_light_green_stroke"
+                    android:button="@null"
+                    android:paddingVertical="20dp"
+                    android:gravity="center"
+                    android:text="חצי כדור"
+                    style="@style/SemiBold17Black"/>
+
+                <RadioButton
+                    android:id="@+id/radioTwo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_light_green_stroke"
+                    android:button="@null"
+                    android:paddingVertical="20dp"
+                    android:gravity="center"
+                    android:text="כדור"
+                    style="@style/SemiBold17Black"/>
+
+
+            </RadioGroup>
+            <RadioGroup
+                android:id="@+id/rg_exponent_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/radioThree"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_light_green_stroke"
+                    android:button="@null"
+                    android:paddingVertical="20dp"
+                    android:gravity="center"
+                    android:text="כדור וחצי"
+                    style="@style/SemiBold17Black"/>
+
+                <RadioButton
+                    android:id="@+id/radioForth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_light_green_stroke"
+                    android:button="@null"
+                    android:paddingVertical="20dp"
+                    android:gravity="center"
+                    android:text="שתי כדורים"
+                    style="@style/SemiBold17Black"/>
+
+            </RadioGroup>
+
+</LinearLayout>
