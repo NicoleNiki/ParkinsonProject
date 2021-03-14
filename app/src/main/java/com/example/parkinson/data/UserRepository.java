@@ -59,6 +59,10 @@ public class UserRepository {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addChildEventListener(listener);
     }
 
+    public void getMedicationListNotif(ValueEventListener listener){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addValueEventListener(listener);
+    }
+
     public void postMedication(Medicine medicine){
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).child("needToUpdateMedicine").setValue(false);
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medicine.getId()).setValue(medicine);

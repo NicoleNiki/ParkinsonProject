@@ -1,23 +1,20 @@
 package com.example.parkinson.model.general_models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.List;
 
-public class Medicine implements Parcelable {
+public class Medicine {
     private String id;
     private String categoryId;
 
     private String name;
-    private Double dosage;
+    private int dosage;
     List<Time> hoursArr;
 
     public Medicine(){
 
     }
 
-    public Medicine(String id, String categoryId, String name, Double dosage, List<Time> hoursArr) {
+    public Medicine(String id, String categoryId, String name, int dosage, List<Time> hoursArr) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -25,38 +22,6 @@ public class Medicine implements Parcelable {
         this.hoursArr = hoursArr;
         this.categoryId = categoryId;
     }
-
-    protected Medicine(Parcel in) {
-        id = in.readString();
-        categoryId = in.readString();
-        name = in.readString();
-        dosage = in.readDouble();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(categoryId);
-        dest.writeString(name);
-        dest.writeDouble(dosage);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Medicine> CREATOR = new Creator<Medicine>() {
-        @Override
-        public Medicine createFromParcel(Parcel in) {
-            return new Medicine(in);
-        }
-
-        @Override
-        public Medicine[] newArray(int size) {
-            return new Medicine[size];
-        }
-    };
 
     public String getId() {
         return id;
@@ -80,11 +45,11 @@ public class Medicine implements Parcelable {
         this.name = name;
     }
 
-    public Double getDosage() {
+    public int getDosage() {
         return dosage;
     }
 
-    public void setDosage(Double dosage) {
+    public void setDosage(int dosage) {
         this.dosage = dosage;
     }
 
