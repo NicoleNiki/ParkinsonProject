@@ -7,14 +7,14 @@ public class Medicine {
     private String categoryId;
 
     private String name;
-    private int dosage;
+    private double dosage;
     List<Time> hoursArr;
 
     public Medicine(){
 
     }
 
-    public Medicine(String id, String categoryId, String name, int dosage, List<Time> hoursArr) {
+    public Medicine(String id, String categoryId, String name, double dosage, List<Time> hoursArr) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -45,11 +45,11 @@ public class Medicine {
         this.name = name;
     }
 
-    public int getDosage() {
+    public double getDosage() {
         return dosage;
     }
 
-    public void setDosage(int dosage) {
+    public void setDosage(double dosage) {
         this.dosage = dosage;
     }
 

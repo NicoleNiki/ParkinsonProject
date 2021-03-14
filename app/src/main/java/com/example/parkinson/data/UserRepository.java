@@ -59,6 +59,10 @@ public class UserRepository {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addChildEventListener(listener);
     }
 
+    public void getMedicationListNotif(ValueEventListener listener){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addValueEventListener(listener);
+    }
+
     public void postMedication(Medicine medicine){
         // todo: remove set after test
         Medicine newMedicine = new Medicine(medicine.getId(), medicine.getCategoryId(), medicine.getName(),2, medicine.getHoursArr());
