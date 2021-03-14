@@ -44,35 +44,39 @@ public class MedicineCategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initViews(view);
-        initObservers(view);
+        initUi();
+        initObservers();
 
     }
 
-    private void initViews(View view) {
-        recyclerView = view.findViewById(R.id.medicineCategoryFragRecycler);
+    private void initUi() {
+        recyclerView = getView().findViewById(R.id.medicineCategoryFragRecycler);
+
+        getView().findViewById(R.id.medicineCategoryFragExitBtn).setOnClickListener(v->{
+            getActivity().onBackPressed();
+        });
     }
-    private void initObservers(View view) {
+    private void initObservers() {
         medicineViewModel.categoryListData.observe(getViewLifecycleOwner(), categories -> {
-            handleListData(categories, view);
+            handleListData(categories);
         });
     }
 
-    private void handleListData(List<MedicineCategory> categories, View view){
-        MedicineCategoryAdapterListener listener = getAdapterListener(view);
+    private void handleListData(List<MedicineCategory> categories){
+        MedicineCategoryAdapterListener listener = getAdapterListener();
         adapter = new MedicineCategoryAdapter(categories ,listener);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
-    private MedicineCategoryAdapterListener getAdapterListener(View view) {
+    private MedicineCategoryAdapterListener getAdapterListener() {
         return new MedicineCategoryAdapterListener() {
             @Override
             public void onCategoryClick(int chosenCategoryPosition) {
                 medicineViewModel.filterCategory(chosenCategoryPosition);
                 NavDirections action = MedicineCategoryFragmentDirections.actionMedicineCategoryFragmentToMedicineListFragment();
-                Navigation.findNavController(view).navigate(action);
+                Navigation.findNavController(getView()).navigate(action);
             }
         };
     }

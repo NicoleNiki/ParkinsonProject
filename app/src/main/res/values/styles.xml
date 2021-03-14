@@ -271,7 +271,13 @@
 
     <style name="Bold15Primary">
         <item name="android:fontFamily">@font/rubik_bold</item>
-        <item name="android:textSize">15.4sp</item>
+        <item name="android:textSize">17.4sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Bold17Primary">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">17.4sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 

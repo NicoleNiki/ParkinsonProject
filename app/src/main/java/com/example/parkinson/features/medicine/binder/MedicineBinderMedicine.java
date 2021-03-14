@@ -12,6 +12,16 @@ import mva2.adapter.ItemViewHolder;
 
 public class MedicineBinderMedicine extends ItemBinder<Medicine, MedicineBinderMedicine.ViewHolder> {
 
+    MedicineBinderMedicineListener listener;
+
+    public interface MedicineBinderMedicineListener {
+        void onMedicineClick(Medicine medicine);
+    }
+
+    public MedicineBinderMedicine(MedicineBinderMedicineListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public ViewHolder createViewHolder(ViewGroup parent) {
         return new ViewHolder(inflate(parent, R.layout.item_medicine));
@@ -25,14 +35,36 @@ public class MedicineBinderMedicine extends ItemBinder<Medicine, MedicineBinderM
     @Override
     public void bindViewHolder(ViewHolder holder, Medicine item) {
         holder.name.setText(item.getName());
+        holder.itemView.setOnClickListener(v -> {
+            listener.onMedicineClick(item);
+        });
+
+        if (item.getDosage() == 0.5) {
+            holder.dosage.setText("חצי כדור, ");
+        } else if (item.getDosage() == 1.0) {
+            holder.dosage.setText("כדור אחד, ");
+        } else if (item.getDosage() == 1.5) {
+            holder.dosage.setText("כדור חצי, ");
+        } else if (item.getDosage() == 2.0) {
+            holder.dosage.setText("שני כדורים, ");
+        }
+
+
+        if (item.getHoursArr().size() == 1) {
+            holder.dosage.setText(holder.dosage.getText() + "פעם אחת ביום");
+        } else {
+            holder.dosage.setText(holder.dosage.getText() +""+ item.getHoursArr().size() + " פעמים ביום");
+        }
     }
 
     static class ViewHolder extends ItemViewHolder<Medicine> {
         TextView name;
+        TextView dosage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.itemMedicineName);
+            dosage = itemView.findViewById(R.id.itemMedicineDosage);
         }
     }
 }

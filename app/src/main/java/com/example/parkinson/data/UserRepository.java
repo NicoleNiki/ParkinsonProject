@@ -60,10 +60,8 @@ public class UserRepository {
     }
 
     public void postMedication(Medicine medicine){
-        // todo: remove set after test
-        Medicine newMedicine = new Medicine(medicine.getId(), medicine.getCategoryId(), medicine.getName(),2, medicine.getHoursArr());
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).child("needToUpdateMedicine").setValue(false);
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medicine.getId()).setValue(newMedicine);
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.MEDICINE_LIST.name).child(medicine.getId()).setValue(medicine);
     }
 
     public void deleteMedication(Medicine medicine){
@@ -73,6 +71,11 @@ public class UserRepository {
     public void postReport(Report report) {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.REPORTS.name).push().setValue(report);
     }
+
+    public void getReportsList(ChildEventListener listener) {
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.REPORTS.name).addChildEventListener(listener);
+    }
+
 
     /** Login to firebase with username and password **/
     public void login(String username, String password, OnCompleteListener listener) {

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.parkinson.R;
 import com.example.parkinson.features.questionnaire.single_question.models.MultipleChoiceAnswer;
+import com.example.parkinson.features.questionnaire.single_question.models.SingleChoiceAnswer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +22,17 @@ import mva2.adapter.ItemBinder;
 import mva2.adapter.ItemViewHolder;
 
 
-public class QuestionBinderMultipleChoiceAnswer extends
-        ItemBinder<MultipleChoiceAnswer, QuestionBinderMultipleChoiceAnswer.viewHolder> {
+public class QuestionBinderSingleChoiceAnswer extends
+        ItemBinder<SingleChoiceAnswer, QuestionBinderSingleChoiceAnswer.viewHolder> {
 
-    QuestionBinderMultipleChoiceAnswerListener listener;
-    List<String> selectedAnswers = new ArrayList<>();
+    QuestionBinderSingleChoiceAnswerListener listener;
+    SingleChoiceAnswer selectedAnswer = null;
 
-    public interface QuestionBinderMultipleChoiceAnswerListener{
-        void onChoiceChange(List<String> selectedAnswers);
+    public interface QuestionBinderSingleChoiceAnswerListener{
+        void onChoiceChange( List<String> selectedAnswer);
     }
 
-    public QuestionBinderMultipleChoiceAnswer(QuestionBinderMultipleChoiceAnswerListener listener){
+    public QuestionBinderSingleChoiceAnswer(QuestionBinderSingleChoiceAnswerListener listener){
         this.listener = listener;
     }
 
@@ -42,7 +43,7 @@ public class QuestionBinderMultipleChoiceAnswer extends
 
     @Override
     public boolean canBindData(Object item) {
-        return item instanceof MultipleChoiceAnswer;
+        return item instanceof SingleChoiceAnswer;
     }
 
     @Override
@@ -51,38 +52,44 @@ public class QuestionBinderMultipleChoiceAnswer extends
     }
 
     @Override
-    public void bindViewHolder(final viewHolder holder, final MultipleChoiceAnswer answer) {
+    public void bindViewHolder(final viewHolder holder, final SingleChoiceAnswer answer) {
         holder.answer.setText(answer.getAnswer());
         if (answer.getSelected()) {
-            selectedAnswers.add(answer.getAnswer());
+            selectedAnswer = answer;
         }
         updateHolder(holder,answer);
         holder.itemView.setOnClickListener(v -> {
                     if (answer.getSelected()) {
-                        selectedAnswers.remove(answer.getAnswer());
                         answer.setSelected(false);
-                        listener.onChoiceChange(selectedAnswers);
+                        selectedAnswer = null;
+
+                        listener.onChoiceChange(null);
                     } else {
+                        if(selectedAnswer != null){
+                            selectedAnswer.setSelected(false);
+                        }
                         answer.setSelected(true);
-                        listener.onChoiceChange(selectedAnswers);
+                        List<String> answerList = new ArrayList<>();
+                        answerList.add(answer.getAnswer());
+                        listener.onChoiceChange(answerList);
                     }
                 }
         );
     }
 
-    void updateHolder(viewHolder holder, MultipleChoiceAnswer answer){
-        holder.checkIcon.setVisibility(View.VISIBLE);
+    void updateHolder(viewHolder holder, SingleChoiceAnswer answer){
         if (answer.getSelected()) {
             holder.mainLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.light_green));
             holder.checkIcon.setImageDrawable(AppCompatResources.getDrawable(holder.itemView.getContext(), R.drawable.ic_check));
+            holder.checkIcon.setVisibility(View.VISIBLE);
         } else {
             holder.mainLayout.setBackgroundColor(Color.TRANSPARENT);
-            holder.checkIcon.setImageDrawable(AppCompatResources.getDrawable(holder.itemView.getContext(), R.drawable.ic_add));
+            holder.checkIcon.setVisibility(View.INVISIBLE);
         }
     }
 
 
-    static class viewHolder extends ItemViewHolder<MultipleChoiceAnswer> {
+    static class viewHolder extends ItemViewHolder<SingleChoiceAnswer> {
         View view;
         LinearLayout mainLayout;
         ImageView checkIcon;

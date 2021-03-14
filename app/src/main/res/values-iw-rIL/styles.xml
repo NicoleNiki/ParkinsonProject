@@ -274,6 +274,12 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="Bold17Primary">
+        <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">17.4sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
     <style name="Bold13CoolGrey">
         <item name="android:fontFamily">@font/rubik_bold</item>
         <item name="android:textSize">13sp</item>

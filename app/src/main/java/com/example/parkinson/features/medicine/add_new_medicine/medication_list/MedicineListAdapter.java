@@ -55,9 +55,23 @@ public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapte
         holder.itemView.setOnClickListener(v -> {
             listener.onMedicineClick(medicine);
         });
-        if (medicine.getDosage() > 0){
+        if (medicine.getDosage() == 0.5) {
+            holder.dosage.setText("חצי כדור, ");
+        } else if (medicine.getDosage() == 1.0) {
+            holder.dosage.setText("כדור אחד, ");
+        } else if (medicine.getDosage() == 1.5) {
+            holder.dosage.setText("כדור חצי, ");
+        } else if (medicine.getDosage() == 2.0) {
+            holder.dosage.setText("שני כדורים, ");
+        }
+
+        if (medicine.getDosage() > 0) {
             holder.mainLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.light_green));
-            holder.dosage.setText(medicine.getDosage() + " פעמים ביום");
+            if (medicine.getHoursArr().size() == 1) {
+                holder.dosage.setText(holder.dosage.getText() + "פעם אחת ביום");
+            } else {
+                holder.dosage.setText(holder.dosage.getText() + "" + medicine.getHoursArr().size() + " פעמים ביום");
+            }
         }
     }
 

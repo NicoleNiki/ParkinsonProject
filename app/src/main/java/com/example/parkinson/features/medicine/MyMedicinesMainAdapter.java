@@ -11,32 +11,19 @@ import mva2.adapter.MultiViewAdapter;
 
 public class MyMedicinesMainAdapter extends MultiViewAdapter {
 
-    MyMedicinesMainAdapter() {
+    MyMedicinesMainAdapterListener listener;
+    public interface MyMedicinesMainAdapterListener extends MedicineBinderMedicine.MedicineBinderMedicineListener{}
+
+    MyMedicinesMainAdapter(MyMedicinesMainAdapterListener listener) {
+        this.listener = listener;
         init();
     }
 
     private void init() {
-        this.registerItemBinders(new MedicineBinderHeader(), new MedicineBinderMedicine());
+        this.registerItemBinders(new MedicineBinderHeader(), new MedicineBinderMedicine(listener));
     }
 
     void updateMedicineList(List<Medicine> list) {
-////        for (MedicationCategory category : list) {
-////            HeaderSection<String> headerSection = new HeaderSection<>(category.getCategoryName());
-//            ListSection<Medication> medicationListSection = new ListSection<>();
-//            List<Medication>medicationList = category.getMedicationList();
-//            List<Medication>MyMedicationList = new ArrayList<>();
-//
-////            for(Medication medication:medicationList)
-////            {
-////                if (myhasmp.isExizst(medication.getId()))
-////                    MyMedicationList.add(medication)
-////                    else
-////                        notExzistList.add(medication)
-////            }
-//            medicationListSection.set(category.getMedicationList());
-//            headerSection.addSection(medicationListSection);
-//            this.addSection(headerSection);
-
             this.removeAllSections();
             ListSection<Medicine> medicationListSection = new ListSection<>();
             medicationListSection.set(list);

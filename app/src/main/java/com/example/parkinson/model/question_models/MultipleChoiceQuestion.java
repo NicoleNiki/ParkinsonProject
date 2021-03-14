@@ -9,17 +9,17 @@ import java.util.List;
 public class MultipleChoiceQuestion extends Question {
     private String title;
     private List<String> choices;
-    private List <Integer> ansPositions = new ArrayList<>();
+    private List <String> answers = new ArrayList<>();
     private EChoiceType choiceType;
 
     public MultipleChoiceQuestion() {
         super("", null);
     }
 
-    public MultipleChoiceQuestion(String title, EQuestionType type, List<String> choices, List<Integer> ansPositions, EChoiceType choiceType) {
+    public MultipleChoiceQuestion(String title, EQuestionType type, List<String> choices, List<String> ansPositions, EChoiceType choiceType) {
         super(title, type);
         this.choices = choices;
-        this.ansPositions = ansPositions;
+        this.answers = ansPositions;
         this.choiceType = choiceType;
     }
 
@@ -31,12 +31,12 @@ public class MultipleChoiceQuestion extends Question {
         this.choices = choices;
     }
 
-    public List<Integer> getAnsPositions() {
-        return ansPositions;
+    public List<String> getAnswers() {
+        return answers;
     }
 
-    public void setAnsPositions(List<Integer> ansPositions) {
-        this.ansPositions = ansPositions;
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 
     public EChoiceType getChoiceType() {
