@@ -17,14 +17,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
 import com.example.parkinson.common.OnSwipeTouchListener;
+import com.example.parkinson.di.ApplicationComponent;
+import com.example.parkinson.di.MainComponent;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.main.MainViewModel;
 import com.example.parkinson.model.enums.EStatus;
@@ -34,7 +38,9 @@ import javax.inject.Inject;
 import static android.content.Context.SENSOR_SERVICE;
 
 
-public class NotificationFragment extends DialogFragment {
+public class NotificationActivity extends AppCompatActivity {
+    public ApplicationComponent applicationComponent;
+
     @Inject
     NotificationViewModel notificationViewModel;
 
@@ -45,32 +51,24 @@ public class NotificationFragment extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        ((ParkinsonApplication) getApplicationContext()).appComponent.inject(this);
         super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_FRAME, R.style.FullScreenDialogStyle);
-        ((MainActivity) getActivity()).mainComponent.inject(this);
-        manager = (SensorManager) requireActivity().getSystemService(SENSOR_SERVICE);
+        setContentView(R.layout.fragment_notification);
+        manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        initUi();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.fragment_notification, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        notificationBtn = view.findViewById(R.id.notificationFrame);
-        background = view.findViewById(R.id.notification_background);
+    private void initUi() {
+        notificationBtn = findViewById(R.id.notificationFrame);
+        background = findViewById(R.id.notification_background);
         initSwipeListener();
-
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private void initSwipeListener() {
-        notificationBtn.setOnTouchListener(new OnSwipeTouchListener(getContext()) {
+        notificationBtn.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
                 upReport();
             }
@@ -90,7 +88,7 @@ public class NotificationFragment extends DialogFragment {
     }
 
     private void upReport() {
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_out);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_bottom_out);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -103,7 +101,7 @@ public class NotificationFragment extends DialogFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                requireActivity().onBackPressed();
+                finish();
             }
         });
         hideDescription();
@@ -111,7 +109,7 @@ public class NotificationFragment extends DialogFragment {
     }
 
     private void downReport() {
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_out);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_top_out);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -124,7 +122,7 @@ public class NotificationFragment extends DialogFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                requireActivity().onBackPressed();
+                finish();
             }
         });
         hideDescription();
@@ -133,7 +131,7 @@ public class NotificationFragment extends DialogFragment {
     }
 
     private void leftReport() {
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_left_exit);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_left_exit);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -146,7 +144,7 @@ public class NotificationFragment extends DialogFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                requireActivity().onBackPressed();
+                finish();
             }
         });
         hideDescription();
@@ -155,7 +153,7 @@ public class NotificationFragment extends DialogFragment {
     }
 
     private void rightReport() {
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_right_exit);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_right_exit);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -168,7 +166,7 @@ public class NotificationFragment extends DialogFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                requireActivity().onBackPressed();
+                finish();
             }
         });
         hideDescription();
@@ -176,24 +174,16 @@ public class NotificationFragment extends DialogFragment {
     }
 
     private void hideDescription() {
-        getView().findViewById(R.id.notificationHallucinationBtn).setVisibility(View.GONE);
-        getView().findViewById(R.id.notificationOffBtn).setVisibility(View.GONE);
-        getView().findViewById(R.id.notificationOnBtn).setVisibility(View.GONE);
-        getView().findViewById(R.id.notificationDyskinesiaBtn).setVisibility(View.GONE);
+       findViewById(R.id.notificationHallucinationBtn).setVisibility(View.GONE);
+       findViewById(R.id.notificationOffBtn).setVisibility(View.GONE);
+       findViewById(R.id.notificationOnBtn).setVisibility(View.GONE);
+       findViewById(R.id.notificationDyskinesiaBtn).setVisibility(View.GONE);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//// I'm using null here because drawing nothing is faster than drawing transparent pixels.
-//        getActivity().getWindow().setBackgroundDrawable(null);
-//        getView().setBackground(null);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        getActivity().getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.black_20)));
-//    }
 }

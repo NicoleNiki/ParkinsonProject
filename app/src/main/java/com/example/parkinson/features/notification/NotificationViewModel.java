@@ -9,7 +9,6 @@ import java.util.Calendar;
 
 import javax.inject.Inject;
 
-@MainScope
 public class NotificationViewModel {
     private final UserRepository userRepository;
     private final DataRepository dataRepository;

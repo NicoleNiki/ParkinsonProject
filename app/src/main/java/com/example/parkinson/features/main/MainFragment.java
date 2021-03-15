@@ -1,6 +1,7 @@
 package com.example.parkinson.features.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.parkinson.R;
 import com.example.parkinson.features.main.adapters.MessagesListAdapter;
 import com.example.parkinson.features.main.adapters.ReportsListAdapter;
+import com.example.parkinson.features.notification.NotificationActivity;
+import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.model.user_models.Patient;
 import javax.inject.Inject;
 
@@ -73,7 +76,7 @@ public class MainFragment extends Fragment {
             openQuestionnaireFragment(view);
         });
         reportBtn.setOnClickListener(v -> {
-            openReportFragment(view);
+            openReportActivity();
         });
 
     }
@@ -119,8 +122,8 @@ public class MainFragment extends Fragment {
         Navigation.findNavController(view).navigate(action);
     }
 
-    private void openReportFragment(View view) {
-        NavDirections action = MainFragmentDirections.actionMainFragmentToNotificationFragment();
-        Navigation.findNavController(view).navigate(action);
+    private void openReportActivity() {
+        Intent intent = new Intent(getActivity(), NotificationActivity.class);
+        startActivity(intent);
     }
 }
