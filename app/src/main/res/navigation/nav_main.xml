@@ -30,14 +30,6 @@
             app:exitAnim="@anim/slide_right_exit"
             app:popEnterAnim="@anim/slide_left_enter"
             app:popExitAnim="@anim/slide_left_exit"/>
-        <action
-            android:id="@+id/action_mainFragment_to_NotificationFragment"
-            app:destination="@id/NotificationFragment"
-            app:enterAnim="@anim/slide_right_enter"
-            app:exitAnim="@anim/slide_right_exit"
-            app:popEnterAnim="@anim/slide_left_enter"
-            app:popExitAnim="@anim/slide_left_exit"/>
-
     </fragment>
 
     <fragment
@@ -108,12 +100,6 @@
             app:argType="com.example.parkinson.model.general_models.Medicine" />
         </action>
     </fragment>
-
-    <dialog
-        android:id="@+id/NotificationFragment"
-        android:name="com.example.parkinson.features.notification.NotificationFragment"
-        android:label="NotificationFragment"
-        tools:layout="@layout/fragment_notification"/>
 
     <fragment
         android:id="@+id/singleMedicineFrag"
