@@ -4,6 +4,7 @@ package com.example.parkinson.data;
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.data.enums.EDataSourceUser;
 import com.example.parkinson.model.general_models.Medicine;
+import com.example.parkinson.model.general_models.MedicineReport;
 import com.example.parkinson.model.general_models.Report;
 import com.example.parkinson.model.question_models.Questionnaire;
 import com.example.parkinson.model.user_models.Patient;
@@ -15,6 +16,8 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -99,4 +102,11 @@ public class UserRepository {
         authenticator.updateCurrentUser();
     }
 
+    public void getMedicationListNotif(ValueEventListener listener){
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceData.MEDICINE_LIST.name).addValueEventListener(listener);
+    }
+
+    public void pushMedicineReport(List<MedicineReport> reportList, ValueEventListener listener) {
+        userTable.child(authenticator.getCurrentUser().getUid()).child("Medicine Reports").addValueEventListener(listener);
+    }
 }

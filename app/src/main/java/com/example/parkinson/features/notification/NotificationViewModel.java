@@ -2,7 +2,6 @@ package com.example.parkinson.features.notification;
 
 import com.example.parkinson.data.DataRepository;
 import com.example.parkinson.data.UserRepository;
-import com.example.parkinson.di.MainScope;
 import com.example.parkinson.model.enums.EStatus;
 import com.example.parkinson.model.general_models.Report;
 import java.util.Calendar;
@@ -19,8 +18,8 @@ public class NotificationViewModel {
         this.dataRepository = dataRepository;
     }
 
-    public void updateReport(EStatus status) {
-        Report report = new Report(Calendar.getInstance().getTime().getTime(),status);
+    public void updateReport(EStatus status, boolean isHallucinations) {
+        Report report = new Report(Calendar.getInstance().getTime().getTime(),status,isHallucinations);
         userRepository.postReport(report);
     }
 }

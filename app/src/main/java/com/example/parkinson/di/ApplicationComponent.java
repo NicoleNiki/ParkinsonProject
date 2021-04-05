@@ -15,4 +15,7 @@ public interface ApplicationComponent {
     // satisfy all the dependencies of the fields that LoginActivity is injecting.
     void inject(SplashActivity splashActivity);
     void inject(NotificationActivity notificationActivity);
+
+//    void inject(NotifManager notifManager);
+//    void inject(NotifService notifService);
 }

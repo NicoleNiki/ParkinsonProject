@@ -9,13 +9,26 @@
     android:layoutDirection="ltr"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/notificationHallucinationBtn"
+    <CheckBox
+        android:id="@+id/isHallucinationsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:padding="10dp"
-        android:text="Hallucination"
+        android:text="הזיות?"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/notificationFrame"
+        app:layout_constraintStart_toStartOf="@+id/notificationFrame"
+        app:layout_constraintTop_toBottomOf="@+id/reportStatusBtn" />
+    <TextView
+        android:id="@+id/reportStatusBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:padding="10dp"
+        android:text="שלח דיווח"
         android:textColor="#FFFFFF"
         android:textSize="27sp"
         android:textStyle="bold"
@@ -56,7 +69,7 @@
         android:layout_gravity="top|center"
         android:fontFamily="@font/assistant_extrabold"
         android:padding="10dp"
-        android:text="Dyskinesia"
+        android:text="דיסקנזיה"
         android:textColor="#FFFFFF"
         android:textSize="27sp"
         android:textStyle="bold"

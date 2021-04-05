@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.parkinson">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name="com.example.ParkinsonApplication"
         android:allowBackup="false"
@@ -29,13 +33,17 @@
         </activity>
 
         <activity android:name=".features.notification.NotificationActivity"
-            android:theme="@style/Theme.Transparent">
+            android:theme="@style/Theme.Transparent"
+            >
         </activity>
 
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <service android:name=".features.brodacsts.ReportService" />
+        <service android:name=".features.notification.NotifServiceForground"/>
+        <service android:name=".features.brodacsts.NotifService"/>
 
     </application>
 
