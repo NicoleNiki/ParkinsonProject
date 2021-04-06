@@ -125,7 +125,6 @@ public class MainFragment extends Fragment {
 
     private void openReportActivity() {
         Intent intent = new Intent(getActivity(), NotificationActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }

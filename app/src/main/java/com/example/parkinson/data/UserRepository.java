@@ -1,9 +1,12 @@
 package com.example.parkinson.data;
 
 
+import androidx.annotation.NonNull;
+
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.data.enums.EDataSourceUser;
 import com.example.parkinson.model.general_models.Medicine;
+import com.example.parkinson.model.general_models.MedicineReport;
 import com.example.parkinson.model.general_models.Report;
 import com.example.parkinson.model.question_models.Questionnaire;
 import com.example.parkinson.model.user_models.Patient;
@@ -12,9 +15,13 @@ import com.example.parkinson.network.DatabaseManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
