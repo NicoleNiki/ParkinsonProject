@@ -45,6 +45,24 @@
         <service android:name=".features.notification.NotifServiceForground"/>
         <service android:name=".features.brodacsts.NotifService"/>
 
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/icon_medical" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="CHANNEL_ID" />
+
     </application>
+
+
 
 </manifest>

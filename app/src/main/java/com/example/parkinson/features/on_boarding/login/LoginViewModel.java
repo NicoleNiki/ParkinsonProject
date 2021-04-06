@@ -5,14 +5,17 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.parkinson.data.UserRepository;
+import com.example.parkinson.fcm.MessagingManager;
+import com.example.parkinson.features.splash.SplashViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 
 import javax.inject.Inject;
 
-public class LoginViewModel {
+public class LoginViewModel implements UserRepository.InitUserListener {
 
     private final UserRepository userRepository;
+    private final MessagingManager messagingManager;
 
     String email = "";
     String password = "";
@@ -33,11 +36,12 @@ public class LoginViewModel {
 
     // @Inject tells Dagger how to create instances of MainViewModel
     @Inject
-    public LoginViewModel(UserRepository userRepository) {
+    public LoginViewModel(UserRepository userRepository, MessagingManager messagingManager) {
         this.userRepository = userRepository;
         errorEvent = new MutableLiveData<>();
         loginEvent = new MutableLiveData<>();
         nextButtonState = new MutableLiveData<>();
+        this.messagingManager = messagingManager;
     }
 
     public void setEmail(String email) {
@@ -73,11 +77,18 @@ public class LoginViewModel {
             if (task.isSuccessful()) {
                 Log.d("wowLoginVM", "sign in successful");
                 userRepository.updateCurrentUser();
-                loginEvent.postValue(true);
+                userRepository.initUserDetails(this);
             } else {
                 Log.d("wowLoginVM", "sign in Not successful");
                 errorEvent.postValue(ErrorEvent.LOGIN_FAIL);
             }
         };
     }
+
+    @Override
+    public void finishedLoadingUser() {
+        messagingManager.refreshPushNotificationToken();
+        loginEvent.postValue(true);
+    }
+
 }

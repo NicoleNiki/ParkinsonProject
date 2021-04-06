@@ -73,9 +73,25 @@ public class MainViewModel {
      **/
     public void initData() {
         isLoading.setValue(true);
-        userRepository.getPatientDetails(setPatientDataListener());
+        handleUserDetails(userRepository.getPatientDetails());
         userRepository.getReportsList(setReportsListener());
     }
+
+    private void handleUserDetails(Patient patientDetails) {
+        patientEvent.postValue(patientDetails);
+        List<String> messages = new ArrayList<>();
+        if (patientDetails.getHasUnansweredQuestionnaire()) {
+            messages.add("קיים שאלון חדש המחכה למענה");
+        }
+        if (patientDetails.getNeedToUpdateMedicine()) {
+            messages.add("יש למלא רשימת תרופות");
+        }
+        if (!patientDetails.getNeedToUpdateMedicine() && !patientDetails.getHasUnansweredQuestionnaire()) {
+            messages.add("אין הודעות חדשות");
+        }
+        messagesData.postValue(messages);
+    }
+
 
     private ChildEventListener setReportsListener() {
         return new ChildEventListener() {
@@ -87,11 +103,12 @@ public class MainViewModel {
                     reports.add(report);
                     reportsData.postValue(reports);
                 }
+                isLoading.setValue(false);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                isLoading.setValue(false);
             }
 
             @Override
@@ -107,38 +124,6 @@ public class MainViewModel {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        };
-    }
-
-    /**
-     * Posting PatientDetails data to observer
-     **/
-    private ValueEventListener setPatientDataListener() {
-        return new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Patient patient_Info = dataSnapshot.getValue(Patient.class);
-                    patientEvent.postValue(patient_Info);
-                    List<String> messages = new ArrayList<>();
-                    if (patient_Info.getHasUnansweredQuestionnaire()) {
-                        messages.add("קיים שאלון חדש המחכה למענה");
-                    }
-                    if (patient_Info.getNeedToUpdateMedicine()) {
-                        messages.add("נדרש עידכון ברשימת התרופות");
-                    }
-                    if (!patient_Info.getNeedToUpdateMedicine() && !patient_Info.getHasUnansweredQuestionnaire()) {
-                        messages.add("אין הודעות חדשות");
-                    }
-                    messagesData.postValue(messages);
-                }
-                isLoading.setValue(false);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                isLoading.setValue(false);
             }
         };
     }
