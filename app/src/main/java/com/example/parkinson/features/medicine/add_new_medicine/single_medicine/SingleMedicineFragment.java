@@ -1,12 +1,13 @@
 package com.example.parkinson.features.medicine.add_new_medicine.single_medicine;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.model.general_models.Medicine;
-import com.example.parkinson.model.general_models.Time;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -95,63 +97,86 @@ public class SingleMedicineFragment extends Fragment {
             adapter.removeTime();
             timeNumber.setText(String.valueOf(adapter.getItemCount()));
         });
-        initDosageButtons(medicine.getDosage());
+        initDosageSpinner(medicine.getDosage());
     }
 
-    private void initDosageButtons(Double selectedDosage) {
-        final RadioGroup rgTop = getView().findViewById(R.id.rg_exponent_top);
-        final RadioGroup rgBottom = getView().findViewById(R.id.rg_exponent_bottom);
-        final RadioButton radioOne = getView().findViewById(R.id.radioOne);
-        final RadioButton radioTwo = getView().findViewById(R.id.radioTwo);
-        final RadioButton radioThree = getView().findViewById(R.id.radioThree);
-        final RadioButton radioForth = getView().findViewById(R.id.radioForth);
+    private void initDosageSpinner(Double selectedDosage) {
+        HashMap<Double, String> dosagesHash = new HashMap<>();
+        dosagesHash.put(0.25, "רבע כדור");
+        dosagesHash.put(0.50,"חצי כדור");
+        dosagesHash.put(0.75, "שלושת רבעי כדור");
+        dosagesHash.put(1.00, "כדור בודד");
+        dosagesHash.put(1.25, "כדור ורבע");
+        dosagesHash.put(1.50, "כדור וחצי");
+        dosagesHash.put(1.75, "כדור ושלושת רבעי");
+        dosagesHash.put(2.00, "שני כדורים");
 
-        radioOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioOne.setChecked(true);
-                rgBottom.clearCheck();
-                singleMedicineViewModel.setDosage(0.5);
-            }
-        });
-        radioTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioTwo.setChecked(true);
-                rgBottom.clearCheck();
-                singleMedicineViewModel.setDosage(1.0);
-
-            }
-        });
-        radioThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioThree.setChecked(true);
-                rgTop.clearCheck();
-                singleMedicineViewModel.setDosage(1.5);
-
-            }
-        });
-        radioForth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radioForth.setChecked(true);
-                rgTop.clearCheck();
-                singleMedicineViewModel.setDosage(2.0);
-            }
-        });
-
-        if(selectedDosage != null){
-            if (selectedDosage == 0.5) {
-                radioOne.setChecked(true);
-            } else if (selectedDosage == 1.0) {
-                radioTwo.setChecked(true);
-            } else if (selectedDosage == 1.5) {
-                radioThree.setChecked(true);
-            } else if (selectedDosage == 2.0) {
-                radioForth.setChecked(true);
-            }
+        final Spinner dosageSpinner = (Spinner) getView().findViewById(R.id.singleMedicineFragSpinner);
+        List<String> dosageArr= new ArrayList <>();
+        dosageArr.add(dosagesHash.get(0.25));
+        dosageArr.add(dosagesHash.get(0.50));
+        dosageArr.add(dosagesHash.get(0.75));
+        dosageArr.add(dosagesHash.get(1.00));
+        dosageArr.add(dosagesHash.get(1.25));
+        dosageArr.add(dosagesHash.get(1.50));
+        dosageArr.add(dosagesHash.get(1.75));
+        dosageArr.add(dosagesHash.get(2.00));
+        if(selectedDosage == null || selectedDosage == 0.0){
+            dosageArr.add("בחר מינון");
+        } else {
+            dosageArr.add(dosagesHash.get(selectedDosage));
         }
+
+        final int dosageArrSize = dosageArr.size() - 1;
+
+        ArrayAdapter<String> dosageAdapter = new ArrayAdapter<String>(requireContext(), R.layout.spinner_item, dosageArr){
+            @Override
+            public int getCount() {
+                return(dosageArrSize); // Truncate the list
+            }
+        };
+
+
+
+        dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dosageSpinner.setAdapter(dosageAdapter);
+        dosageSpinner.setSelection(dosageArrSize);
+        dosageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        singleMedicineViewModel.setDosage(0.25);
+                        break;
+                    case 1:
+                        singleMedicineViewModel.setDosage(0.50);
+                        break;
+                    case 2:
+                        singleMedicineViewModel.setDosage(0.75);
+                        break;
+                    case 3:
+                        singleMedicineViewModel.setDosage(1.00);
+                        break;
+                    case 4:
+                        singleMedicineViewModel.setDosage(1.25);
+                        break;
+                    case 5:
+                        singleMedicineViewModel.setDosage(1.50);
+                        break;
+                    case 6:
+                        singleMedicineViewModel.setDosage(1.75);
+                        break;
+                    case 7:
+                        singleMedicineViewModel.setDosage(2.00);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 }

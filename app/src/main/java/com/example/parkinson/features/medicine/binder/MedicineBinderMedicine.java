@@ -39,21 +39,13 @@ public class MedicineBinderMedicine extends ItemBinder<Medicine, MedicineBinderM
             listener.onMedicineClick(item);
         });
 
-        if (item.getDosage() == 0.5) {
-            holder.dosage.setText("חצי כדור, ");
-        } else if (item.getDosage() == 1.0) {
-            holder.dosage.setText("כדור אחד, ");
-        } else if (item.getDosage() == 1.5) {
-            holder.dosage.setText("כדור חצי, ");
-        } else if (item.getDosage() == 2.0) {
-            holder.dosage.setText("שני כדורים, ");
-        }
+        holder.dosage.setText(item.dosageString() + ", ");
 
 
         if (item.getHoursArr().size() == 1) {
             holder.dosage.setText(holder.dosage.getText() + "פעם אחת ביום");
         } else {
-            holder.dosage.setText(holder.dosage.getText() +""+ item.getHoursArr().size() + " פעמים ביום");
+            holder.dosage.setText(holder.dosage.getText() + "" + item.getHoursArr().size() + " פעמים ביום");
         }
     }
 

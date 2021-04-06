@@ -96,6 +96,25 @@ public class Medicine implements Parcelable {
         this.hoursArr = hoursArr;
     }
 
-
+    public String dosageString(){
+        if (dosage == 0.25) {
+            return "רבע כדור";
+        } else if (dosage == 0.50) {
+            return "חצי כדור";
+        } else if (dosage == 0.75) {
+            return "שלושת רבעי כדור";
+        } else if (dosage == 1.00) {
+            return "כדור בודד";
+        } else if (dosage == 1.25) {
+            return "כדור ורבע";
+        } else if (dosage == 1.50) {
+            return "כדור וחצי";
+        } else if (dosage == 1.75) {
+            return "כדור ושלושת רבעי";
+        } else if (dosage == 2.00) {
+            return "שני כדורים";
+        }
+        return "";
+    }
 
 }

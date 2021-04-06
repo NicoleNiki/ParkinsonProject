@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkinson.R;
+import com.example.parkinson.fcm.MyFirebaseMessagingService;
 import com.example.parkinson.features.main.adapters.MessagesListAdapter;
 import com.example.parkinson.features.main.adapters.ReportsListAdapter;
 import com.example.parkinson.features.notification.NotificationActivity;
@@ -124,6 +125,7 @@ public class MainFragment extends Fragment {
 
     private void openReportActivity() {
         Intent intent = new Intent(getActivity(), NotificationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
