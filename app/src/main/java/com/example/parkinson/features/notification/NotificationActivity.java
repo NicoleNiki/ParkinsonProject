@@ -9,11 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.ParkinsonApplication;
@@ -36,8 +40,9 @@ public class NotificationActivity extends AppCompatActivity {
     ConstraintLayout background;
     SensorManager manager;
     Sensor sensor;
-    TextView onnBtn,offBtn,dyskinesiaBtn,reportBtn;
-    CheckBox isHallucinations;
+    RadioButton onnBtn, offBtn, dyskinesiaBtn;
+    TextView reportBtn,isHallucinations;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         ((ParkinsonApplication) getApplicationContext()).appComponent.inject(this);
@@ -57,56 +62,25 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void initBtnListenrs() {
-        reportBtn = findViewById(R.id.reportStatusBtn);
+        reportBtn = findViewById(R.id.notificationReportBtn);
         offBtn = findViewById(R.id.notificationOffBtn);
         onnBtn = findViewById(R.id.notificationOnBtn);
         dyskinesiaBtn = findViewById(R.id.notificationDyskinesiaBtn);
-        offBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (chosenStatus == null || chosenStatus!= EStatus.Off) {
-                    view.setBackgroundColor(Color.GREEN);
-                    chosenStatus = EStatus.Off;
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
-                    chosenStatus = null;
-                }
-                view.setBackgroundColor(Color.GREEN);
-                onnBtn.setBackgroundColor(Color.WHITE);
-                dyskinesiaBtn.setBackgroundColor(Color.WHITE);
-            }
-        });
 
-        onnBtn.setOnClickListener(new View.OnClickListener() {
+        RadioGroup radioGroup = findViewById(R.id.reportRG);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-
-                if (chosenStatus == null || chosenStatus!= EStatus.On) {
-                    view.setBackgroundColor(Color.GREEN);
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == onnBtn.getId()) {
                     chosenStatus = EStatus.On;
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
-                    chosenStatus = null;
+                } else if (checkedId == offBtn.getId()) {
+                    chosenStatus = EStatus.Off;
+                } else if (checkedId == dyskinesiaBtn.getId()) {
+                    chosenStatus = EStatus.Dyskinesia;
                 }
-                offBtn.setBackgroundColor(Color.WHITE);
-                dyskinesiaBtn.setBackgroundColor(Color.WHITE);
             }
         });
 
-        dyskinesiaBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (chosenStatus == null || chosenStatus!= EStatus.Dyskinesia) {
-                    view.setBackgroundColor(Color.GREEN);
-                    chosenStatus = EStatus.Dyskinesia;
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
-                    chosenStatus = null;
-                }
-                onnBtn.setBackgroundColor(Color.WHITE);
-                offBtn.setBackgroundColor(Color.WHITE);
-            }
-        });
 
         reportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,24 +89,26 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
-        isHallucinations = findViewById(R.id.isHallucinationsBtn);
-//        onnBtn = findViewById(R.id.notificationOnBtn);
-//        dyskinesiaBtn = findViewById(R.id.notificationDyskinesiaBtn);
+        isHallucinations = findViewById(R.id.notificationHallucinationsBtn);
+
+        isHallucinations.setOnClickListener(v->{
+            isHallucinations.setSelected(!isHallucinations.isSelected());
+        });
     }
 
     private void reportToServer() {
         if (chosenStatus == null)
-                return;
+            return;
 
         switch (chosenStatus) {
             case On:
-                notificationViewModel.updateReport(EStatus.On,isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected());
                 break;
             case Off:
-                notificationViewModel.updateReport(EStatus.Off,isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected());
                 break;
             case Dyskinesia:
-                notificationViewModel.updateReport(EStatus.Dyskinesia,isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected());
                 break;
         }
         Intent intentService = new Intent(this, NotifServiceForground.class);
@@ -166,7 +142,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected());
             }
 
             @Override
@@ -187,7 +163,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Hallucination, isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.Hallucination, isHallucinations.isSelected());
             }
 
             @Override
@@ -209,7 +185,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected());
             }
 
             @Override
@@ -231,7 +207,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.On, isHallucinations.isChecked());
+                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected());
             }
 
             @Override
@@ -248,10 +224,10 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void hideDescription() {
-       //findViewById(R.id.notificationHallucinationBtn).setVisibility(View.GONE);
-       findViewById(R.id.notificationOffBtn).setVisibility(View.GONE);
-       findViewById(R.id.notificationOnBtn).setVisibility(View.GONE);
-       findViewById(R.id.notificationDyskinesiaBtn).setVisibility(View.GONE);
+        //findViewById(R.id.notificationHallucinationBtn).setVisibility(View.GONE);
+        findViewById(R.id.notificationOffBtn).setVisibility(View.GONE);
+        findViewById(R.id.notificationOnBtn).setVisibility(View.GONE);
+        findViewById(R.id.notificationDyskinesiaBtn).setVisibility(View.GONE);
     }
 
     @Override
