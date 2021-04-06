@@ -1,66 +1,71 @@
 package com.example.parkinson.model.user_models;
 
-import com.example.parkinson.model.enums.EClinics;
-import com.example.parkinson.model.question_models.Questionnaire;
-
-import java.util.Date;
-
 public class Patient {
-    private  String name, ID, birthCountry;
-    private String phoneNumber, email, clinicName;
-    private int educationYears;
-    private Date birthDate;
-    private EClinics clinics;
+    private String clinic;
+    private String country;
+    private Long date_of_birth;
+    private String doctor;
+    private String email;
+    private String first_name;
+    private String gender;
+    private String last_name;
+    private String mobile_phone;
+    private String token;
 
     private Boolean hasUnansweredQuestionnaire;
 
     private Boolean needToUpdateMedicine;
-    public Patient() {}
 
-    public Patient(String name, String ID, String birthCountry, String phoneNumber, String email, String clinicName, int educationYears, Date birthDate, EClinics clinics, Boolean hasUnansweredQuestionnaire, Boolean needToUpdateMedicine) {
-        this.name = name;
-        this.ID = ID;
-        this.birthCountry = birthCountry;
-        this.phoneNumber = phoneNumber;
+    public Patient() {
+    }
+
+    public Patient(String clinic, String country, Long date_of_birth, String doctor, String email, String first_name, String gender, String last_name, String mobile_phone, String token, Boolean hasUnansweredQuestionnaire, Boolean needToUpdateMedicine) {
+        this.clinic = clinic;
+        this.country = country;
+        this.date_of_birth = date_of_birth;
+        this.doctor = doctor;
         this.email = email;
-        this.clinicName = clinicName;
-        this.educationYears = educationYears;
-        this.birthDate = birthDate;
-        this.clinics = clinics;
+        this.first_name = first_name;
+        this.gender = gender;
+        this.last_name = last_name;
+        this.mobile_phone = mobile_phone;
+        this.token = token;
         this.hasUnansweredQuestionnaire = hasUnansweredQuestionnaire;
         this.needToUpdateMedicine = needToUpdateMedicine;
     }
 
-    public String getName() {
-        return name;
+
+
+    public String getClinic() {
+        return clinic;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClinic(String clinic) {
+        this.clinic = clinic;
     }
 
-    public String getID() {
-        return ID;
+    public String getCountry() {
+        return country;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getBirthCountry() {
-        return birthCountry;
+    public Long getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setBirthCountry(String birthCountry) {
-        this.birthCountry = birthCountry;
+    public void setDate_of_birth(Long date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getDoctor() {
+        return doctor;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
     }
 
     public String getEmail() {
@@ -71,40 +76,49 @@ public class Patient {
         this.email = email;
     }
 
-    public String getClinicName() {
-        return clinicName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setClinicName(String clinicName) {
-        this.clinicName = clinicName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public int getEducationYears() {
-        return educationYears;
+    public String getGender() {
+        return gender;
     }
 
-    public void setEducationYears(int educationYears) {
-        this.educationYears = educationYears;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public EClinics getClinics() {
-        return clinics;
+    public String getMobile_phone() {
+        return mobile_phone;
     }
 
-    public void setClinics(EClinics clinics) {
-        this.clinics = clinics;
+    public void setMobile_phone(String mobile_phone) {
+        this.mobile_phone = mobile_phone;
+    }
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Boolean getHasUnansweredQuestionnaire() {
-        if(hasUnansweredQuestionnaire != null){
+        if (hasUnansweredQuestionnaire != null) {
             return hasUnansweredQuestionnaire;
         } else {
             return true;
@@ -116,7 +130,7 @@ public class Patient {
     }
 
     public Boolean getNeedToUpdateMedicine() {
-        if(needToUpdateMedicine != null){
+        if (needToUpdateMedicine != null) {
             return needToUpdateMedicine;
         } else {
             return true;
