@@ -29,7 +29,7 @@ public class MedicineBinderHeader extends ItemBinder<String, MedicineBinderHeade
 
         public ViewHolder(View itemView) {
             super(itemView);
-            header = itemView.findViewById(R.id.itemMedicineHeader);
+            header = itemView.findViewById(R.id.itemHeaderName);
         }
     }
 }

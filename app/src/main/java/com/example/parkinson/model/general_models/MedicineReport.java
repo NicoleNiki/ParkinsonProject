@@ -3,12 +3,12 @@ package com.example.parkinson.model.general_models;
 public class MedicineReport {
 
     String medicineId;
-    String takenTime;
+    long takenTime;
 
     public MedicineReport() {
     }
 
-    public MedicineReport(String medicineId, String takenTime) {
+    public MedicineReport(String medicineId, long takenTime) {
         this.medicineId = medicineId;
         this.takenTime = takenTime;
     }
@@ -21,11 +21,11 @@ public class MedicineReport {
         this.medicineId = medicineId;
     }
 
-    public String getTakenTime() {
+    public long getTakenTime() {
         return takenTime;
     }
 
-    public void setTakenTime(String takenTime) {
+    public void setTakenTime(long takenTime) {
         this.takenTime = takenTime;
     }
 }

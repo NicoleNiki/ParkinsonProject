@@ -14,11 +14,14 @@ import com.example.parkinson.R;
 import com.example.parkinson.model.general_models.Medicine;
 import com.example.parkinson.model.general_models.MedicineCategory;
 
+import java.util.HashMap;
+
 
 public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapter.ViewHolder> {
 
     MedicineCategory category;
     MedicineListAdapterListener listener;
+
 
     interface MedicineListAdapterListener {
         void onMedicineClick(Medicine medicine);
@@ -55,22 +58,16 @@ public class MedicineListAdapter extends RecyclerView.Adapter<MedicineListAdapte
         holder.itemView.setOnClickListener(v -> {
             listener.onMedicineClick(medicine);
         });
-        if (medicine.getDosage() == 0.5) {
-            holder.dosage.setText("חצי כדור, ");
-        } else if (medicine.getDosage() == 1.0) {
-            holder.dosage.setText("כדור אחד, ");
-        } else if (medicine.getDosage() == 1.5) {
-            holder.dosage.setText("כדור חצי, ");
-        } else if (medicine.getDosage() == 2.0) {
-            holder.dosage.setText("שני כדורים, ");
-        }
+
+        holder.dosage.setText(medicine.dosageString());
+
 
         if (medicine.getDosage() > 0) {
             holder.mainLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.light_green));
             if (medicine.getHoursArr().size() == 1) {
-                holder.dosage.setText(holder.dosage.getText() + "פעם אחת ביום");
+                holder.dosage.setText(holder.dosage.getText() + " ," + "פעם אחת ביום");
             } else {
-                holder.dosage.setText(holder.dosage.getText() + "" + medicine.getHoursArr().size() + " פעמים ביום");
+                holder.dosage.setText(holder.dosage.getText() + " ," + medicine.getHoursArr().size() + " פעמים ביום");
             }
         }
     }
