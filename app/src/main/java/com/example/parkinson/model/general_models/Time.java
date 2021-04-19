@@ -43,7 +43,7 @@ public class Time {
             minutesString = "30";
         }
 
-        return hoursString +""+ minutesString;
+        return hoursString +":"+ minutesString;
     }
 
     @NonNull

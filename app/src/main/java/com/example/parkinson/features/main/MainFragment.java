@@ -66,7 +66,7 @@ public class MainFragment extends Fragment {
         questionnaireBadge = view.findViewById(R.id.mainFragQuestionnaireBadge);
 
         messagesList= view.findViewById(R.id.recyclerMessages);
-        reportsList= view.findViewById(R.id.recyclerReports);
+//        reportsList= view.findViewById(R.id.recyclerReports);
     }
 
     private void initUi(View view) {
@@ -88,7 +88,7 @@ public class MainFragment extends Fragment {
         });
         mainViewModel.reportsData.observe(getViewLifecycleOwner(),data->{
             ReportsListAdapter adapter = new ReportsListAdapter(data);
-            reportsList.setAdapter(adapter);
+//            reportsList.setAdapter(adapter);
         });
         mainViewModel.messagesData.observe(getViewLifecycleOwner(),data-> {
             MessagesListAdapter adapter = new MessagesListAdapter(data);

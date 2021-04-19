@@ -94,8 +94,10 @@ public class SingleMedicineFragment extends Fragment {
             timeNumber.setText(String.valueOf(adapter.getItemCount()));
         });
         removeButton.setOnClickListener(v->{
-            adapter.removeTime();
-            timeNumber.setText(String.valueOf(adapter.getItemCount()));
+            if(adapter.getItemCount() > 0){
+                adapter.removeTime();
+                timeNumber.setText(String.valueOf(adapter.getItemCount()));
+            }
         });
         initDosageSpinner(medicine.getDosage());
     }

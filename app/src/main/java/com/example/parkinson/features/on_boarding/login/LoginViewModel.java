@@ -45,7 +45,7 @@ public class LoginViewModel implements UserRepository.InitUserListener {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.replaceAll("\\s","");
         validateNextButton();
     }
 
