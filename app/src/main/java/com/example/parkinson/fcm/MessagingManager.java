@@ -1,7 +1,5 @@
 package com.example.parkinson.fcm;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.parkinson.data.UserRepository;

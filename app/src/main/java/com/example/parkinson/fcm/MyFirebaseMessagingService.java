@@ -12,12 +12,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import com.example.parkinson.R;
-import com.example.parkinson.data.UserRepository;
 import com.example.parkinson.features.main.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -33,15 +28,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    @Inject
-    public MyFirebaseMessagingService(MessagingManager messagingManager) {
-        this.messagingManager = messagingManager;
-    }
-
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-        messagingManager.updateToken(token);
+//        messagingManager.updateToken(token);
+        //todo: fix this shit
     }
 
     @Override
