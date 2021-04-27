@@ -16,7 +16,11 @@ import androidx.core.app.NotificationCompat;
 import com.example.parkinson.R;
 import com.example.parkinson.features.notification.NotifManager;
 import com.example.parkinson.model.general_models.Medicine;
+import com.example.parkinson.model.general_models.Time;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +40,7 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
         String channelId = null;
         if (Build.VERSION.SDK_INT >= 26) {
             channelId = "Notifaction";
-            CharSequence channelName = "Music Chanel";
+            CharSequence channelName = "Medicine Report Chanel";
             NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
             manager.createNotificationChannel(notificationChannel);
         }
@@ -61,7 +65,7 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
         Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("תזכורת על לקיחת תרופות")
-                .setContentText("תזכורת על לקיחת תרופות")
+                .setContentText("עליך לדווח על התרופות של השעה : "+notifHour)
                 .setStyle(inboxStyle)
                 .addAction(R.mipmap.ic_launcher,"דיווח על לקיחת התרופות",replyPendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -88,7 +92,8 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
         notifManger.setListner(this);
         String command = intent.getStringExtra("command");
         int notifId = intent.getIntExtra("notifId",1);
-        String notifHour = intent.getStringExtra("notifHour");
+        String notifHour = getCurrnetHour();
+       // String notifHour = intent.getStringExtra("notifHour");
         if (command == null)
             return super.onStartCommand(intent, flags, startId);
 
@@ -103,6 +108,15 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
         }
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private String getCurrnetHour() {
+        Calendar rightNow = Calendar.getInstance();
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        minutes = minutes < 30 ? 0 : 30;
+        Time time = new Time(minutes,currentHourIn24Format);
+        return time.toString();
     }
 
     @Override
