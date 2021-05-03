@@ -155,11 +155,10 @@
 
         </androidx.cardview.widget.CardView>
 
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/myMedicinesFragAddBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="30dp"
             android:layout_gravity="end"
@@ -173,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|center"
-                android:background="@drawable/btn_rectangle_blue"
+                android:background="@drawable/btn_blue_selector"
                 android:gravity="end|center"
                 android:paddingVertical="15dp"
                 android:paddingHorizontal="40dp"

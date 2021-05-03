@@ -2,29 +2,22 @@ package com.example.parkinson.features.notification;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
 import com.example.parkinson.di.ApplicationComponent;
 import com.example.parkinson.model.enums.EStatus;
-
 import javax.inject.Inject;
 
 
@@ -41,7 +34,7 @@ public class NotificationActivity extends AppCompatActivity {
     SensorManager manager;
     Sensor sensor;
     RadioButton onnBtn, offBtn, dyskinesiaBtn;
-    TextView reportBtn,isHallucinations;
+    TextView reportBtn,isHallucinations, isFalls;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +49,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void initUi() {
         //notificationBtn = findViewById(R.id.notificationFrame);
-        background = findViewById(R.id.notification_background);
+//        background = findViewById(R.id.notification_background);
         initBtnListenrs();
         //initSwipeListener();
     }
@@ -90,9 +83,13 @@ public class NotificationActivity extends AppCompatActivity {
         });
 
         isHallucinations = findViewById(R.id.notificationHallucinationsBtn);
-
         isHallucinations.setOnClickListener(v->{
             isHallucinations.setSelected(!isHallucinations.isSelected());
+        });
+
+        isFalls = findViewById(R.id.notificationFallsBtn);
+        isFalls.setOnClickListener(v->{
+            isFalls.setSelected(!isFalls.isSelected());
         });
     }
 
@@ -102,13 +99,13 @@ public class NotificationActivity extends AppCompatActivity {
 
         switch (chosenStatus) {
             case On:
-                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected(), isFalls.isSelected());
                 break;
             case Off:
-                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected(), isFalls.isSelected());
                 break;
             case Dyskinesia:
-                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected(), isFalls.isSelected());
                 break;
         }
         Intent intentService = new Intent(this, NotifServiceForground.class);
@@ -142,7 +139,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected(), isFalls.isSelected());
             }
 
             @Override
@@ -163,7 +160,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Hallucination, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.Hallucination, isHallucinations.isSelected(), isFalls.isSelected());
             }
 
             @Override
@@ -185,7 +182,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected(), isFalls.isSelected());
             }
 
             @Override
@@ -207,7 +204,7 @@ public class NotificationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected());
+                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected(), isFalls.isSelected());
             }
 
             @Override

@@ -75,6 +75,9 @@ public class SingleMedicineFragment extends Fragment {
         singleMedicineViewModel.medicineData.observe(getViewLifecycleOwner(), it -> {
             handleMedicineData(it);
         });
+        singleMedicineViewModel.nextBtnState.observe(getViewLifecycleOwner(),it->{
+            getView().findViewById(R.id.myMedicinesFragSaveButton).setEnabled(it);
+        });
     }
 
     private void handleMedicineData(Medicine medicine) {
@@ -83,7 +86,14 @@ public class SingleMedicineFragment extends Fragment {
         TextView timeNumber = getView().findViewById(R.id.singleMedicineFragTimeNumber);
         ImageButton addButton = getView().findViewById(R.id.singleMedicineFragAddTime);
         ImageButton removeButton = getView().findViewById(R.id.singleMedicineFragRemoveTime);
-        MedicineTimeAdapter adapter = new MedicineTimeAdapter(medicine.getHoursArr());
+        MedicineTimeAdapter adapter = new MedicineTimeAdapter(medicine.getHoursArr(),
+                new MedicineTimeAdapter.MedicineTimeAdapterListener() {
+                    @Override
+                    public void onTimeChanged() {
+                        singleMedicineViewModel.checkTimeArr();
+                    }
+                });
+
         recyclerView.setAdapter(adapter);
 
         title.setText(medicine.getName());

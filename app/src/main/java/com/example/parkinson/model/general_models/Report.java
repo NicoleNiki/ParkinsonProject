@@ -5,21 +5,16 @@ import com.example.parkinson.model.enums.EStatus;
 public class Report {
     private Long reportTime;
     private EStatus status;
-    private Boolean withHallucinations = false;
+    private Boolean hallucinations = false;
+    private Boolean falls = false;
 
-    public Report(){
+    public Report() { }
 
-    }
-
-    public Report(Long reportTime, EStatus status) {
+    public Report(Long reportTime, EStatus status, Boolean hallucinations, Boolean falls) {
         this.reportTime = reportTime;
         this.status = status;
-    }
-
-    public Report(Long reportTime, EStatus status, Boolean withHallucinations) {
-        this.reportTime = reportTime;
-        this.status = status;
-        this.withHallucinations = withHallucinations;
+        this.hallucinations = hallucinations;
+        this.falls = falls;
     }
 
     public Long getReportTime() {
@@ -39,10 +34,18 @@ public class Report {
     }
 
     public Boolean getHallucinations() {
-        return withHallucinations;
+        return hallucinations;
     }
 
     public void setHallucinations(Boolean hallucinations) {
-        withHallucinations = hallucinations;
+        hallucinations = hallucinations;
+    }
+
+    public Boolean getFalls() {
+        return falls;
+    }
+
+    public void setFalls(Boolean withFalls) {
+        this.falls = withFalls;
     }
 }

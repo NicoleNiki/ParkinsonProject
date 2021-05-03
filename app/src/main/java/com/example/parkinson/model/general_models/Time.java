@@ -43,6 +43,11 @@ public class Time {
             minutesString = "30";
         }
 
+         if(minutes == -1 && hour == -1){
+             minutesString = "00";
+             hoursString = "00";
+         }
+
         return hoursString +":"+ minutesString;
     }
 

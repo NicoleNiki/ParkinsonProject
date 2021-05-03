@@ -20,6 +20,8 @@ public class SingleMedicineViewModel extends ViewModel {
     MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     MutableLiveData<Medicine> medicineData = new MutableLiveData<>();
 
+    MutableLiveData<Boolean> nextBtnState = new MutableLiveData<>();
+
     // @Inject tells Dagger how to create instances of MainViewModel
     @Inject
     public SingleMedicineViewModel(UserRepository userRepository, DataRepository dataRepository) {
@@ -43,6 +45,26 @@ public class SingleMedicineViewModel extends ViewModel {
 
     public void setDosage(Double dosage) {
         medicineData.getValue().setDosage(dosage);
+        nextBtnState.postValue(validateNextBtn());
+    }
+
+    /** checking next btn state on every change in medicine time arr **/
+    public void checkTimeArr() {
+        nextBtnState.postValue(validateNextBtn());
+    }
+
+    /** returns true only if user filled all requirements **/
+    private Boolean validateNextBtn() {
+        Medicine medicine = medicineData.getValue();
+        if(medicine.getDosage() > 0) {
+            for (Time time : medicine.getHoursArr()){
+                if (time.getHour() == -1 && time.getMinutes() == -1){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     public void saveMedicine() {
@@ -52,6 +74,5 @@ public class SingleMedicineViewModel extends ViewModel {
     public void deleteMedicine() {
         userRepository.deleteMedication(medicineData.getValue());
     }
-
 
 }

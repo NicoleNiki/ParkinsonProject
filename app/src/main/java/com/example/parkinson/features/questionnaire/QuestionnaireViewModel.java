@@ -30,6 +30,7 @@ public class QuestionnaireViewModel {
     private Questionnaire questionnaire;
     MutableLiveData<Questionnaire> questionnaireDataEvent = new MutableLiveData<>();
     MutableLiveData<Boolean> isLoading  = new MutableLiveData<>();
+    MutableLiveData<Boolean> nextBtnState = new MutableLiveData<>();
 
     // @Inject tells Dagger how to create instances of MainViewModel
     @Inject
@@ -64,12 +65,18 @@ public class QuestionnaireViewModel {
 
     /** Getting answers chosen by user and updating the questionnaire**/
     public void updateMultipleChoiceAnswer(int position, List<String> chosenAnswers) {
+        nextBtnState.setValue(chosenAnswers != null);
         ((MultipleChoiceQuestion) questionnaire.getQuestionList().get(position)).setAnswers(chosenAnswers);
     }
 
     /** Getting answer string from user and updating the questionnaire**/
     public void updateOpenAnswer(int position, String answer) {
+        nextBtnState.setValue(!answer.isEmpty());
         ((OpenQuestion) questionnaire.getQuestionList().get(position)).setAnswer(answer);
+    }
+
+    public void updateNextButtonState(Boolean isEnabled){
+        nextBtnState.setValue(isEnabled);
     }
 
     private ValueEventListener setQuestionnaireListener() {

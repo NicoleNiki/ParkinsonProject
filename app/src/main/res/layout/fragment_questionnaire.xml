@@ -97,11 +97,12 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/questionnaireNextBtnTv"
                 style="@style/Bold21White"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|center"
-                android:background="@drawable/btn_rectangle_blue"
+                android:background="@drawable/btn_blue_selector"
                 android:drawableEnd="@drawable/ic_rrow_right"
                 android:gravity="end|center"
                 android:paddingVertical="15dp"
@@ -123,11 +124,12 @@
             app:cardElevation="8dp">
 
             <TextView
+                android:id="@+id/questionnaireFinishBtnTv"
                 style="@style/Bold21White"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|center"
-                android:background="@drawable/btn_rectangle_blue"
+                android:background="@drawable/btn_blue_selector"
                 android:drawableEnd="@drawable/ic_rrow_right"
                 android:gravity="end|center"
                 android:paddingVertical="15dp"

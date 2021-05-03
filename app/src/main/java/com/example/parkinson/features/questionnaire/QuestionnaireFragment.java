@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.main.MainViewModel;
@@ -116,6 +115,12 @@ public class QuestionnaireFragment extends Fragment {
         questionnaireViewModel.isLoading.observe(getViewLifecycleOwner(), isLoading -> {
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.updateLoadingScreen(isLoading);
+        });
+        questionnaireViewModel.nextBtnState.observe(getViewLifecycleOwner(), isEnabled->{
+            nextBtn.setEnabled(isEnabled);
+            finishBtn.setEnabled(isEnabled);
+            getView().findViewById(R.id.questionnaireNextBtnTv).setEnabled(isEnabled);
+            getView().findViewById(R.id.questionnaireFinishBtnTv).setEnabled(isEnabled);
         });
 
     }

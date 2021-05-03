@@ -17,11 +17,17 @@ import java.util.List;
 
 public class MedicineTimeAdapter extends RecyclerView.Adapter<MedicineTimeAdapter.ViewHolder> {
 
+    public interface MedicineTimeAdapterListener{
+        void onTimeChanged();
+    }
+
     List<Time> medicineTime;
     CustomTimePickerDialog picker;
 
-    public MedicineTimeAdapter(List<Time> medicineTime) {
+    MedicineTimeAdapterListener listener;
+    public MedicineTimeAdapter(List<Time> medicineTime, MedicineTimeAdapterListener listener) {
         this.medicineTime = medicineTime;
+        this.listener = listener;
     }
 
     @Override
@@ -51,6 +57,7 @@ public class MedicineTimeAdapter extends RecyclerView.Adapter<MedicineTimeAdapte
                             time.setHour(sHour);
                             time.setMinutes(sMinute);
                             viewHolder.medicineTime.setText(time.fullTime());
+                            listener.onTimeChanged();
                         }
                     }, hour, minutes, true);
             picker.show();
@@ -64,14 +71,16 @@ public class MedicineTimeAdapter extends RecyclerView.Adapter<MedicineTimeAdapte
     }
 
     public void addTime() {
-        Time time = new Time(0, 0);
+        Time time = new Time(-1, -1);
         medicineTime.add(time);
         notifyItemInserted(medicineTime.size() - 1);
+        listener.onTimeChanged();
     }
 
     public void removeTime() {
         medicineTime.remove(medicineTime.size() - 1);
         notifyItemRemoved(medicineTime.size());
+        listener.onTimeChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +89,6 @@ public class MedicineTimeAdapter extends RecyclerView.Adapter<MedicineTimeAdapte
         public ViewHolder(View view) {
             super(view);
             medicineTime = view.findViewById(R.id.itemMedicineTime);
-
         }
     }
 }

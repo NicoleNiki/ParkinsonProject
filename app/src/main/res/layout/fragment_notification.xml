@@ -112,6 +112,18 @@
                 android:text=" הזיות  " />
 
             <TextView
+                android:id="@+id/notificationFallsBtn"
+                style="@style/SemiBold17Black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_light_green_stroke_selectable"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="20dp"
+                android:text=" נפילות " />
+
+            <TextView
                 android:id="@+id/notificationReportBtn"
                 style="@style/Bold21White"
                 android:layout_width="wrap_content"

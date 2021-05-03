@@ -12,9 +12,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import com.example.parkinson.R;
+import com.example.parkinson.data.enums.EDataSourceUser;
 import com.example.parkinson.features.main.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -24,15 +30,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     MessagingManager messagingManager;
 
-    public MyFirebaseMessagingService() {
-
-    }
-
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-//        messagingManager.updateToken(token);
-        //todo: fix this shit
+        FirebaseAuth AuthenticationServer = FirebaseAuth.getInstance();
+        if(AuthenticationServer.getCurrentUser() != null){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference userTable = database.getReference("Patients");
+            userTable.child(Objects.requireNonNull(AuthenticationServer.getCurrentUser()).getUid()).child(EDataSourceUser.USER_DETAILS.name).child("token").setValue(token);
+        }
     }
 
     @Override
