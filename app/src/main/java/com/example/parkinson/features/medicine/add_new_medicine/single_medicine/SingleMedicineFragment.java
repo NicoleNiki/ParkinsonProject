@@ -56,6 +56,7 @@ public class SingleMedicineFragment extends Fragment {
     }
 
     private void initUi() {
+        getView().findViewById(R.id.myMedicinesFragSaveButton).setEnabled(false);
         getView().findViewById(R.id.singleMedicineFragExitBtn).setOnClickListener(v->{
             getActivity().onBackPressed();
         });
@@ -147,7 +148,6 @@ public class SingleMedicineFragment extends Fragment {
                 return(dosageArrSize); // Truncate the list
             }
         };
-
 
 
         dosageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -56,7 +56,7 @@ public class SingleMedicineViewModel extends ViewModel {
     /** returns true only if user filled all requirements **/
     private Boolean validateNextBtn() {
         Medicine medicine = medicineData.getValue();
-        if(medicine.getDosage() > 0) {
+        if(medicine.getDosage() > 0 && medicine.getHoursArr().size() > 0) {
             for (Time time : medicine.getHoursArr()){
                 if (time.getHour() == -1 && time.getMinutes() == -1){
                     return false;
