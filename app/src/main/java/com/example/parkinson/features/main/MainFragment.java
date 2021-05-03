@@ -30,6 +30,7 @@ public class MainFragment extends Fragment {
     CardView medicineBtn;
     CardView questionnaireBtn;
     CardView reportBtn;
+    CardView logOutBtn;
 
     ImageView medicineBadge;
     ImageView questionnaireBadge;
@@ -64,9 +65,10 @@ public class MainFragment extends Fragment {
         reportBtn = view.findViewById(R.id.mainFragReportBtn);
         medicineBadge = view.findViewById(R.id.mainFragMedicineBadge);
         questionnaireBadge = view.findViewById(R.id.mainFragQuestionnaireBadge);
+        logOutBtn = view.findViewById(R.id.mainFragLogoutBtn);
 
         messagesList= view.findViewById(R.id.recyclerMessages);
-//        reportsList= view.findViewById(R.id.recyclerReports);
+
     }
 
     private void initUi(View view) {
@@ -78,6 +80,9 @@ public class MainFragment extends Fragment {
         });
         reportBtn.setOnClickListener(v -> {
             openReportActivity();
+        });
+        logOutBtn.setOnClickListener(v->{
+            //todo : add logout function
         });
 
     }
