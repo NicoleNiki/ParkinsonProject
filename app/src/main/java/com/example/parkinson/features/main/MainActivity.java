@@ -15,6 +15,7 @@ import com.example.parkinson.features.brodacsts.NotifService;
 import com.example.parkinson.features.brodacsts.ReportBroadcast;
 import com.example.parkinson.features.brodacsts.ReportService;
 import com.example.parkinson.features.notification.NotifServiceForground;
+import com.example.parkinson.features.notification.NotificationActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 
 import java.util.Calendar;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initUi();
         initObservers();
-//        initNotifactions();
+        initNotifactions();
 
     }
 
@@ -742,5 +743,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OnBoardingActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        Intent intent = new Intent(this, NotificationActivity.class);
+//        startActivity(intent);
     }
 }

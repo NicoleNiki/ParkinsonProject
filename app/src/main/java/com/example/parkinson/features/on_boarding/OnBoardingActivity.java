@@ -10,6 +10,7 @@ import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
 import com.example.parkinson.di.OnBoardingComponent;
 import com.example.parkinson.features.main.MainActivity;
+import com.example.parkinson.features.notification.NotificationActivity;
 
 import java.util.Observable;
 
@@ -48,10 +49,11 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     }
 
-
     public void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        Intent intentNotification = new Intent(this, NotificationActivity.class);
+        startActivity(intentNotification);
         finish();
     }
 

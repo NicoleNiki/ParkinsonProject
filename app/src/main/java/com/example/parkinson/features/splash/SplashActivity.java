@@ -10,6 +10,7 @@ import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
 import com.example.parkinson.data.enums.EDataSourceData;
 import com.example.parkinson.features.main.MainActivity;
+import com.example.parkinson.features.notification.NotificationActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingViewModel;
 
@@ -50,6 +51,8 @@ public class SplashActivity extends AppCompatActivity {
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        Intent intentNotification = new Intent(this, NotificationActivity.class);
+        startActivity(intentNotification);
         finish();
     }
 

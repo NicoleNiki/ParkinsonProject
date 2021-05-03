@@ -40,7 +40,7 @@ public class ReportService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 100, reportActivity, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.ic_add)
+                .setSmallIcon(R.drawable.ic_medical)
                 .setContentTitle("איך אתה מרגיש?")
                 .setContentText("לחץ עליי לדיווח")
                 .setContentIntent(pendingIntent)
