@@ -47,7 +47,7 @@ public class ReportService extends Service {
         builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
                 .setSmallIcon(R.drawable.ic_medical)
                 .setContentTitle("איך אתה מרגיש?")
-                .setContentText("לחץ עליי לדיווח")
+                .setContentText("הגיע הזמן לדיווח חדש! אנא דווח על מצבך.")
                 .setContentIntent(pendingIntent)
                 .setFullScreenIntent(pendingIntent, true)
                 .setPriority(NotificationCompat.PRIORITY_MAX)

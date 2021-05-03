@@ -129,8 +129,8 @@ public class NotifServiceForground extends Service {
 
         builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
                 .setSmallIcon(R.drawable.icon_medical)
-                .setContentTitle("אפליקציית דיווחי פרקינסון")
-                .setContentText("בלחיצה עליי ניתן לדווח על מצבך")
+                .setContentTitle("איך אתה מרגיש ?")
+                .setContentText("לחץ לדיווח נוסף")
                 .setContentIntent(pendingIntent)
                 .setFullScreenIntent(pendingIntent, false)
                 .setPriority(NotificationCompat.PRIORITY_LOW)

@@ -17,6 +17,7 @@ import com.example.parkinson.R;
 import com.example.parkinson.features.notification.NotifManager;
 import com.example.parkinson.model.general_models.Medicine;
 import com.example.parkinson.model.general_models.Time;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -90,7 +91,7 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if(notifManger.isLogIn() == false) {
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             return super.onStartCommand(intent, flags, startId);
         }
 
