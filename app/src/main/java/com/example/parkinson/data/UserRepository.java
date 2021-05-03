@@ -13,14 +13,17 @@ import com.example.parkinson.model.user_models.Patient;
 import com.example.parkinson.network.Authentication;
 import com.example.parkinson.network.DatabaseManager;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -146,6 +149,19 @@ public class UserRepository {
     public void fetchPatientDetails() {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).addListenerForSingleValueEvent(setPatientDataListener());
     }
+
+//    /** Logout of firebase **/
+//    public void logout() {
+//        FirebaseMessaging.getInstance().unsubscribeFromTopic(getCurrentUser().getUid());
+//        String uid = (authenticator.getCurrentUser().getUid());
+//        userTable.child(uid).child(EDataSourceUser.USER_PROFILE_INFORMATION.name).child("token").setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                authenticator.getAuthentication().signOut();
+//                currentPatientDetails = null;
+//            }
+//        });
+//    }
 
     /**
      * Posting PatientDetails data to observer
