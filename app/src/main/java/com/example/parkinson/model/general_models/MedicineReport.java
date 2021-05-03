@@ -4,13 +4,15 @@ public class MedicineReport {
 
     String medicineId;
     long takenTime;
+    String medicineName;
 
     public MedicineReport() {
     }
 
-    public MedicineReport(String medicineId, long takenTime) {
+    public MedicineReport(String medicineId, long takenTime, String medicineName) {
         this.medicineId = medicineId;
         this.takenTime = takenTime;
+        this.medicineName = medicineName;
     }
 
     public String getMedicineId() {
@@ -27,5 +29,13 @@ public class MedicineReport {
 
     public void setTakenTime(long takenTime) {
         this.takenTime = takenTime;
+    }
+
+    public String getMedicineName() {
+        return medicineName;
+    }
+
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
     }
 }

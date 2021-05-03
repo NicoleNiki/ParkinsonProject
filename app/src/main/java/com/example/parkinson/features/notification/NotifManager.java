@@ -161,7 +161,7 @@ public class NotifManager {
     private void pushReports(List<Medicine> list, int notifId) {
         List<MedicineReport> reportList = new ArrayList<>();
         for (Medicine med : list) {
-            reportList.add(new MedicineReport(med.getId(), Calendar.getInstance().getTimeInMillis()));
+            reportList.add(new MedicineReport(med.getId(), Calendar.getInstance().getTimeInMillis(), med.getName()));
         }
         pushMedicineReport(reportList, getFinishReportListner(notifId));
     }

@@ -1,10 +1,13 @@
 package com.example.parkinson.features.notification;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
@@ -12,6 +15,11 @@ import android.os.IBinder;
 import androidx.core.app.NotificationCompat;
 
 import com.example.parkinson.R;
+import com.example.parkinson.features.brodacsts.NotifService;
+import com.example.parkinson.features.brodacsts.ReportService;
+import com.example.parkinson.model.general_models.Time;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,6 +27,7 @@ import javax.inject.Singleton;
 @Singleton
 public class NotifServiceForground extends Service {
     NotifManager notifManager;
+    SharedPreferences sharedPreferences;
 
     @Inject
     public NotifServiceForground(NotifManager notifManager){
@@ -33,6 +42,83 @@ public class NotifServiceForground extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        sharedPreferences = getSharedPreferences("details",MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("is first lunch",true) == true)
+        {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("is first lunch",false);
+            editor.commit();
+            createNotifacations();
+            cReateReportNotif();
+            cReateReportMedicineNotif();
+        }
+
+        createNotifacations();
+
+
+//        createNotificationChannel();
+//        NotificationCompat.Builder builder;
+//        NotificationManager notificationManager;
+//        Intent reportActivity = new Intent(this, NotificationActivity.class);
+//        //reportActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        //reportActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 100, reportActivity, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
+//                .setSmallIcon(R.drawable.ic_add)
+//                .setContentTitle("אפליקציית פרקינסון")
+//                .setContentText("לחץ עליי לדיווח")
+//                .setContentIntent(pendingIntent)
+//                .setFullScreenIntent(pendingIntent, false)
+//                .setPriority(NotificationCompat.PRIORITY_LOW)
+////                .setDefaults(NotificationCompat.DEFAULT_ALL)
+//                .setColor(Color.BLACK)
+//                .setOngoing(true);
+//
+//
+//        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        startForeground(10,builder.build() );
+//       // notificationManager.notify(1, builder.build());
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void cReateReportMedicineNotif() {
+        Calendar rightNow = Calendar.getInstance();
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        minutes = minutes < 30 ? 0 : 30;
+
+        Intent medicineIntent = new Intent(this, NotifService.class);
+        medicineIntent.putExtra("command", "start Notifaction");
+        medicineIntent.putExtra("notifHour", "2100");
+        PendingIntent medicineIntentPintent = PendingIntent.getService(this, 0, medicineIntent, 0);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTimeInMillis(System.currentTimeMillis());
+        calendar2.set(Calendar.MINUTE,minutes);
+
+        AlarmManager alarm2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        //alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, 3000, AlarmManager.INTERVAL_DAY, pintent);
+        alarm2.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),
+                1000 * 60 *30, medicineIntentPintent);
+    }
+
+    private void cReateReportNotif() {
+        Intent intent = new Intent(this, ReportService.class);
+        PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
+        Time time = getCurrnetHour();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
+        calendar.set(Calendar.MINUTE,time.getMinutes());
+
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        //alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, 3000, AlarmManager.INTERVAL_DAY, pintent);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000 * 60 * 60, pintent);
+    }
+
+    private void createNotifacations() {
         createNotificationChannel();
         NotificationCompat.Builder builder;
         NotificationManager notificationManager;
@@ -42,9 +128,9 @@ public class NotifServiceForground extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 100, reportActivity, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.icon_medical)
-                .setContentTitle("אפליקציית פרקינסון")
-                .setContentText("לחץ עליי לדיווח")
+                .setSmallIcon(R.drawable.ic_add)
+                .setContentTitle("אפליקציית דיווחי פרקינסון")
+                .setContentText("בלחיצה עליי ניתן לדווח על מצבך")
                 .setContentIntent(pendingIntent)
                 .setFullScreenIntent(pendingIntent, false)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
@@ -55,8 +141,7 @@ public class NotifServiceForground extends Service {
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         startForeground(10,builder.build() );
-       // notificationManager.notify(1, builder.build());
-        return super.onStartCommand(intent, flags, startId);
+        // notificationManager.notify(1, builder.build());
     }
 
     private void createNotificationChannel() {
@@ -70,5 +155,22 @@ public class NotifServiceForground extends Service {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private Time getCurrnetHour() {
+        Calendar rightNow = Calendar.getInstance();
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        minutes = minutes < 30 ? 0 : 30;
+        Time time = new Time(minutes,currentHourIn24Format);
+        return time;
+    }
+
+    @Override
+    public void onDestroy() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("is first lunch",true);
+        editor.commit();
+        super.onDestroy();
     }
 }
