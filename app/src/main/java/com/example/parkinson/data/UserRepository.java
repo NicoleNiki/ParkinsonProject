@@ -25,6 +25,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -108,13 +109,6 @@ public class UserRepository {
     }
 
     /**
-     * Logout of firebase
-     **/
-    public void logout() {
-        authenticator.getAuthentication().signOut();
-    }
-
-    /**
      * Get current stored user
      **/
     public FirebaseUser getCurrentUser() {
@@ -150,18 +144,18 @@ public class UserRepository {
         userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).addListenerForSingleValueEvent(setPatientDataListener());
     }
 
-//    /** Logout of firebase **/
-//    public void logout() {
-//        FirebaseMessaging.getInstance().unsubscribeFromTopic(getCurrentUser().getUid());
-//        String uid = (authenticator.getCurrentUser().getUid());
-//        userTable.child(uid).child(EDataSourceUser.USER_PROFILE_INFORMATION.name).child("token").setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                authenticator.getAuthentication().signOut();
-//                currentPatientDetails = null;
-//            }
-//        });
-//    }
+    /** Logout of firebase **/
+    public void logout() {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(getCurrentUser().getUid());
+        String uid = (authenticator.getCurrentUser().getUid());
+        userTable.child(uid).child(EDataSourceUser.USER_DETAILS.name).child("token").setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                authenticator.getAuthentication().signOut();
+                currentPatientDetails = null;
+            }
+        });
+    }
 
     /**
      * Posting PatientDetails data to observer

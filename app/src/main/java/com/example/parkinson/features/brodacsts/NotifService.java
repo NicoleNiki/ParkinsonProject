@@ -64,7 +64,7 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
         }
 
         Notification notification = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_add)
                 .setContentTitle("תזכורת על לקיחת תרופות")
                 .setContentText("עליך לדווח על התרופות של השעה : "+notifHour)
                 .setStyle(inboxStyle)

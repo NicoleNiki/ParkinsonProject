@@ -87,7 +87,7 @@ public class MainFragment extends Fragment {
         });
         logOutBtn.setOnClickListener(v->{
             stopForgroundService();
-            //todo : add logout function
+            mainViewModel.logOut();
         });
 
     }
