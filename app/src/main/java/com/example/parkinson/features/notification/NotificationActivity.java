@@ -1,19 +1,14 @@
 package com.example.parkinson.features.notification;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.ParkinsonApplication;
 import com.example.parkinson.R;
 import com.example.parkinson.di.ApplicationComponent;
@@ -29,32 +24,24 @@ public class NotificationActivity extends AppCompatActivity {
     @Inject
     NotificationViewModel notificationViewModel;
 
-    FrameLayout notificationBtn;
-    ConstraintLayout background;
-    SensorManager manager;
-    Sensor sensor;
     RadioButton onnBtn, offBtn, dyskinesiaBtn;
-    TextView reportBtn,isHallucinations, isFalls;
+    TextView reportBtn;
+    CheckBox isHallucinations, isFalls;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         ((ParkinsonApplication) getApplicationContext()).appComponent.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_notification);
-        //manager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        //sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         initUi();
     }
 
     private void initUi() {
-        //notificationBtn = findViewById(R.id.notificationFrame);
-//        background = findViewById(R.id.notification_background);
-        initBtnListenrs();
-        //initSwipeListener();
+        initBtnListeners();
     }
 
-    private void initBtnListenrs() {
+    private void initBtnListeners() {
         reportBtn = findViewById(R.id.notificationReportBtn);
         offBtn = findViewById(R.id.notificationOffBtn);
         onnBtn = findViewById(R.id.notificationOnBtn);
@@ -74,7 +61,6 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
-
         reportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,14 +69,7 @@ public class NotificationActivity extends AppCompatActivity {
         });
 
         isHallucinations = findViewById(R.id.notificationHallucinationsBtn);
-        isHallucinations.setOnClickListener(v->{
-            isHallucinations.setSelected(!isHallucinations.isSelected());
-        });
-
         isFalls = findViewById(R.id.notificationFallsBtn);
-        isFalls.setOnClickListener(v->{
-            isFalls.setSelected(!isFalls.isSelected());
-        });
     }
 
     private void reportToServer() {
@@ -99,132 +78,18 @@ public class NotificationActivity extends AppCompatActivity {
 
         switch (chosenStatus) {
             case On:
-                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected(), isFalls.isSelected());
+                notificationViewModel.updateReport(EStatus.On, isHallucinations.isChecked(), isFalls.isChecked());
                 break;
             case Off:
-                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected(), isFalls.isSelected());
+                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isChecked(), isFalls.isChecked());
                 break;
             case Dyskinesia:
-                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected(), isFalls.isSelected());
+                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isChecked(), isFalls.isChecked());
                 break;
         }
         Intent intentService = new Intent(this, NotifServiceForground.class);
         startService(intentService);
         onBackPressed();
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-//    private void initSwipeListener() {
-//        notificationBtn.setOnTouchListener(new OnSwipeTouchListener(this) {
-//            public void onSwipeTop() {
-//                upReport();
-//            }
-//
-//            public void onSwipeRight() {
-//                rightReport();
-//            }
-//
-//            public void onSwipeLeft() {
-//                leftReport();
-//            }
-//
-//            public void onSwipeBottom() {
-//                downReport();
-//            }
-//        });
-//    }
-
-    private void upReport() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_bottom_out);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isSelected(), isFalls.isSelected());
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                finish();
-            }
-        });
-        //hideDescription();
-        //notificationBtn.startAnimation(animation);
-    }
-
-    private void downReport() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_top_out);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Hallucination, isHallucinations.isSelected(), isFalls.isSelected());
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                finish();
-            }
-        });
-        //hideDescription();
-        //notificationBtn.startAnimation(animation);
-
-    }
-
-    private void leftReport() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_left_exit);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.Off, isHallucinations.isSelected(), isFalls.isSelected());
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                finish();
-            }
-        });
-        //hideDescription();
-        //notificationBtn.startAnimation(animation);
-
-    }
-
-    private void rightReport() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_right_exit);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                notificationViewModel.updateReport(EStatus.On, isHallucinations.isSelected(), isFalls.isSelected());
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                finish();
-            }
-        });
-        //hideDescription();
-        //notificationBtn.startAnimation(animation);
-    }
-
-    private void hideDescription() {
-        //findViewById(R.id.notificationHallucinationBtn).setVisibility(View.GONE);
-        findViewById(R.id.notificationOffBtn).setVisibility(View.GONE);
-        findViewById(R.id.notificationOnBtn).setVisibility(View.GONE);
-        findViewById(R.id.notificationDyskinesiaBtn).setVisibility(View.GONE);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class NotifServiceForground extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 100, reportActivity, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.ic_add)
+                .setSmallIcon(R.drawable.icon_medical)
                 .setContentTitle("אפליקציית פרקינסון")
                 .setContentText("לחץ עליי לדיווח")
                 .setContentIntent(pendingIntent)
