@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.parkinson.R;
 import com.example.parkinson.features.brodacsts.NotifService;
 import com.example.parkinson.features.brodacsts.ReportService;
+import com.example.parkinson.model.general_models.Time;
 
 import java.util.Calendar;
 
@@ -105,11 +106,11 @@ public class NotifServiceForground extends Service {
     private void cReateReportNotif() {
         Intent intent = new Intent(this, ReportService.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
-
+        Time time = getCurrnetHour();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
+        calendar.set(Calendar.MINUTE,time.getMinutes());
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         //alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, 3000, AlarmManager.INTERVAL_DAY, pintent);
@@ -154,6 +155,15 @@ public class NotifServiceForground extends Service {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private Time getCurrnetHour() {
+        Calendar rightNow = Calendar.getInstance();
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+        int minutes = rightNow.get(Calendar.MINUTE);
+        minutes = minutes < 30 ? 0 : 30;
+        Time time = new Time(minutes,currentHourIn24Format);
+        return time;
     }
 
     @Override
