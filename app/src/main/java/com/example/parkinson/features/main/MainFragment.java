@@ -2,6 +2,7 @@ package com.example.parkinson.features.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,10 +18,13 @@ import com.example.parkinson.R;
 import com.example.parkinson.fcm.MyFirebaseMessagingService;
 import com.example.parkinson.features.main.adapters.MessagesListAdapter;
 import com.example.parkinson.features.main.adapters.ReportsListAdapter;
+import com.example.parkinson.features.notification.NotifServiceForground;
 import com.example.parkinson.features.notification.NotificationActivity;
 import com.example.parkinson.features.on_boarding.OnBoardingActivity;
 import com.example.parkinson.model.user_models.Patient;
 import javax.inject.Inject;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
 
@@ -82,9 +86,20 @@ public class MainFragment extends Fragment {
             openReportActivity();
         });
         logOutBtn.setOnClickListener(v->{
+            stopForgroundService();
             //todo : add logout function
         });
 
+    }
+
+    private void stopForgroundService() {
+        Intent intent = new Intent(getContext(), NotifServiceForground.class);
+        getActivity().stopService(intent);
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getActivity().getSharedPreferences("details",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("is first lunch",true);
+        editor.commit();
     }
 
     private void initObservers() {

@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.parkinson.R;
 import com.example.parkinson.features.notification.NotificationActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ReportService extends Service {
     @Nullable
@@ -30,6 +31,10 @@ public class ReportService extends Service {
 //        //App.setCurrentActivityIntent(currentActivityIntent);
 //        //setCurrentActivityIntent(currentActivityIntent);
 //        startActivity(reportActivity);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            return super.onStartCommand(intent, flags, startId);
+        }
 
          createNotificationChannel();
         NotificationCompat.Builder builder;

@@ -27,6 +27,10 @@ import javax.inject.Singleton;
 
 public class NotifManager {
 
+    public boolean isLogIn() {
+        return currentUser != null;
+    }
+
     enum EnotifId {
         H5(0),
         H5_30(1),

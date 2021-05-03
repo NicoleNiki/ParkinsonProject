@@ -89,6 +89,11 @@ public class NotifService extends Service implements NotifManager.NotifMangerInt
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if(notifManger.isLogIn() == false) {
+            return super.onStartCommand(intent, flags, startId);
+        }
+
         notifManger.setListner(this);
         String command = intent.getStringExtra("command");
         int notifId = intent.getIntExtra("notifId",1);

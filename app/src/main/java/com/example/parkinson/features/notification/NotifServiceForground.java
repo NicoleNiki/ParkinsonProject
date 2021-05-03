@@ -110,7 +110,7 @@ public class NotifServiceForground extends Service {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
-        calendar.set(Calendar.MINUTE,time.getMinutes());
+        calendar.set(Calendar.MINUTE,0);
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         //alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, 3000, AlarmManager.INTERVAL_DAY, pintent);
