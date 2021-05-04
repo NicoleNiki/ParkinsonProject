@@ -23,9 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,7 +35,6 @@ public class UserRepository {
     private final DatabaseReference userTable;
 
     Patient currentPatientDetails;
-
 
     @Inject
     public UserRepository(Authentication authenticator, DatabaseManager databaseManager) {
@@ -135,13 +132,22 @@ public class UserRepository {
         void finishedLoadingUser();
     }
 
+    UpdateUserListener updateUserListener;
+    public interface UpdateUserListener{
+        void updateUserListener(Patient currentPatientDetails);
+    }
+
     public void initUserDetails(InitUserListener initUserListener){
         this.initUserListener = initUserListener;
         fetchPatientDetails();
     }
 
+    public void initUpdateUserListener(UpdateUserListener updateUserListener){
+        this.updateUserListener = updateUserListener;
+    }
+
     public void fetchPatientDetails() {
-        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).addListenerForSingleValueEvent(setPatientDataListener());
+        userTable.child(authenticator.getCurrentUser().getUid()).child(EDataSourceUser.USER_DETAILS.name).addValueEventListener(setPatientDataListener());
     }
 
     /** Logout of firebase **/
@@ -166,7 +172,12 @@ public class UserRepository {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     currentPatientDetails = dataSnapshot.getValue(Patient.class);
-                    initUserListener.finishedLoadingUser();
+                    if(initUserListener != null){
+                        initUserListener.finishedLoadingUser();
+                    }
+                    if(updateUserListener != null){
+                        updateUserListener.updateUserListener(currentPatientDetails);
+                    }
                 }
             }
 
