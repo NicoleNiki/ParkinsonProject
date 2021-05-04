@@ -16,6 +16,10 @@ import com.example.parkinson.R;
 import com.example.parkinson.features.main.MainActivity;
 import com.example.parkinson.features.main.MainViewModel;
 import com.example.parkinson.features.questionnaire.single_question.SingleQuestionFragment;
+import com.example.parkinson.model.enums.EChoiceType;
+import com.example.parkinson.model.question_models.MultipleChoiceQuestion;
+import com.example.parkinson.model.question_models.OpenQuestion;
+import com.example.parkinson.model.question_models.Question;
 import com.example.parkinson.model.question_models.Questionnaire;
 
 import javax.inject.Inject;
@@ -33,7 +37,6 @@ public class QuestionnaireFragment extends Fragment {
     CardView backBtn;
     CardView finishBtn;
     private int pageNumber;
-
 
     public QuestionnaireFragment() {
         super(R.layout.fragment_questionnaire);
@@ -84,6 +87,7 @@ public class QuestionnaireFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                validateNextBtnState(position);
                 if (position == 0){
                     // first page
                     backBtn.setVisibility(View.GONE);
@@ -106,6 +110,17 @@ public class QuestionnaireFragment extends Fragment {
 
     }
 
+    private void validateNextBtnState(int position){
+        Question question = questionnaireViewModel.getDataByPosition(position);
+        if(question != null){
+            if (question instanceof OpenQuestion){
+                handleNextBtnState(((OpenQuestion) question).getAnswer()!= null && !((OpenQuestion) question).getAnswer().isEmpty());
+            } else if (question instanceof MultipleChoiceQuestion){
+                handleNextBtnState(((MultipleChoiceQuestion) question).getAnswers()!= null && !((MultipleChoiceQuestion) question).getAnswers().isEmpty());
+            }
+        }
+    }
+
     private void initObservers() {
         questionnaireViewModel.questionnaireDataEvent.observe(getViewLifecycleOwner(), questionnaire -> {
             if (questionnaire != null) {
@@ -117,12 +132,15 @@ public class QuestionnaireFragment extends Fragment {
             mainActivity.updateLoadingScreen(isLoading);
         });
         questionnaireViewModel.nextBtnState.observe(getViewLifecycleOwner(), isEnabled->{
-            nextBtn.setEnabled(isEnabled);
-            finishBtn.setEnabled(isEnabled);
-            getView().findViewById(R.id.questionnaireNextBtnTv).setEnabled(isEnabled);
-            getView().findViewById(R.id.questionnaireFinishBtnTv).setEnabled(isEnabled);
+            handleNextBtnState(isEnabled);
         });
+    }
 
+    public void handleNextBtnState(Boolean isEnabled){
+        nextBtn.setEnabled(isEnabled);
+        finishBtn.setEnabled(isEnabled);
+        getView().findViewById(R.id.questionnaireNextBtnTv).setEnabled(isEnabled);
+        getView().findViewById(R.id.questionnaireFinishBtnTv).setEnabled(isEnabled);
     }
 
     public void onNextPressed() {

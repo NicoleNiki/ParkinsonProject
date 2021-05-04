@@ -27,11 +27,11 @@ public class QuestionBinderMultipleChoiceAnswer extends
     QuestionBinderMultipleChoiceAnswerListener listener;
     List<String> selectedAnswers = new ArrayList<>();
 
-    public interface QuestionBinderMultipleChoiceAnswerListener{
+    public interface QuestionBinderMultipleChoiceAnswerListener {
         void onChoiceChange(List<String> selectedAnswers);
     }
 
-    public QuestionBinderMultipleChoiceAnswer(QuestionBinderMultipleChoiceAnswerListener listener){
+    public QuestionBinderMultipleChoiceAnswer(QuestionBinderMultipleChoiceAnswerListener listener) {
         this.listener = listener;
     }
 
@@ -54,23 +54,27 @@ public class QuestionBinderMultipleChoiceAnswer extends
     public void bindViewHolder(final viewHolder holder, final MultipleChoiceAnswer answer) {
         holder.answer.setText(answer.getAnswer());
         if (answer.getSelected()) {
-            selectedAnswers.add(answer.getAnswer());
+            if (!selectedAnswers.contains(answer.getAnswer()))
+                selectedAnswers.add(answer.getAnswer());
         }
-        updateHolder(holder,answer);
+        updateHolder(holder, answer);
         holder.itemView.setOnClickListener(v -> {
                     if (answer.getSelected()) {
-                        selectedAnswers.remove(answer.getAnswer());
-                        answer.setSelected(false);
-                        listener.onChoiceChange(selectedAnswers);
+                        if (selectedAnswers.contains(answer.getAnswer())) {
+                            selectedAnswers.remove(answer.getAnswer());
+                            answer.setSelected(false);
+                            listener.onChoiceChange(selectedAnswers);
+                        }
                     } else {
                         answer.setSelected(true);
+                        selectedAnswers.add(answer.getAnswer());
                         listener.onChoiceChange(selectedAnswers);
                     }
                 }
         );
     }
 
-    void updateHolder(viewHolder holder, MultipleChoiceAnswer answer){
+    void updateHolder(viewHolder holder, MultipleChoiceAnswer answer) {
         holder.checkIcon.setVisibility(View.VISIBLE);
         if (answer.getSelected()) {
             holder.mainLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.light_green));

@@ -65,7 +65,7 @@ public class QuestionnaireViewModel {
 
     /** Getting answers chosen by user and updating the questionnaire**/
     public void updateMultipleChoiceAnswer(int position, List<String> chosenAnswers) {
-        nextBtnState.setValue(chosenAnswers != null);
+        nextBtnState.setValue(chosenAnswers != null && !chosenAnswers.isEmpty());
         ((MultipleChoiceQuestion) questionnaire.getQuestionList().get(position)).setAnswers(chosenAnswers);
     }
 

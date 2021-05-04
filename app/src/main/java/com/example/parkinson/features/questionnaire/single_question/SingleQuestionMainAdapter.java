@@ -24,7 +24,6 @@ import mva2.adapter.MultiViewAdapter;
  */
 public class SingleQuestionMainAdapter extends MultiViewAdapter {
 
-
     SingleQuestionMainAdapterListener adapterListener;
     /** Interface for both sections clicks **/
     interface SingleQuestionMainAdapterListener extends
@@ -59,9 +58,11 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
     public void updateSectionSingleChoiceAnswers(List<String> questionsList, List<String> answersList) {
         if (!questionsList.isEmpty()) {
             for (int i = 0; i < questionsList.size(); i++) {
-                String answer = questionsList.get(i);
-                Boolean isSelected = answersList.contains(answer);
-                singleChoiceAnswerSection.add(new SingleChoiceAnswer(answer, isSelected));
+                if(answersList != null){
+                    String answer = questionsList.get(i);
+                    Boolean isSelected = answersList.contains(answer);
+                    singleChoiceAnswerSection.add(new SingleChoiceAnswer(answer, isSelected));
+                }
             }
             singleChoiceAnswerSection.showSection();
         }
@@ -97,6 +98,5 @@ public class SingleQuestionMainAdapter extends MultiViewAdapter {
         multipleChoiceAnswerSection.hideSection();
         openAnswerSection.hideSection();
     }
-
 
 }

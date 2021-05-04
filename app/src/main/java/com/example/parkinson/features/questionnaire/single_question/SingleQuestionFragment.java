@@ -61,7 +61,6 @@ public class SingleQuestionFragment extends Fragment {
     }
 
     private void initUi() {
-        questionnaireViewModel.updateNextButtonState(false);
         adapter = new SingleQuestionMainAdapter(new SingleQuestionMainAdapterListener() {
             @Override
             public void onChoiceChange(List<String> selectedAnswers) {
@@ -86,10 +85,8 @@ public class SingleQuestionFragment extends Fragment {
         if(question != null){
             this.question.setText(question.getTitle());
             if (question instanceof OpenQuestion){
-                questionnaireViewModel.updateNextButtonState(((OpenQuestion) question).getAnswer().isEmpty());
                 adapter.updateSectionOpenAnswer(((OpenQuestion) question).getAnswer());
             } else if (question instanceof MultipleChoiceQuestion){
-                questionnaireViewModel.updateNextButtonState(((MultipleChoiceQuestion) question).getAnswers() != null);
                 if(((MultipleChoiceQuestion) question).getChoiceType() == EChoiceType.SingleChoice){
                     adapter.updateSectionSingleChoiceAnswers(((MultipleChoiceQuestion) question).getChoices(),((MultipleChoiceQuestion) question).getAnswers());
                 } else {

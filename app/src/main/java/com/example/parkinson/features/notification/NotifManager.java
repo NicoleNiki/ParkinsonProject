@@ -77,13 +77,13 @@ public class NotifManager {
         }
     }
 
-
     NotifMangerInteface listner;
     DatabaseReference userTable = FirebaseDatabase.getInstance().getReference("Patients");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     static NotifManager notifMangaer = new NotifManager();
 
     public static NotifManager getNotifManager() {
+        notifMangaer.currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return notifMangaer;
     }
     public interface NotifMangerInteface {
@@ -192,7 +192,7 @@ public class NotifManager {
     }
 
     public void getMedicationListNotif(ValueEventListener listener){
-        userTable.child(currentUser.getUid()).child(EDataSourceData.MEDICINE_LIST.name).addValueEventListener(listener);
+        userTable.child(currentUser.getUid()).child(EDataSourceData.MEDICINE_LIST.name).addListenerForSingleValueEvent(listener);
     }
 
     public void pushMedicineReport(List<MedicineReport> reportList, ValueEventListener listener) {
