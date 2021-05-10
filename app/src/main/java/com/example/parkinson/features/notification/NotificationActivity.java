@@ -87,8 +87,8 @@ public class NotificationActivity extends AppCompatActivity {
                 notificationViewModel.updateReport(EStatus.Dyskinesia, isHallucinations.isChecked(), isFalls.isChecked());
                 break;
         }
-//        Intent intentService = new Intent(this, NotifServiceForground.class);
-//        startService(intentService);
+        Intent intentService = new Intent(this, NotifServiceForground.class);
+        startService(intentService);
         onBackPressed();
     }
 
