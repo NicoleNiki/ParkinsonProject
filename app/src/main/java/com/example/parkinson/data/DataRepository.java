@@ -15,7 +15,7 @@ import static com.example.parkinson.data.enums.EDataSourceData.QUESTIONNAIRE_NEW
 
 @Singleton
 public class DataRepository {
-    DatabaseReference dataTable;
+    DatabaseReference dataTable;// הטבלה הראשיתצ של הנתונים שלנו בפיירבייס מחזיקה את השאלון רשימת תרופות וכדומה
 
     @Inject
     public DataRepository(DatabaseManager databaseManager) {
@@ -28,11 +28,18 @@ public class DataRepository {
     }
 
     /** Get follow up questionnaire - answered after every meeting with the doctor */
+
+    /*
+    קבלת השאלון המעודכן והנכון שאותו אנו מציגים למטופל
+     */
     public void getFollowUpQuestionnaire(ValueEventListener listener){
         dataTable.child(QUESTIONNAIRE_FOLLOW_UP.name).addListenerForSingleValueEvent(listener);
     }
 
     /** Get data of all medicine list - for taken medicine report */
+    /*
+    קבלת רשימת התרופות המלאה, על מנת שהיוזר יוכל לעדכן את תרופותיו
+     */
     public void getMedicineList(ValueEventListener listener){
         dataTable.child(MEDICINE_LIST.name).addListenerForSingleValueEvent(listener);
     }
